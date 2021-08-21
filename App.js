@@ -6,35 +6,17 @@ import DetailScreen from './screens/detailScreen'
 import HomeScreen from './screens/homeScreen'
 import MainTabScreen from './screens/mainTabScreen'
 import { createDrawerNavigator } from '@react-navigation/drawer'; // side bar
+import { DrawerContents } from './screens/drawerContent'
 import { Feather } from '@expo/vector-icons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 
 
-
-const colorPallette = {
-  hotpink: '#ff375a',
-  pink: '#f7aef8',
-  lightPurple: '#B388EB',
-  darkPurple: '#8093F1',
-  otherpurple: '#6200ff',
-  brightPurple: '#8E24AA',
-  lightBlue: '#72DDF7',
-  grey: '#F4F4ED',
-  ashGrey: 	'#B2BEB5',
-  blueGrey: '#7393B3'
-}
-
-
-
 const Drawer = createDrawerNavigator();
-
-
-
 
 const App = () => {
   return(
     <NavigationContainer >
-      <Drawer.Navigator initialRouteName="Home">
+      <Drawer.Navigator drawerContent={props => <DrawerContents {...props} />} initialRouteName="Home">
         <Drawer.Screen name="Home" component={MainTabScreen} />
         {/* <Drawer.Screen name="Detail" component={DetailStackScreen} /> */}
       </Drawer.Navigator>

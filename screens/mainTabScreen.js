@@ -2,6 +2,7 @@ import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import DetailScreen from './detailScreen'
 import HomeScreen from './homeScreen'
+import ObjectivesScreen from './objectivesScreen'
 import { Feather } from '@expo/vector-icons';
 import profileScreen from './profileScreen'
 import exploreScreen from './exploreScreen'
@@ -9,6 +10,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 
 const HomeStack = createStackNavigator();
 const DetailStack = createStackNavigator();
+const ObjectiveStack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 const MainTabScreen = () => {
@@ -16,14 +18,14 @@ const MainTabScreen = () => {
         <Tab.Navigator
           initialRouteName="Home"
           activeColor="white"
-          barStyle={{ backgroundColor: 'tomato' }}
+          barStyle={{ backgroundColor: '#6200ff' }}
         >
           <Tab.Screen
             name="Home"
             component={HomeStackScreen}
             options={{
               tabBarLabel: 'Home',
-              tabBarColor: '#8E24AA',
+              tabBarColor: '#6200ff',
               tabBarIcon: ({ color }) => (
                 <Feather name="target" color={color} size={26} />
               ),
@@ -34,7 +36,7 @@ const MainTabScreen = () => {
             component={DetailStackScreen}
             options={{
               tabBarLabel: 'Updates',
-              tabBarColor: '#6200ff',
+              tabBarColor: '#B388EB',
               tabBarIcon: ({ color }) => (
                 <Feather name="twitch" color={color} size={26} />
               ),
@@ -73,7 +75,7 @@ const HomeStackScreen = ({ navigation }) => {
     return (
         <HomeStack.Navigator screenOptions={{
           headerStyle: {
-            backgroundColor: '#8E24AA'
+            backgroundColor: '#6200ff'
           },
           headerTintColor: 'white',
           headerTitleStyle: {
@@ -81,7 +83,7 @@ const HomeStackScreen = ({ navigation }) => {
           }
         }}>
           <HomeStack.Screen name="Home" component={HomeScreen} options={{
-            title: 'Home Screen Testing',
+            title: 'Objectives',
             headerLeft: () => (
               <Feather name="menu" style={{ paddingLeft: 18 }} size={30} color="white" onPress={ () => {
                 navigation.openDrawer()}}></Feather>
@@ -90,11 +92,12 @@ const HomeStackScreen = ({ navigation }) => {
         </HomeStack.Navigator>
     )
   }
+
   const DetailStackScreen = ({ navigation }) => {
     return (
         <DetailStack.Navigator screenOptions={{
           headerStyle: {
-            backgroundColor: '#6200ff'
+            backgroundColor: '#B388EB'
           },
           headerTintColor: 'white',
           headerTitleStyle: {
@@ -102,7 +105,7 @@ const HomeStackScreen = ({ navigation }) => {
           }
         }}>
           <DetailStack.Screen name="Detail" component={DetailScreen} options={{
-            title: 'Detail Screen Navigation Testing',
+            title: 'Testing',
             headerLeft: () => (
               <Feather name="menu" style={{ paddingLeft: 18 }} size={30} color="white" onPress={ () => {
                 navigation.openDrawer()}}></Feather>
@@ -111,3 +114,41 @@ const HomeStackScreen = ({ navigation }) => {
         </DetailStack.Navigator>
     )
   }
+
+  const ObjectiveStackScreen = ({ navigation }) => {
+    return (
+        <ObjectiveStack.Navigator screenOptions={{
+          headerStyle: {
+            backgroundColor: '#6200ff'
+          },
+          headerTintColor: 'pink',
+          headerTitleStyle: {
+            fontWeight: 'bold'
+          }
+        }}>
+          <ObjectiveStack.Screen name="Objectives" component={ObjectivesScreen} options={{
+            title: 'Objectives',
+            //! Menus bar - at the top header
+            headerLeft: () => (
+              <Feather name="menu" style={{ paddingLeft: 18 }} size={30} color="white" onPress={ () => {
+                navigation.openDrawer()}}></Feather>
+            )  
+          }}/>
+        </ObjectiveStack.Navigator>
+    )
+  }
+
+
+  const colorPallette = {
+    hotpink: '#ff375a',
+    pink: '#f7aef8',
+    lightPurple: '#B388EB',
+    darkPurple: '#8093F1',
+    otherpurple: '#6200ff',
+    brightPurple: '#8E24AA',
+    lightBlue: '#72DDF7',
+    grey: '#F4F4ED',
+    ashGrey: 	'#B2BEB5',
+    blueGrey: '#7393B3'
+  }
+  
