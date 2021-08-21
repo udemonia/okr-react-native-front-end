@@ -2,7 +2,7 @@ import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 import DetailScreen from './detailScreen'
 import HomeScreen from './homeScreen'
-import ObjectivesScreen from './objectivesScreen'
+import objectivesView from './objectivesScreen'
 import { Feather } from '@expo/vector-icons';
 import profileScreen from './profileScreen'
 import exploreScreen from './exploreScreen'
@@ -71,6 +71,9 @@ const MainTabScreen = () => {
 
 export default MainTabScreen;
 
+
+
+
 const HomeStackScreen = ({ navigation }) => {
     return (
         <HomeStack.Navigator screenOptions={{
@@ -126,7 +129,7 @@ const HomeStackScreen = ({ navigation }) => {
             fontWeight: 'bold'
           }
         }}>
-          <ObjectiveStack.Screen name="Objectives" component={ObjectivesScreen} options={{
+          <ObjectiveStack.Screen name="Objectives" component={objectivesView} options={{
             title: 'Objectives',
             //! Menus bar - at the top header
             headerLeft: () => (
