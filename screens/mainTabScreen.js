@@ -7,6 +7,8 @@ import { Feather } from '@expo/vector-icons';
 import profileScreen from './profileScreen'
 import exploreScreen from './exploreScreen'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { FontAwesome, Ionicons } from '@expo/vector-icons';
+
 
 const HomeStack = createStackNavigator();
 const DetailStack = createStackNavigator();
@@ -16,40 +18,41 @@ const Tab = createMaterialBottomTabNavigator();
 const MainTabScreen = () => {
     return (
         <Tab.Navigator
-          initialRouteName="Home"
+          initialRouteName="Objectives"
+          labeled={false}
           activeColor="white"
           barStyle={{ backgroundColor: '#6200ff' }}
         >
           <Tab.Screen
-            name="Home"
+            name="Objectives"
             component={HomeStackScreen}
             options={{
               tabBarLabel: 'Home',
               tabBarColor: '#6200ff',
               tabBarIcon: ({ color }) => (
-                <Feather name="target" color={color} size={26} />
+                <Feather name="target" color={color} size={24} />
               ),
             }}
           />
           <Tab.Screen
-            name="Detail"
+            name="KeyResult"
             component={DetailStackScreen}
             options={{
-              tabBarLabel: 'Updates',
-              tabBarColor: '#B388EB',
+              tabBarLabel: 'Key Results',
+              tabBarColor: '#00008B',
               tabBarIcon: ({ color }) => (
-                <Feather name="twitch" color={color} size={26} />
+                <Feather name="check" color={color} size={26} />
               ),
             }}
           />
           <Tab.Screen
-            name="Profile"
+            name="Dashboard"
             component={profileScreen}
             options={{
-              tabBarLabel: 'Profile',
-              tabBarColor: '#f7aef8',
+              tabBarLabel: 'dashboard',
+              tabBarColor: '#ff77ff',
               tabBarIcon: ({ color }) => (
-                <Feather name="user" color={color} size={26} />
+                <FontAwesome name="pie-chart" color={color} size={24} />
               ),
             }}
           />
@@ -60,7 +63,7 @@ const MainTabScreen = () => {
               tabBarLabel: 'Profile',
               tabBarColor:'#7393B3',
               tabBarIcon: ({ color }) => (
-                <Feather name="search" color={color} size={26} />
+                <Ionicons name="ios-add-circle-outline" color={color} size={26} />
               ),
             }}
           />
@@ -86,7 +89,7 @@ const HomeStackScreen = ({ navigation }) => {
           }
         }}>
           <HomeStack.Screen name="Home" component={HomeScreen} options={{
-            title: 'Objectives',
+            title: '  aliquip ✓',
             headerLeft: () => (
               <Feather name="menu" style={{ paddingLeft: 18 }} size={30} color="white" onPress={ () => {
                 navigation.openDrawer()}}></Feather>
@@ -100,15 +103,15 @@ const HomeStackScreen = ({ navigation }) => {
     return (
         <DetailStack.Navigator screenOptions={{
           headerStyle: {
-            backgroundColor: '#B388EB'
+            backgroundColor: '#00008B'
           },
           headerTintColor: 'white',
           headerTitleStyle: {
             fontWeight: 'bold'
           }
         }}>
-          <DetailStack.Screen name="Detail" component={DetailScreen} options={{
-            title: 'Testing',
+          <DetailStack.Screen name="keyResults" component={DetailScreen} options={{
+            title: 'key results',
             headerLeft: () => (
               <Feather name="menu" style={{ paddingLeft: 18 }} size={30} color="white" onPress={ () => {
                 navigation.openDrawer()}}></Feather>

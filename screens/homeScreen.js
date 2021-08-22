@@ -14,9 +14,14 @@ import {
     Nunito_700Bold
   } from '@expo-google-fonts/nunito';
 import { Feather } from '@expo/vector-icons'; 
+import { Searchbar } from 'react-native-paper';
 
 
 const objectivesView = ({ navigation }) => {
+
+    const onChangeSearch = query => setSearchQuery(query);
+    const [searchQuery, setSearchQuery] = React.useState('');
+
     console.log(navigation.navigate)
 
     const objectives = data;
@@ -68,6 +73,18 @@ const objectivesView = ({ navigation }) => {
                 renderItem={({ item }) => {
                     return (
                         <View style={styles.textStyles}>
+
+                            <View style={styles.searchBarBox}>  
+                                <Searchbar 
+                                    placeholder='key result title' 
+                                    clearButtonMode={true}
+                                    onChangeText={onChangeSearch}
+                                    value={searchQuery}
+                                    >
+                                </Searchbar>
+                            </View>
+
+
                             <View style={!item.atRisk ? styles.objectiveCard : styles.atRiskObjectiveCard}>
                             <View style={styles.objectiveCardDetails}>
                                 {/* flex Row for title + edit */}
@@ -322,6 +339,21 @@ const styles = StyleSheet.create({
         marginRight: 10,
         paddingTop: 10,
         paddingBottom: 20
+    },
+    searchBarBox: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingLeft: 10,
+        paddingRight: 10,
+        marginBottom: 2,
+        paddingBottom: 2,
+        marginTop: 2,
+        marginTop: 6
+    },
+    searchBar: {
+        maxHeight: 40,
+        alignItems: 'center',
+        justifyContent: 'center',
     }
 
 });

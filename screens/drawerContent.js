@@ -15,10 +15,12 @@ import {
     TouchableRipple,
     Switch
 } from 'react-native-paper'
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, Feather, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 import userData from '../_data/userProfile.json'
+import { useNavigation } from '@react-navigation/native';
 
-export function DrawerContents(props) {
+
+export function DrawerContents(props, navigation) {
     return (
         <View style={{ flex: 1}}>
             <DrawerContentScrollView  { ...props }>
@@ -40,6 +42,102 @@ export function DrawerContents(props) {
 
                 </View>
 
+                {/* ---------------------- 👇 Drawer Links 👇  -------------------------- */}
+
+                <Drawer.Section style={styles.drawerSection}>
+                          <DrawerItem 
+                            icon={({color, size}) => (
+                                <MaterialCommunityIcons 
+                                name="account-circle" 
+                                color={color}
+                                size={size}
+                                />
+                            )}
+                            label="profile"
+                            onPress={() => {props.navigation.navigate('Dashboard')}}
+                        />
+                        <DrawerItem 
+                            icon={({color, size}) => (
+                                <Feather 
+                                name="target" 
+                                color={color}
+                                size={size}
+                                />
+                            )}
+                            label="objectives"
+                            onPress={() => {props.navigation.navigate('Objectives')}}
+                        />
+                        <DrawerItem 
+                            icon={({color, size}) => (
+                                <Feather 
+                                name="check" 
+                                color={color}
+                                size={size}
+                                />
+                            )}
+                            label="key results"
+                            onPress={() => {props.navigation.navigate('KeyResult')}}
+                        />
+                        <DrawerItem 
+                            icon={({color, size}) => (
+                                <FontAwesome 
+                                name="pie-chart" 
+                                color={color}
+                                size={size}
+                                />
+                            )}
+                            label="dashboards"
+                            onPress={() => {props.navigation.navigate('Dashboard')}}
+                        />
+                        {/* <DrawerItem 
+                            icon={({color, size}) => (
+                                <Icon 
+                                name="account-outline" 
+                                color={color}
+                                size={size}
+                                />
+                            )}
+                            label="Profile"
+                            onPress={() => {props.navigation.navigate('Profile')}}
+                        /> */}
+                        {/* <DrawerItem 
+                            icon={({color, size}) => (
+                                <Icon 
+                                name="bookmark-outline" 
+                                color={color}
+                                size={size}
+                                />
+                            )}
+                            label="Bookmarks"
+                            onPress={() => {props.navigation.navigate('BookmarkScreen')}}
+                        /> */}
+                        {/* <DrawerItem 
+                            icon={({color, size}) => (
+                                <Icon 
+                                name="settings-outline" 
+                                color={color}
+                                size={size}
+                                />
+                            )}
+                            label="Settings"
+                            onPress={() => {props.navigation.navigate('SettingsScreen')}}
+                        /> */}
+                        {/* <DrawerItem 
+                            icon={({color, size}) => (
+                                <Icon 
+                                name="account-check-outline" 
+                                color={color}
+                                size={size}
+                                />
+                            )}
+                            label="Support"
+                            onPress={() => {props.navigation.navigate('SupportScreen')}} */}
+                        {/* /> */}
+                    </Drawer.Section>
+                    
+                     {/* ----------------------👆  Drawer Links 👆 -------------------------- */}
+
+
                 <Drawer.Section style={styles.bottomDrawerSection}>
                     <Drawer.Item 
                     icon={(color,size) => {
@@ -47,11 +145,9 @@ export function DrawerContents(props) {
                     }}
                     label="Log Out ✌️"
                     color={'#6200ff'}
-                    onPress={() => {}} //todo ADD LOGOUT LOGIC!
+                    onPress={() => {alert(navigation)}} //todo ADD LOGOUT LOGIC!
                     
                     />
-
-        
 
                 </Drawer.Section>
 

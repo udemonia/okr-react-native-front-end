@@ -5,11 +5,11 @@
         "currentValue": 2000,
         "targetValue": 8000,
         "_id": "6117c0e07fe0d3fd8c7c62ef",
-        "name": "Testing",
+        "name": "Save Enough Money to Go to Europe!",
         "description": "Save Enough Money for a Family Trip to a European Capital!",
         "objective": {
             "_id": "6117c0d27fe0d3fd8c7c62eb",
-            "name": "We need a Family Vacation, Preferably somewhere in Europe.",
+            "name": "Brandon - Go On a Vacation",
             "description": "We need a Family Vacation:",
             "id": "6117c0d27fe0d3fd8c7c62eb"
         },
