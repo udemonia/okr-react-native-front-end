@@ -3,16 +3,19 @@ import { createStackNavigator } from '@react-navigation/stack'
 import DetailScreen from './detailScreen'
 import HomeScreen from './homeScreen'
 import objectivesView from './objectivesScreen'
+import objectiveDetail from './objectiveDetail'
 import { Feather } from '@expo/vector-icons';
 import profileScreen from './profileScreen'
 import exploreScreen from './exploreScreen'
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
+import dashboard from './dashboardScreen'
+import createObjectiveStack from './createObjectiveStack'
 
 
 const HomeStack = createStackNavigator();
 const DetailStack = createStackNavigator();
-const ObjectiveStack = createStackNavigator();
+const DashboardStack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 const MainTabScreen = () => {
@@ -47,7 +50,7 @@ const MainTabScreen = () => {
           />
           <Tab.Screen
             name="Dashboard"
-            component={profileScreen}
+            component={DashboardStackBuild}
             options={{
               tabBarLabel: 'dashboard',
               tabBarColor: '#ff77ff',
@@ -57,11 +60,11 @@ const MainTabScreen = () => {
             }}
           />
           <Tab.Screen
-            name="Explore"
-            component={exploreScreen}
+            name="AddKeyResult"
+            component={createObjectiveStack}
             options={{
-              tabBarLabel: 'Profile',
-              tabBarColor:'#7393B3',
+              tabBarLabel: 'Create',
+              tabBarColor:'#A9A9A9',
               tabBarIcon: ({ color }) => (
                 <Ionicons name="ios-add-circle-outline" color={color} size={26} />
               ),
@@ -89,7 +92,14 @@ const HomeStackScreen = ({ navigation }) => {
           }
         }}>
           <HomeStack.Screen name="Home" component={HomeScreen} options={{
-            title: '  aliquip ✓',
+            title: 'Objectives',
+            headerLeft: () => (
+              <Feather name="menu" style={{ paddingLeft: 18 }} size={30} color="white" onPress={ () => {
+                navigation.openDrawer()}}></Feather>
+            )  
+          }}/>
+          <HomeStack.Screen name="ObjectiveDetail" component={objectiveDetail} options={{
+            title: 'Objective Detail',
             headerLeft: () => (
               <Feather name="menu" style={{ paddingLeft: 18 }} size={30} color="white" onPress={ () => {
                 navigation.openDrawer()}}></Feather>
@@ -121,28 +131,30 @@ const HomeStackScreen = ({ navigation }) => {
     )
   }
 
-  const ObjectiveStackScreen = ({ navigation }) => {
+  const DashboardStackBuild = ({ navigation }) => {
     return (
-        <ObjectiveStack.Navigator screenOptions={{
+        <DashboardStack.Navigator screenOptions={{
           headerStyle: {
-            backgroundColor: '#6200ff'
+            backgroundColor: '#ff77ff'
           },
-          headerTintColor: 'pink',
+          headerTintColor: 'white',
           headerTitleStyle: {
             fontWeight: 'bold'
           }
         }}>
-          <ObjectiveStack.Screen name="Objectives" component={objectivesView} options={{
-            title: 'Objectives',
-            //! Menus bar - at the top header
+          <DashboardStack.Screen name="Dashboard" component={dashboard} options={{
+            title: 'dashboard',
             headerLeft: () => (
               <Feather name="menu" style={{ paddingLeft: 18 }} size={30} color="white" onPress={ () => {
                 navigation.openDrawer()}}></Feather>
             )  
           }}/>
-        </ObjectiveStack.Navigator>
+        </DashboardStack.Navigator>
     )
   }
+
+
+
 
 
   const colorPallette = {

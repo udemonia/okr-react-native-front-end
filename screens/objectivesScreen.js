@@ -77,7 +77,7 @@ const objectivesView = ({ navigation }) => {
                             <View style={styles.searchBarBox}>
                                 <Searchbar 
                                     placeholder='key result title' 
-                                    clearButtonMode={true}
+                                    // clearButtonMode={true}
                                     onChangeText={onChangeSearch}
                                     value={searchQuery}
                                     >

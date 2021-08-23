@@ -18,6 +18,7 @@ import {
 import { Ionicons, Feather, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
 import userData from '../_data/userProfile.json'
 import { useNavigation } from '@react-navigation/native';
+import userProfileStack from './userProfileStack';
 
 
 export function DrawerContents(props, navigation) {
@@ -26,12 +27,12 @@ export function DrawerContents(props, navigation) {
             <DrawerContentScrollView  { ...props }>
                 <View style={styles.drawerContent}>
                     <View style={styles.userInfoSection}>
-                        <View style={ { flexDirection: 'row', marginTop: 20 } }>
+                        <View style={ { flexDirection: 'column', marginTop: 20 } }>
                             <Avatar.Image 
-                                source={require('../assets/avatar-person.jpeg')}
-                                size={50}
+                                source={require('../assets/default.png')}
+                                size={80}
                             />
-                            <View style={{ marginLeft: 7, marginBottom: 5, flexDirection: 'column' }}>
+                            <View style={{ marginLeft: 7, marginBottom: 1, flexDirection: 'column' }}>
                                 <Title style={styles.title}>{userData[0].name}</Title>
                                 <Caption style={styles.caption}>{userData[0].email}</Caption>
                             </View>
@@ -54,7 +55,7 @@ export function DrawerContents(props, navigation) {
                                 />
                             )}
                             label="profile"
-                            onPress={() => {props.navigation.navigate('Dashboard')}}
+                            onPress={() => {props.navigation.navigate('Profile')}}
                         />
                         <DrawerItem 
                             icon={({color, size}) => (

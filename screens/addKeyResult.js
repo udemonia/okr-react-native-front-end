@@ -1,13 +1,14 @@
 import React from 'react';
 import {View, Text, StyleSheet, Button } from 'react-native';
 
-const ExploreScreen = ({ navigation }) => {
+
+const AddKeyResult = ({ navigation }) => {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Setting Screen</Text>
-        <Button title="Home" onPress={()=> navigation.navigate('Home')} />
+        <Text>create key results</Text>
+        <Button title="create" onPress={()=> alert('Created Key Result')} />
       </View>
     )
   }
 
-export default ExploreScreen;
+export default AddKeyResult;

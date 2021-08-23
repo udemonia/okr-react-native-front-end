@@ -13,7 +13,7 @@ import {
     Nunito_400Regular,
     Nunito_700Bold
   } from '@expo-google-fonts/nunito';
-import { Feather } from '@expo/vector-icons'; 
+import { Feather, Foundation } from '@expo/vector-icons'; 
 import { Searchbar } from 'react-native-paper';
 
 
@@ -65,6 +65,17 @@ const objectivesView = ({ navigation }) => {
     } else {
         return (
             <View style={styles.text}>
+
+                <View style={styles.searchBarBox}>  
+                    <Searchbar 
+                        placeholder='key result title' 
+                        // clearButtonMode={true}
+                        onChangeText={onChangeSearch}
+                        value={searchQuery}
+                        >
+                    </Searchbar>
+                </View>
+
                 <FlatList
                 keyExtractor={(item, index) => index.toString()}
                 navigation={navigation}
@@ -73,16 +84,6 @@ const objectivesView = ({ navigation }) => {
                 renderItem={({ item }) => {
                     return (
                         <View style={styles.textStyles}>
-
-                            <View style={styles.searchBarBox}>  
-                                <Searchbar 
-                                    placeholder='key result title' 
-                                    clearButtonMode={true}
-                                    onChangeText={onChangeSearch}
-                                    value={searchQuery}
-                                    >
-                                </Searchbar>
-                            </View>
 
 
                             <View style={!item.atRisk ? styles.objectiveCard : styles.atRiskObjectiveCard}>
@@ -96,10 +97,17 @@ const objectivesView = ({ navigation }) => {
                                     <Text style={styles.objectiveTitleText}>{item.name}</Text>
 
                                     <TouchableOpacity 
-                                        onPress={() => navigation.navigate('userDetails')}
+                                        onPress={() => navigation.navigate('ObjectiveDetail', {
+                                            _id: item._id,
+                                            name: item.name,
+                                            atRisk: item.atRisk,
+                                            description: item.description,
+                                            objectiveEndDate: item.objectiveEndDate,
+                                            objectiveStartDate: item.objectiveStartDate
+                                        })}
                                         style={styles.editButton}
                                         >
-                                        <Feather name="edit" size={22} color="#B388EB" />
+                                        <Foundation name="arrows-expand" size={22} color="#6200ff" />
                                     </TouchableOpacity>
                                 </View>
 
@@ -194,7 +202,8 @@ const objectivesView = ({ navigation }) => {
 
 const styles = StyleSheet.create({
     text: {
-        padding: 2,
+        paddingLeft: 1,
+        paddingRight: 1,
         flex: 1,
         alignItems: 'stretch',
         justifyContent: 'center',
@@ -204,6 +213,8 @@ const styles = StyleSheet.create({
         marginVertical: 15
     },
     objectiveCard: {
+        marginLeft: 10,
+        marginRight: 10,
         backgroundColor: 'white',
         margin: 2,
         borderColor: '#F4F4ED',
@@ -225,6 +236,8 @@ const styles = StyleSheet.create({
         padding: 3
     },
     atRiskObjectiveCard: {
+        marginLeft: 10,
+        marginRight: 10,
         backgroundColor: 'white',
         borderColor: '#F4F4ED',
         borderWidth: 2,
@@ -261,10 +274,11 @@ const styles = StyleSheet.create({
         fontFamily: 'Nunito_300Light'
     },
     objectiveTitleText: {
+        maxWidth: '85%',
         padding: 2,
         color: '#6200ff',
-        fontSize: 30,
-        fontFamily: 'Nunito_300Light',
+        fontSize: 26,
+        fontFamily: 'Nunito_700Bold',
         borderLeftWidth: 2,
         borderLeftColor: '#F4F4ED'
     },
@@ -348,7 +362,7 @@ const styles = StyleSheet.create({
         marginBottom: 2,
         paddingBottom: 2,
         marginTop: 2,
-        marginTop: 6
+        marginTop: 20
     },
     searchBar: {
         maxHeight: 40,

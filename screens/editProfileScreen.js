@@ -1,13 +1,13 @@
 import React from 'react';
 import {View, Text, StyleSheet, Button } from 'react-native';
 
-const ExploreScreen = ({ navigation }) => {
+const editProfile = ({ navigation }) => {
     return (
       <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Setting Screen</Text>
-        <Button title="Home" onPress={()=> navigation.navigate('Home')} />
+        <Text>Edit Profile Screen</Text>
+        <Button title="Back" onPress={()=> navigation.goBack()} />
       </View>
     )
   }
 
-export default ExploreScreen;
+export default editProfile;

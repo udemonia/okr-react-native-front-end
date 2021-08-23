@@ -43,7 +43,6 @@ const keyResultsView = ({ navigation }) => {
                     <View style={styles.searchBarBox}>
                         <Searchbar 
                             placeholder='key result title' 
-                            clearButtonMode={true}
                             onChangeText={onChangeSearch}
                             value={searchQuery}
                             >
@@ -132,7 +131,7 @@ const keyResultsView = ({ navigation }) => {
                                     </View>
 
                                     <View style={styles.statusBarBox}>
-                                        <ProgressBar progress={ item.currentValue / item.targetValue } colors={Colors.red200}/>
+                                        <ProgressBar progress={ item.currentValue / item.targetValue } colors={Colors.pink100}/>
                                     </View>
                                     
 
@@ -162,14 +161,16 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'stretch',
         justifyContent: 'center',
-        backgroundColor: 'white'
+        backgroundColor: '#fff'
     },
     textStyles: {
         marginVertical: 15
     },
     keyResultCard: {
+        marginLeft: 10,
+        marginRight: 10,
         backgroundColor: 'white',
-        margin: 2,
+        // margin: 2,
         borderColor: '#F4F4ED',
         borderWidth: 2,
         borderRadius: 10,
@@ -189,6 +190,8 @@ const styles = StyleSheet.create({
         padding: 3
     },
     atRiskKeyResultCard: {
+        marginLeft: 10,
+        marginRight: 10,
         backgroundColor: 'white',
         borderColor: '#F4F4ED',
         borderWidth: 2,
@@ -206,7 +209,7 @@ const styles = StyleSheet.create({
     },
     keyResultCardTop: {
         flex: 1,
-        backgroundColor: '#6200ff',
+        backgroundColor: '#8093F1',
         borderRadius: 10,
         shadowColor: "#000",
         marginTop: 10,
@@ -239,7 +242,7 @@ const styles = StyleSheet.create({
     },
     objectiveTitleTextTop: {
       flex: 1,
-      maxWidth: '80%',
+      maxWidth: '70%',
       textAlignVertical: 'center',
       justifyContent: 'center',
       alignItems: 'center',
@@ -267,11 +270,11 @@ const styles = StyleSheet.create({
         fontFamily: 'Nunito_300Light'
     },
     objectiveTitleText: {
-        maxWidth: '80%',
+        maxWidth: '87%',
         padding: 2,
         color: '#00008B',
         fontSize: 30,
-        fontFamily: 'Nunito_300Light',
+        fontFamily: 'Nunito_700Bold',
         borderLeftWidth: 2,
         borderLeftColor: '#F4F4ED'
     },
@@ -352,10 +355,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         paddingLeft: 10,
         paddingRight: 10,
-        marginBottom: 2,
+        // marginBottom: 2,
         paddingBottom: 2,
         marginTop: 2,
-        marginTop: 6
+        marginTop: 16
     },
     searchBar: {
         maxHeight: 40,

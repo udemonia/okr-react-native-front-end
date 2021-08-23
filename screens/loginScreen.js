@@ -124,14 +124,15 @@ import Loader from '../components/Loader';
           >
           <View>
             <KeyboardAvoidingView enabled>
-              <View style={{alignItems: 'center'}}>
+              <View style={{flex: 1, alignItems: 'center'}}>
                 <Image
-                  source={require('../assets/okr.jpeg')}
+                  source={require('../assets/rocket.png')}
                   style={{
                     width: '50%',
                     height: 100,
-                    resizeMode: 'contain',
+                    resizeMode: 'center',
                     margin: 30,
+                    borderRadius: 15
                   }}
                 />
               </View>
