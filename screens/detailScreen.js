@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, TextInput } from 'react-native'
 import data from '../_data/keyResults.json'
 import AppLoading from 'expo-app-loading';
@@ -22,9 +22,33 @@ import { Feather } from '@expo/vector-icons';
 const keyResultsView = ({ navigation }) => {
 
     const keyResultData = data;
-    const [searchQuery, setSearchQuery] = React.useState('');
-    const [ results, setKeyResultData ] = React.useState(keyResultData)
-    const onChangeSearch = query => setSearchQuery(query);
+    //* Data and Search Data -
+    const [search, setSearch] = useState('');
+    const [filteredDataSource, setFilteredDataSource] = useState(keyResultData);
+    const [masterDataSource, setMasterDataSource] = useState(keyResultData);
+
+    const searchFilterFunction = (text) => {
+        // Check if searched text is not blank
+        if (text) {
+          // Inserted text is not blank
+          // Filter the masterDataSource
+          // Update FilteredDataSource
+          const newData = masterDataSource.filter(function (item) {
+            const itemData = item.name
+              ? item.name.toUpperCase()
+              : ''.toUpperCase();
+            const textData = text.toUpperCase();
+            return itemData.indexOf(textData) > -1;
+          });
+          setFilteredDataSource(newData);
+          setSearch(text);
+        } else {
+          // Inserted text is blank
+          // Update FilteredDataSource with masterDataSource
+          setFilteredDataSource(masterDataSource);
+          setSearch(text);
+        }
+      };
 
     console.log(navigation.navigate)
     let [ fontsLoaded, err ] = useFonts({
@@ -41,35 +65,36 @@ const keyResultsView = ({ navigation }) => {
             <View style={styles.text}>
 
                     <View style={styles.searchBarBox}>
-                        <Searchbar 
-                            placeholder='key result title' 
-                            onChangeText={onChangeSearch}
-                            value={searchQuery}
+
+
+                        <Searchbar
+                                  searchIcon={{ size: 24 }}
+                                  onChangeText={(text) => searchFilterFunction(text)}
+                                  onClear={(text) => searchFilterFunction('')}
+                                  placeholder="Type Here..."
+                                  value={search}
+                            // placeholder='key result name' 
+                            // onChangeText={onChangeSearch}
+                            // value={searchQuery}
                             >
                         </Searchbar>
+
+
+
                     </View>
                 <FlatList
                   keyExtractor={(item, index) => index.toString()}
                   navigation={navigation}
                   showsVerticalScrollIndicator={false}
-                  data={results}
+                  data={filteredDataSource}
                   renderItem={({ item }) => {
                     return (
                         <View style={styles.textStyles}>
 
                             <View style={!item.atRisk ? styles.keyResultCard : styles.atRiskKeyResultCard}>
                             <View style={styles.keyResultCardDetails}>
-
-
-                            <View style={styles.keyResultCardTop}>
-                                <View style={styles.objectiveTitleRow}>
-                                    <Feather style={styles.objectiveIcon} name="target" size={38} color="white" />
-                                    <Text style={styles.objectiveTitleTextTop}>{`${item.objective.name}`}</Text>
-                                </View>
-                            </View>
-                                <Text style={styles.objTextDescription} >key result</Text>
                                 <View style={styles.nameAndEditRow}>
-                                    <Text style={styles.objectiveTitleText}>{`✓ ${item.name}`}</Text>
+                                    <Text style={styles.objectivenameText}>key result</Text>
 
                                     <TouchableOpacity 
                                         onPress={() => navigation.navigate('userDetails')}
@@ -77,6 +102,14 @@ const keyResultsView = ({ navigation }) => {
                                         >
                                         <Feather name="edit-2" size={20} color="#6200ff" />
                                     </TouchableOpacity>
+                                </View>
+
+
+                                <View style={styles.keyResultCardTop2}>
+                                    <View style={styles.objectivenameRow}>
+                                            <Feather style={styles.objectiveIcon} name="check" size={38} color="white" />
+                                            <Text style={styles.objectivenameTextTop}>{`${item.name}`}</Text>
+                                    </View>
                                 </View>
 
 
@@ -96,6 +129,13 @@ const keyResultsView = ({ navigation }) => {
                                         value={item.description}
                                         />
 
+                                </View>
+
+                                <View style={styles.keyResultCardTop}>
+                                    <View style={styles.objectivenameRow}>
+                                        <Feather style={styles.objectiveIcon} name="target" size={38} color="white" />
+                                        <Text style={styles.objectivenameTextTop}>{`${item.objective.name}`}</Text>
+                                    </View>
                                 </View>
 
 
@@ -207,13 +247,28 @@ const styles = StyleSheet.create({
         shadowRadius: 9.11,
         elevation: 14,
     },
+    keyResultCardTop2: {
+        flex: 1,
+        backgroundColor: '#00008B',
+        borderRadius: 10,
+        shadowColor: "#000",
+        marginTop: 20,
+        marginBottom: 10,
+        shadowOffset: {
+        	width: 0,
+        	height: 3,
+        },
+        shadowOpacity: 0.27,
+        shadowRadius: 4.65,
+        elevation: 6,
+        },
     keyResultCardTop: {
         flex: 1,
         backgroundColor: '#8093F1',
         borderRadius: 10,
         shadowColor: "#000",
         marginTop: 10,
-        marginBottom: 10,
+        marginBottom: 30,
         shadowOffset: {
         	width: 0,
         	height: 3,
@@ -226,7 +281,7 @@ const styles = StyleSheet.create({
         margin: 8,
         padding: 3
     },
-    objectiveTitleRow: {
+    objectivenameRow: {
       paddingTop: 10,
       paddingBottom: 10,
       marginTop: 5,
@@ -240,7 +295,7 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'flex-start',
     },
-    objectiveTitleTextTop: {
+    objectivenameTextTop: {
       flex: 1,
       maxWidth: '70%',
       textAlignVertical: 'center',
@@ -258,6 +313,10 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     editButton: {
+        textAlignVertical: 'center',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        marginTop: 10,
         paddingRight: 3,
         justifyContent: 'center'
     },
@@ -269,11 +328,15 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontFamily: 'Nunito_300Light'
     },
-    objectiveTitleText: {
+    objectivenameText: {
         maxWidth: '87%',
         padding: 2,
         color: '#00008B',
         fontSize: 30,
+        flex: 1,
+        textAlignVertical: 'center',
+        justifyContent: 'center',
+        alignItems: 'center',
         fontFamily: 'Nunito_700Bold',
         borderLeftWidth: 2,
         borderLeftColor: '#F4F4ED'
@@ -283,15 +346,24 @@ const styles = StyleSheet.create({
         marginLeft: 4,
         marginBottom: 18,
         paddingBottom: 3,
-        color: '#B0B0B0',
+        color: '#808080',
         fontSize: 18,
-        fontFamily: 'Nunito_300Light',
+        fontFamily: 'Nunito_400Regular',
         borderLeftWidth: 3,
         borderLeftColor: '#F4F4ED'
     },
     objectiveDates: {
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 3,
+        },
+        shadowOpacity: 0.27,
+        shadowRadius: 4.65,
+        
+        elevation: 6,
     },
     dateStart: {
         alignItems: 'stretch',
@@ -308,6 +380,7 @@ const styles = StyleSheet.create({
       color: 'white',
       fontSize: 18,
       fontFamily: 'Nunito_300Light'
+      
     },
     DateBoxText: {
         alignItems: 'center',

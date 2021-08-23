@@ -5,7 +5,7 @@
         "currentValue": 2000,
         "targetValue": 8000,
         "_id": "6117c0e07fe0d3fd8c7c62ef",
-        "name": "Testing",
+        "name": "Save $8,000 for Travel",
         "description": "Save Enough Money for a Family Trip to a European Capital!",
         "objective": {
             "_id": "6117c0d27fe0d3fd8c7c62eb",
@@ -25,8 +25,8 @@
         "currentValue": 4000,
         "targetValue": 8000,
         "_id": "6117c0e97fe0d3fd8c7c62f5",
-        "name": "Save Enough Money to Go to Europe! 2",
-        "description": "Save Enough Money for a Family Trip to a European Capital!",
+        "name": "Book 6 Attractions in Rome",
+        "description": "We won't have enough time to do everything we want so we'll need to key in on what we ought to do",
         "objective": {
             "_id": "6117c0d27fe0d3fd8c7c62eb",
             "name": "Brandon - Go On a Vacation",

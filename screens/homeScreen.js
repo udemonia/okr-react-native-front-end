@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, TextInput } from 'react-native'
 import data from '../_data/objectives.json'
 import AppLoading from 'expo-app-loading';
@@ -19,12 +19,36 @@ import { Searchbar } from 'react-native-paper';
 
 const objectivesView = ({ navigation }) => {
 
-    const onChangeSearch = query => setSearchQuery(query);
-    const [searchQuery, setSearchQuery] = React.useState('');
+    const keyResultData = data;
+    //* Data and Search Data -
+    const [search, setSearch] = useState('');
+    const [filteredDataSource, setFilteredDataSource] = useState(data);
+    const [masterDataSource, setMasterDataSource] = useState(data);
+
+    const searchFilterFunction = (text) => {
+        if (text) {
+          const newData = masterDataSource.filter(function (item) {
+            const itemData = item.name
+              ? item.name.toUpperCase()
+              : ''.toUpperCase();
+            const textData = text.toUpperCase();
+            return itemData.indexOf(textData) > -1;
+          });
+          setFilteredDataSource(newData);
+          setSearch(text);
+        } else {
+          setFilteredDataSource(masterDataSource);
+          setSearch(text);
+        }
+      };
+
+
+
 
     console.log(navigation.navigate)
 
     const objectives = data;
+
     let [ fontsLoaded, err ] = useFonts({
         Nunito_300Light,
         Nunito_400Regular,
@@ -66,21 +90,24 @@ const objectivesView = ({ navigation }) => {
         return (
             <View style={styles.text}>
 
-                <View style={styles.searchBarBox}>  
-                    <Searchbar 
-                        placeholder='key result title' 
-                        // clearButtonMode={true}
-                        onChangeText={onChangeSearch}
-                        value={searchQuery}
-                        >
-                    </Searchbar>
+                <View style={styles.searchBarBox}>
+
+                <Searchbar
+                    searchIcon={{ size: 24 }}
+                    onChangeText={(text) => searchFilterFunction(text)}
+                    onClear={(text) => searchFilterFunction('')}
+                    placeholder="Type Here..."
+                    value={search}
+                    >
+                </Searchbar>
+
                 </View>
 
                 <FlatList
                 keyExtractor={(item, index) => index.toString()}
                 navigation={navigation}
                 showsVerticalScrollIndicator={false}
-                data={objectives}
+                data={filteredDataSource}
                 renderItem={({ item }) => {
                     return (
                         <View style={styles.textStyles}>
