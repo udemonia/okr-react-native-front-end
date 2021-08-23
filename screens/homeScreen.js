@@ -96,7 +96,7 @@ const objectivesView = ({ navigation }) => {
                     searchIcon={{ size: 24 }}
                     onChangeText={(text) => searchFilterFunction(text)}
                     onClear={(text) => searchFilterFunction('')}
-                    placeholder="Type Here..."
+                    placeholder="Objective Title"
                     value={search}
                     >
                 </Searchbar>
@@ -115,13 +115,10 @@ const objectivesView = ({ navigation }) => {
 
                             <View style={!item.atRisk ? styles.objectiveCard : styles.atRiskObjectiveCard}>
                             <View style={styles.objectiveCardDetails}>
-                                {/* flex Row for title + edit */}
-                                <View>
-                                    <Text style={styles.objTextDescription}></Text>
-                                </View>
 
-                                <View style={styles.nameAndEditRow}>
-                                    <Text style={styles.objectiveTitleText}>{item.name}</Text>
+
+                            <View style={styles.nameAndEditRow}>
+                                    <Text style={styles.objectiveTitleText}>objective</Text>
 
                                     <TouchableOpacity 
                                         onPress={() => navigation.navigate('ObjectiveDetail', {
@@ -136,6 +133,20 @@ const objectivesView = ({ navigation }) => {
                                         >
                                         <Foundation name="arrows-expand" size={22} color="#6200ff" />
                                     </TouchableOpacity>
+                                </View>
+
+
+                                <View style={styles.keyResultCardTop2}>
+                                    <View style={styles.objectivenameRow}>
+                                            <Feather style={styles.objectiveIcon} name="target" size={38} color="white" />
+                                            <Text style={styles.objectivenameTextTop}>{`${item.name}`}</Text>
+                                    </View>
+                                </View>
+
+
+                                {/* flex Row for title + edit */}
+                                <View>
+                                    <Text style={styles.objTextDescription}></Text>
                                 </View>
 
 
@@ -239,6 +250,46 @@ const styles = StyleSheet.create({
     textStyles: {
         marginVertical: 15
     },
+    keyResultCardTop2: {
+        flex: 1,
+        backgroundColor: '#6200ff',
+        borderRadius: 10,
+        shadowColor: "#000",
+        marginTop: 20,
+        marginBottom: 10,
+        shadowOffset: {
+        	width: 0,
+        	height: 3,
+        },
+        shadowOpacity: 0.27,
+        shadowRadius: 4.65,
+        elevation: 6,
+        },
+        objectivenameRow: {
+            paddingTop: 10,
+            paddingBottom: 10,
+            marginTop: 5,
+            marginBottom: 10,
+            flexDirection: 'row',
+            alignItems: 'center'
+          },
+          objectiveIcon: {
+            padding: 10,
+            marginLeft: 10,
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+          },
+          objectivenameTextTop: {
+            flex: 1,
+            maxWidth: '70%',
+            textAlignVertical: 'center',
+            justifyContent: 'center',
+            alignItems: 'center',
+            color: 'white',
+            marginLeft: 4,
+            fontSize: 18,
+            fontFamily: 'Nunito_400Regular'
+          },
     objectiveCard: {
         marginLeft: 10,
         marginRight: 10,
@@ -304,7 +355,7 @@ const styles = StyleSheet.create({
         maxWidth: '85%',
         padding: 2,
         color: '#6200ff',
-        fontSize: 26,
+        fontSize: 20,
         fontFamily: 'Nunito_700Bold',
         borderLeftWidth: 2,
         borderLeftColor: '#F4F4ED'

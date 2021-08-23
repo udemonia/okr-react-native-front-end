@@ -25,6 +25,7 @@ import {
   Keyboard,
   TouchableOpacity,
   KeyboardAvoidingView,
+  SafeAreaView
 } from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -109,8 +110,10 @@ import Loader from '../components/Loader';
   
   
     return (
+      
   
       <View style={styles.mainBody}>
+        <SafeAreaView>
 
         <Loader loading={loading} />
         
@@ -128,8 +131,8 @@ import Loader from '../components/Loader';
                 <Image
                   source={require('../assets/rocket.png')}
                   style={{
-                    width: '50%',
-                    height: 100,
+                    width: '75%%',
+                    height: 200,
                     resizeMode: 'center',
                     margin: 30,
                     borderRadius: 15
@@ -194,6 +197,7 @@ import Loader from '../components/Loader';
             </KeyboardAvoidingView>
           </View>
         </ScrollView>
+        </SafeAreaView>
       </View>
     );
   };
@@ -203,7 +207,7 @@ import Loader from '../components/Loader';
     mainBody: {
       flex: 1,
       justifyContent: 'center',
-      backgroundColor: 'white',
+      backgroundColor: '#210347',
       alignContent: 'center',
     },
     SectionStyle: {
@@ -214,17 +218,17 @@ import Loader from '../components/Loader';
       marginRight: 35,
       margin: 10,
       shadowColor: "#00008B",
-      shadowOffset: {
-        width: 0,
-        height: 3,
-      },
-      shadowOpacity: 0.27,
-      shadowRadius: 4.65,
+      // shadowOffset: {
+      //   width: 0,
+      //   height: 3,
+      // },
+      // shadowOpacity: 0.27,
+      // shadowRadius: 4.65,
       
-      elevation: 6,
+      // elevation: 6,
     },
     buttonStyle: {
-      backgroundColor: '#6200ff',
+      backgroundColor: '#F18FBF',
       borderWidth: 0,
       color: '#72DDF7',
       borderColor: '#7DE24E',
@@ -246,30 +250,21 @@ import Loader from '../components/Loader';
       elevation: 6,
     },
     buttonTextStyle: {
-      color: '#FFFFFF',
+      color: '#6200ff',
       paddingVertical: 10,
       fontSize: 16,
-      shadowColor: "#00008B",
-      shadowOffset: {
-        width: 0,
-        height: 3,
-      },
-      shadowOpacity: 0.27,
-      shadowRadius: 4.65,
-      
-      elevation: 6,
     },
     inputStyle: {
       flex: 1,
-      color: '#6200ff',
+      backgroundColor: 'white',
       paddingLeft: 15,
       paddingRight: 15,
       borderWidth: 1,
       borderRadius: 30,
-      borderColor: '#6200ff'
+      borderColor: '#55388C'
     },
     registerTextStyle: {
-      color: '#6200ff',
+      color: 'white',
       textAlign: 'center',
       fontWeight: 'bold',
       fontSize: 14,

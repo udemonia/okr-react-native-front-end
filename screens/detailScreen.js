@@ -71,11 +71,8 @@ const keyResultsView = ({ navigation }) => {
                                   searchIcon={{ size: 24 }}
                                   onChangeText={(text) => searchFilterFunction(text)}
                                   onClear={(text) => searchFilterFunction('')}
-                                  placeholder="Type Here..."
+                                  placeholder="Key Result Title"
                                   value={search}
-                            // placeholder='key result name' 
-                            // onChangeText={onChangeSearch}
-                            // value={searchQuery}
                             >
                         </Searchbar>
 
@@ -92,6 +89,7 @@ const keyResultsView = ({ navigation }) => {
                         <View style={styles.textStyles}>
 
                             <View style={!item.atRisk ? styles.keyResultCard : styles.atRiskKeyResultCard}>
+
                             <View style={styles.keyResultCardDetails}>
                                 <View style={styles.nameAndEditRow}>
                                     <Text style={styles.objectivenameText}>key result</Text>
@@ -332,7 +330,7 @@ const styles = StyleSheet.create({
         maxWidth: '87%',
         padding: 2,
         color: '#00008B',
-        fontSize: 30,
+        fontSize: 20,
         flex: 1,
         textAlignVertical: 'center',
         justifyContent: 'center',

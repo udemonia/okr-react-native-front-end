@@ -12,7 +12,7 @@ const AuthNavStack = createStackNavigator();
 const AuthStack = () => {
     return (
             <AuthNavStack.Navigator initialRouteName="Home">
-                <AuthNavStack.Screen name="Login" component={LoginScreen}/>
+                <AuthNavStack.Screen name="Login" component={LoginScreen} options={{headerShown: false}}/>
                 <AuthNavStack.Screen name="SignUp" component={SignUpScreen}/>
                 <AuthNavStack.Screen name="drawer" component={DrawerEntryNav} options={{
                     headerShown: false,

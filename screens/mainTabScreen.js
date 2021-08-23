@@ -53,7 +53,7 @@ const MainTabScreen = () => {
             component={DashboardStackBuild}
             options={{
               tabBarLabel: 'dashboard',
-              tabBarColor: '#ff77ff',
+              tabBarColor: '#F18FBF',
               tabBarIcon: ({ color }) => (
                 <FontAwesome name="pie-chart" color={color} size={24} />
               ),
@@ -64,7 +64,7 @@ const MainTabScreen = () => {
             component={createObjectiveStack}
             options={{
               tabBarLabel: 'Create',
-              tabBarColor:'#A9A9A9',
+              tabBarColor:'#210347',
               tabBarIcon: ({ color }) => (
                 <Ionicons name="ios-add-circle-outline" color={color} size={26} />
               ),
@@ -135,7 +135,7 @@ const HomeStackScreen = ({ navigation }) => {
     return (
         <DashboardStack.Navigator screenOptions={{
           headerStyle: {
-            backgroundColor: '#ff77ff'
+            backgroundColor: '#F18FBF'
           },
           headerTintColor: 'white',
           headerTitleStyle: {

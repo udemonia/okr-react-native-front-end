@@ -13,7 +13,15 @@ const createObjectiveStackBuild = createStackNavigator();
 
 const createObjectiveStack = () => {
     return (
-            <createObjectiveStackBuild.Navigator initialRouteName="CreateObjective">
+            <createObjectiveStackBuild.Navigator initialRouteName="CreateObjective" screenOptions={{
+                headerStyle: {
+                  backgroundColor: '#210347'
+                },
+                headerTintColor: 'white',
+                headerTitleStyle: {
+                  fontWeight: 'bold'
+                }
+              }}>
                 <createObjectiveStackBuild.Screen name="CreateObjective" component={createObjective} options={{
                     headerShown: true,
                     headerLeft: null,
