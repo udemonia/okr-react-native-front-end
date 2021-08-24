@@ -120,7 +120,7 @@ export function DrawerContents(props, navigation) {
                     }}
                     label="Log Out ✌️"
                     color={'#6200ff'}
-                    onPress={() => {props.navigation.navigate({AuthStack})}} //todo ADD LOGOUT LOGIC!
+                    onPress={() => {props.navigation.goBack()}} //todo ADD LOGOUT LOGIC!
                     
                     />
 

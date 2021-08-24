@@ -126,7 +126,6 @@ const keyResultsView = ({ navigation }) => {
                                         multiline={true}
                                         value={item.description}
                                         />
-
                                 </View>
 
                                 <View style={styles.keyResultCardTop}>
@@ -162,7 +161,7 @@ const keyResultsView = ({ navigation }) => {
 
                                                   {/* Days Remaining */}
 
-                                <View style={styles.percentRowBox}>
+                                <View style={styles.percentRowBoxHorizontal}>
                                     <View style={styles.percentRowBoxUnits}>
                                         <Text style={styles.percentCompleteText}>key result progress</Text>
                                         <Text style={styles.percentCompleteTextP}>{ `${item.progress}%` }</Text>
@@ -171,8 +170,6 @@ const keyResultsView = ({ navigation }) => {
                                     <View style={styles.statusBarBox}>
                                         <ProgressBar progress={ item.currentValue / item.targetValue } colors={Colors.pink100}/>
                                     </View>
-                                    
-
                                 </View>
 
                             </View>
@@ -435,6 +432,9 @@ const styles = StyleSheet.create({
         maxHeight: 40,
         alignItems: 'center',
         justifyContent: 'center',
+    },
+    percentRowBoxHorizontal: {
+        marginBottom: 20,
     }
 
 });

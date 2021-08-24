@@ -13,7 +13,7 @@ import {
     Nunito_400Regular,
     Nunito_700Bold
   } from '@expo-google-fonts/nunito';
-import { Feather, Foundation } from '@expo/vector-icons'; 
+import { Feather, Foundation, MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { Searchbar } from 'react-native-paper';
 
 
@@ -41,11 +41,6 @@ const objectivesView = ({ navigation }) => {
           setSearch(text);
         }
       };
-
-
-
-
-    console.log(navigation.navigate)
 
     const objectives = data;
 
@@ -127,11 +122,12 @@ const objectivesView = ({ navigation }) => {
                                             atRisk: item.atRisk,
                                             description: item.description,
                                             objectiveEndDate: item.objectiveEndDate,
-                                            objectiveStartDate: item.objectiveStartDate
+                                            objectiveStartDate: item.objectiveStartDate,
+                                            percentComplete: item.percentComplete
                                         })}
                                         style={styles.editButton}
                                         >
-                                        <Foundation name="arrows-expand" size={22} color="#6200ff" />
+                                        <Feather name="arrow-right" size={22} color="#6200ff" />
                                     </TouchableOpacity>
                                 </View>
 
@@ -145,17 +141,17 @@ const objectivesView = ({ navigation }) => {
 
 
                                 {/* flex Row for title + edit */}
-                                <View>
+                                {/* <View>
                                     <Text style={styles.objTextDescription}></Text>
-                                </View>
+                                </View> */}
 
 
 
-                                <Text style={styles.objTextDescription} >description</Text>
+                                {/* <Text style={styles.objTextDescription} >description</Text> */}
 
                                 {/* Flex Row for grey bar plus description */}
 
-                                <View style={styles.textDescriptionRow}>
+                                {/* <View style={styles.textDescriptionRow}>
 
                                     <TextInput 
                                         style={styles.objectiveDescriptionText}
@@ -166,11 +162,11 @@ const objectivesView = ({ navigation }) => {
                                         value={item.description}
                                         />
 
-                                </View>
+                                </View> */}
 
 
 
-                                <View style={styles.objectiveDates}>
+                                {/* <View style={styles.objectiveDates}>
                                     <View style={styles.dateStart}>
                                         <View style={styles.DateBoxText}>
                                             <Text style={styles.startEndLabels}>start</Text>
@@ -188,9 +184,7 @@ const objectivesView = ({ navigation }) => {
                                         
                                         <Text style={styles.dateText}>{item.objectiveEndDate.split('T')[0]}</Text>
                                     </View>
-                                    
-
-                                </View>
+                                </View> */}
 
                                                   {/* Days Remaining */}
 

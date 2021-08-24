@@ -100,10 +100,10 @@ const HomeStackScreen = ({ navigation }) => {
           }}/>
           <HomeStack.Screen name="ObjectiveDetail" component={objectiveDetail} options={{
             title: 'Objective Detail',
-            headerLeft: () => (
-              <Feather name="menu" style={{ paddingLeft: 18 }} size={30} color="white" onPress={ () => {
-                navigation.openDrawer()}}></Feather>
-            )  
+            // headerLeft: () => (
+            //   <Feather name="arrow-left" style={{ paddingLeft: 18 }} size={30} color="white" onPress={ () => {
+            //     navigation.goBack('Home')}}></Feather>
+            // )  
           }}/>
         </HomeStack.Navigator>
     )
