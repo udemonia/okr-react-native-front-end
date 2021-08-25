@@ -194,20 +194,12 @@ const objectiveDetail = ({ route, navigation }) => {
                 <View style={styles.horizontalScrollingCard}>
 
                       <View style={styles.nameAndEditRow}>
-                            <TouchableOpacity 
-                                        onPress={() => navigation.navigate('ObjectiveDetail', {
-                                            _id: item._id,
-                                            name: item.name,
-                                            atRisk: item.atRisk,
-                                            description: item.description,
-                                            objectiveEndDate: item.objectiveEndDate,
-                                            objectiveStartDate: item.objectiveStartDate,
-                                            percentComplete: item.percentComplete
-                                        })}
+                            {/* <TouchableOpacity 
+                                        onPress={() => navigation.navigate('ObjectiveDetail')}
                                         style={styles.editButton}
                                         >
                                         <Feather name="check" size={22} color="#00008B" />
-                                    </TouchableOpacity>
+                                    </TouchableOpacity> */}
                             <Text style={styles.objectiveTitleText}>{item.name}</Text>
 
 
@@ -363,25 +355,14 @@ objectiveCardDetails: {
 nameAndEditRow: {
   paddingTop: 2,
   marginTop: 5,
-  marginLeft: 5,
   flexDirection: 'row',
-  justifyContent: 'flex-start',
-  borderColor: 'pink',
-  borderWidth: 2
-},
-editButton: {
-  paddingRight: 3,
   justifyContent: 'center'
 },
-objTextDescription: {
-  marginTop: 6,
-  paddingTop: 6,
-  marginBottom: 10,
-  color: colors.grey,
-  fontSize: 18,
-  fontFamily: 'Nunito_300Light'
-},
+// editButton: {
+//   justifyContent: 'center'
+// },
 objectiveTitleText: {
+  textAlign: 'center',
   maxWidth: '85%',
   padding: 2,
   color: colors.darkBlue,
@@ -440,61 +421,45 @@ dateText: {
 percentRowBoxUnits: {
   flexDirection: 'row',
   justifyContent: 'space-between',
-  paddingRight: 4,
-  marginTop: 15,
-  borderWidth: 1,
-  borderColor: 'orange'
+  paddingRight: 10,
+  marginTop: 15
 },
 percentCompleteText: {
   marginTop: 6,
   marginBottom: 6,
   color: colors.darkPurple,
   fontSize: 18,
-  fontFamily: 'Nunito_300Light',
-  borderWidth: 1,
-  borderColor: 'orange'
+  fontFamily: 'Nunito_300Light'
 },
 percentCompleteTextP: {
   marginTop: 6,
   marginBottom: 6,
   color: colors.darkPurple,
   fontSize: 16,
-  fontFamily: 'Nunito_300Light',
-  borderWidth: 1,
-  borderColor: 'orange'
+  fontFamily: 'Nunito_300Light'
 },
 statusBarBox: {
   marginLeft: 10,
   marginRight: 10,
   paddingTop: 4,
-  paddingBottom: 8,
-  borderWidth: 1,
-  borderColor: 'red'
+  paddingBottom: 8
 },
 horizontalScrollingCard:{
   // // flex: 1,
   // flexDirection: 'column',
   // alignContent: 'space-around',
-  marginVertical: 5,
+  // marginVertical: 5,
   width: width - 40,
   marginHorizontal: 20,
-  borderWidth: 1,
-  borderColor: 'red'
 },
   keyResultDescriptionText: {
     textAlign: 'center',
-    paddingLeft: 10,
-    marginLeft: 4,
     marginBottom: 5,
-    paddingBottom: 3,
-    color: '#808080',
+    marginTop: 3,
+    paddingTop: 3,
+    color: colors.grey,
     fontSize: 18,
     fontFamily: 'Nunito_400Regular',
-    borderLeftWidth: 3,
-    borderLeftColor: '#F4F4ED',
-    borderWidth: 1,
-    borderColor: 'blue'
-    
 },
 percentCompleteTextHorizontal: {
   textAlign: 'center',
