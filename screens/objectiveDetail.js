@@ -6,11 +6,8 @@
 
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, TextInput, Dimensions, ScrollView, Animated } from 'react-native'
-
 import data from '../_data/ObjectiveKeyResults.json' // soon to be Axios
-
 import AppLoading from 'expo-app-loading';
-// import { StatusBar } from 'expo-status-bar';
 import { ProgressBar, Colors } from 'react-native-paper'
 import dayjs from 'dayjs';
 
@@ -25,7 +22,8 @@ import { Feather, Foundation } from '@expo/vector-icons';
 import { Searchbar } from 'react-native-paper';
 const { height, width } =Dimensions.get('window')
 console.disableYellowBox = true
-
+import colors from '../colors/lightMode'
+import symbolicateStackTrace from 'react-native/Libraries/Core/Devtools/symbolicateStackTrace';
 const objectiveDetail = ({ route, navigation }) => {
 
   console.log(width, height)
@@ -85,6 +83,9 @@ const objectiveDetail = ({ route, navigation }) => {
   } else {
     return (
       <ScrollView style={{ backgroundColor: 'white', flex: 1}}>
+
+        <View style={{justifyContent: 'space-between', flexDirection: 'column'}}>
+
         <View style={styles.text}>
           <FlatList
           keyExtractor={(item, index) => index.toString()}
@@ -104,7 +105,7 @@ const objectiveDetail = ({ route, navigation }) => {
                           </View>
                         </View>
 
-                        <Text style={styles.objTextDescription} >description</Text>
+                  
 
                           {/* Flex Row for grey bar plus description */}
 
@@ -161,8 +162,13 @@ const objectiveDetail = ({ route, navigation }) => {
               )
           }}
           />
+          {/* key Results  */}
+        <View> 
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <Text style={styles.percentCompleteTextHorizontal}>{`${data.length} key results`}</Text>
+        </View>
 
-          <Text style={styles.percentCompleteTextHorizontal}>key results</Text>
+      <View style={styles.swipeCard}>
 
           <FlatList
             keyExtractor={( item, index ) => index.toString()}
@@ -186,13 +192,27 @@ const objectiveDetail = ({ route, navigation }) => {
             renderItem={({ item }) => {
               return (
                 <View style={styles.horizontalScrollingCard}>
+
+                      <View style={styles.nameAndEditRow}>
+                            <TouchableOpacity 
+                                        onPress={() => navigation.navigate('ObjectiveDetail', {
+                                            _id: item._id,
+                                            name: item.name,
+                                            atRisk: item.atRisk,
+                                            description: item.description,
+                                            objectiveEndDate: item.objectiveEndDate,
+                                            objectiveStartDate: item.objectiveStartDate,
+                                            percentComplete: item.percentComplete
+                                        })}
+                                        style={styles.editButton}
+                                        >
+                                        <Feather name="check" size={22} color="#00008B" />
+                                    </TouchableOpacity>
+                            <Text style={styles.objectiveTitleText}>{item.name}</Text>
+
+
+                                </View>
                       
-                <View style={{ flex: 1, flexDirection: 'column', justifyContent: 'space-between'}}>
-                  <View>
-                    <Feather name="check" size={20} color="blue" />
-                    <Text>{`${item.name}`}</Text>
-                  </View>
-                </View>
                             <TextInput 
                               style={styles.keyResultDescriptionText}
                               scrollEnabled={false}
@@ -201,7 +221,6 @@ const objectiveDetail = ({ route, navigation }) => {
                               multiline={true}
                               value={item.description}
                               />
-
                                   {/* <View style={styles.objectiveDates}>
                                     <View style={styles.dateStart}>
                                         <View style={styles.DateBoxText}>
@@ -223,6 +242,7 @@ const objectiveDetail = ({ route, navigation }) => {
                     
                                   </View> */}
 
+                                <View style={{ flex: 1, justifyContent: 'space-between', flexDirection: 1}}>
                                   <View style={styles.percentRowBox}>
                                     <View style={styles.percentRowBoxUnits}>
                                         <Text style={styles.percentCompleteText}>key result progress</Text>
@@ -232,7 +252,8 @@ const objectiveDetail = ({ route, navigation }) => {
                                     <View style={styles.statusBarBox}>
                                         <ProgressBar progress={ item.currentValue / item.targetValue } colors={Colors.pink100}/>
                                     </View>
-                                    
+                                                          
+                                </View>
 
                                   </View>
                               
@@ -240,7 +261,7 @@ const objectiveDetail = ({ route, navigation }) => {
                               )
                             }}
                           />
-
+          </View>
         </View>
         <View style={{flexDirection: 'row'}}>
           <View style={styles.dotView}>
@@ -251,18 +272,16 @@ const objectiveDetail = ({ route, navigation }) => {
                 extrapolate: 'clamp'
               })
               return (
-                <Animated.View
+                 <Animated.View
                   key={i}
-                  style={{opacity: opacity, height: 10, width: 10, backgroundColor: '#210347', borderRadius: 5, paddingHorizontal: 3}}
-
-
-                />
-              )
-            })}
-
-
+                  style={{opacity: opacity, height: 8, width: 8, backgroundColor: '#55388C', borderRadius: 4, marginTopHorizontal: 3}}
+                  />
+                )
+               })}
+              </View>
+             </View>
             </View>
-          </View>
+          </View> 
       </ScrollView>
   )
 
@@ -279,20 +298,22 @@ const styles = StyleSheet.create({
     paddingHorizontal: 3,
     paddingVertical: 10
   },
-text: {
-  paddingLeft: 1,
-  paddingRight: 1,
-  flex: 1,
-  alignItems: 'stretch',
-  justifyContent: 'center',
-  backgroundColor: 'white'
-},
-textStyles: {
-  marginVertical: 2
-},
+  text: {
+    marginTop: 20,
+    paddingLeft: 1,
+    paddingRight: 1,
+    flex: 1,
+    alignItems: 'stretch',
+    justifyContent: 'center',
+    backgroundColor: 'white',
+    paddingHorizontal: 20,
+  },
+  textStyles: {
+    marginVertical: 8
+  },
 keyResultCardTop2: {
   flex: 1,
-  backgroundColor: '#6200ff',
+  backgroundColor: colors.purpleObjectiveTile,
   borderRadius: 10,
   shadowColor: "#000",
   marginTop: 2,
@@ -330,46 +351,9 @@ keyResultCardTop2: {
       fontSize: 18,
       fontFamily: 'Nunito_400Regular'
     },
-objectiveCard: {
-  marginLeft: 10,
-  marginRight: 10,
-  backgroundColor: 'white',
-  margin: 2,
-  borderColor: '#F4F4ED',
-  borderWidth: 2,
-  borderRadius: 10,
-  marginVertical: 10,
-  padding: 2,
-  // shadowColor: "#8093F1",
-  // shadowOffset: {
-  //     width: 0,
-  //     height: 7,
-  // },
-  // shadowOpacity: 0.41,
-  // shadowRadius: 9.11,
-  // elevation: 14,
-  },
 objectiveCardDetails: {
   margin: 2,
   padding: 3
-},
-atRiskObjectiveCard: {
-  marginLeft: 10,
-  marginRight: 10,
-  backgroundColor: 'white',
-  borderColor: '#F4F4ED',
-  borderWidth: 2,
-  borderRadius: 10,
-  marginVertical: 10,
-  padding: 2,
-  // shadowColor: "#8093F1",
-  // shadowOffset: {
-  //     width: 0,
-  //     height: 7,
-  // },
-  // shadowOpacity: 0.41,
-  // shadowRadius: 9.11,
-  // elevation: 14,
 },
 
 objectiveCardDetails: {
@@ -382,6 +366,8 @@ nameAndEditRow: {
   marginLeft: 5,
   flexDirection: 'row',
   justifyContent: 'flex-start',
+  borderColor: 'pink',
+  borderWidth: 2
 },
 editButton: {
   paddingRight: 3,
@@ -391,15 +377,15 @@ objTextDescription: {
   marginTop: 6,
   paddingTop: 6,
   marginBottom: 10,
-  color: '#8093F1',
+  color: colors.grey,
   fontSize: 18,
   fontFamily: 'Nunito_300Light'
 },
 objectiveTitleText: {
   maxWidth: '85%',
   padding: 2,
-  color: '#6200ff',
-  fontSize: 20,
+  color: colors.darkBlue,
+  fontSize: 18,
   fontFamily: 'Nunito_700Bold',
   borderLeftWidth: 2,
   borderLeftColor: '#F4F4ED'
@@ -409,7 +395,7 @@ objectiveDescriptionText: {
   marginLeft: 4,
   marginBottom: 18,
   paddingBottom: 3,
-  color: '#B0B0B0',
+  color: colors.grey,
   fontSize: 18,
   fontFamily: 'Nunito_300Light',
   borderLeftWidth: 3,
@@ -431,7 +417,7 @@ dateEnd: {
 startEndLabels: {
   alignItems: 'center',
   justifyContent: 'center',
-  color: 'white',
+  color: colors.darkPurple,
   fontSize: 18,
   fontFamily: 'Nunito_300Light'
 },
@@ -439,120 +425,64 @@ DateBoxText: {
   flex: 1,
   alignItems: 'center',
   justifyContent: 'center',
-  backgroundColor: '#8093F1',
+  backgroundColor: colors.lightGrey,
   padding: 4,
   margin: 4,
   borderRadius: 6
 },
 dateText: {
-  color: '#B388EB',
+  color: colors.darkPurple,
   padding: 2,
   marginBottom: 2,
   marginTop: 2
 },
+
 percentRowBoxUnits: {
   flexDirection: 'row',
   justifyContent: 'space-between',
   paddingRight: 4,
-  marginTop: 15
+  marginTop: 15,
+  borderWidth: 1,
+  borderColor: 'orange'
 },
 percentCompleteText: {
   marginTop: 6,
   marginBottom: 6,
-  color: '#8093F1',
+  color: colors.darkPurple,
   fontSize: 18,
-  fontFamily: 'Nunito_300Light'
+  fontFamily: 'Nunito_300Light',
+  borderWidth: 1,
+  borderColor: 'orange'
 },
 percentCompleteTextP: {
   marginTop: 6,
   marginBottom: 6,
-  color: '#8093F1',
+  color: colors.darkPurple,
   fontSize: 16,
-  fontFamily: 'Nunito_300Light'
+  fontFamily: 'Nunito_300Light',
+  borderWidth: 1,
+  borderColor: 'orange'
 },
 statusBarBox: {
   marginLeft: 10,
   marginRight: 10,
   paddingTop: 4,
-  paddingBottom: 8
-},
-searchBarBox: {
-  alignItems: 'center',
-  justifyContent: 'center',
-  paddingLeft: 10,
-  paddingRight: 10,
-  marginBottom: 10,
-  paddingBottom: 2,
-  marginTop: 2,
-  marginTop: 20
-},
-searchBar: {
-  maxHeight: 20,
-  alignItems: 'center',
-  justifyContent: 'center',
+  paddingBottom: 8,
+  borderWidth: 1,
+  borderColor: 'red'
 },
 horizontalScrollingCard:{
-  // flex: 1,
-  // alignItems: 'center',
-  // justifyContent: 'center',
+  // // flex: 1,
+  // flexDirection: 'column',
+  // alignContent: 'space-around',
   marginVertical: 5,
   width: width - 40,
-
   marginHorizontal: 20,
-  // width: 'width' -1,
-  // marginTop: 5,
-  // padding: 6,
+  borderWidth: 1,
+  borderColor: 'red'
 },
-// cardStyle: {
-//   // width: CARD_WIDTH,
-//   // height: CARD_HEIGHT,
-//   justifyContent: 'center',
-//   alignItems: 'center',
-//   backgroundColor: 'green',
-//   margin: 5,
-//   borderRadius: 15
-// },
-keyResultCardTop2Horizontal: {
-  flex: 1,
-  backgroundColor: '#8093F1',
-  borderRadius: 10,
-  shadowColor: "#000",
-  marginTop: 10,
-  marginBottom: 10,
-  shadowOffset: {
-    width: 0,
-    height: 3,
-  },
-  shadowOpacity: 0.27,
-  shadowRadius: 4.65,
-  elevation: 6,
-  },
-objectivenameRowHorizontal: {
-    paddingTop: 10,
-    paddingBottom: 10,
-    marginTop: 5,
-    marginBottom: 10,
-    flexDirection: 'row',
-    alignItems: 'center'
-  },
-  objectiveIconHorizontal: {
-    padding: 10,
-    paddingLeft: 10,
-    marginLeft: 3,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-  },
-  keyResultTextHorizontal: {
-    flex: 1,
-    textAlignVertical: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
-    color: 'white',
-    marginLeft: 4,
-    fontSize: 18,
-    fontFamily: 'Nunito_400Regular'
-  },
   keyResultDescriptionText: {
+    textAlign: 'center',
     paddingLeft: 10,
     marginLeft: 4,
     marginBottom: 5,
@@ -561,15 +491,19 @@ objectivenameRowHorizontal: {
     fontSize: 18,
     fontFamily: 'Nunito_400Regular',
     borderLeftWidth: 3,
-    borderLeftColor: '#F4F4ED'
+    borderLeftColor: '#F4F4ED',
+    borderWidth: 1,
+    borderColor: 'blue'
+    
 },
 percentCompleteTextHorizontal: {
-  marginLeft: 5,
+  textAlign: 'center',
+  paddingHorizontal: 10,
   marginTop: 20,
   marginBottom: 6,
-  color: '#8093F1',
+  color: colors.pink,
   fontSize: 18,
-  fontFamily: 'Nunito_300Light'
+  fontFamily: 'Nunito_700Bold'
 },
 
 });

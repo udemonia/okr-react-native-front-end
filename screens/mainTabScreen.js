@@ -11,6 +11,8 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { FontAwesome, Ionicons } from '@expo/vector-icons';
 import dashboard from './dashboardScreen'
 import createObjectiveStack from './createObjectiveStack'
+import colors from '../colors/lightMode'
+
 
 
 const HomeStack = createStackNavigator();
@@ -24,14 +26,14 @@ const MainTabScreen = () => {
           initialRouteName="Objectives"
           labeled={false}
           activeColor="white"
-          barStyle={{ backgroundColor: '#6200ff' }}
+          barStyle={{ backgroundColor: colors.mediumPurple }}
         >
           <Tab.Screen
             name="Objectives"
             component={HomeStackScreen}
             options={{
               tabBarLabel: 'Home',
-              tabBarColor: '#6200ff',
+              tabBarColor: colors.mediumPurple,
               tabBarIcon: ({ color }) => (
                 <Feather name="target" color={color} size={24} />
               ),
@@ -42,7 +44,7 @@ const MainTabScreen = () => {
             component={DetailStackScreen}
             options={{
               tabBarLabel: 'Key Results',
-              tabBarColor: '#00008B',
+              tabBarColor: colors.darkBlue,
               tabBarIcon: ({ color }) => (
                 <Feather name="check" color={color} size={26} />
               ),
@@ -53,7 +55,7 @@ const MainTabScreen = () => {
             component={DashboardStackBuild}
             options={{
               tabBarLabel: 'dashboard',
-              tabBarColor: '#F18FBF',
+              tabBarColor: colors.pink,
               tabBarIcon: ({ color }) => (
                 <FontAwesome name="pie-chart" color={color} size={24} />
               ),
@@ -64,7 +66,7 @@ const MainTabScreen = () => {
             component={createObjectiveStack}
             options={{
               tabBarLabel: 'Create',
-              tabBarColor:'#210347',
+              tabBarColor: colors.darkPurple,
               tabBarIcon: ({ color }) => (
                 <Ionicons name="ios-add-circle-outline" color={color} size={26} />
               ),
@@ -84,7 +86,7 @@ const HomeStackScreen = ({ navigation }) => {
     return (
         <HomeStack.Navigator screenOptions={{
           headerStyle: {
-            backgroundColor: '#6200ff'
+            backgroundColor: colors.mediumPurple
           },
           headerTintColor: 'white',
           headerTitleStyle: {
@@ -113,7 +115,7 @@ const HomeStackScreen = ({ navigation }) => {
     return (
         <DetailStack.Navigator screenOptions={{
           headerStyle: {
-            backgroundColor: '#00008B'
+            backgroundColor: colors.darkBlue
           },
           headerTintColor: 'white',
           headerTitleStyle: {
@@ -125,6 +127,10 @@ const HomeStackScreen = ({ navigation }) => {
             headerLeft: () => (
               <Feather name="menu" style={{ paddingLeft: 18 }} size={30} color="white" onPress={ () => {
                 navigation.openDrawer()}}></Feather>
+            ),
+            headerRight: () => (
+              <Ionicons name="filter-sharp" style={{ paddingRight: 18 }} size={28} color="white" onPress={ () => {
+                navigation.openDrawer()}}></Ionicons>
             )  
           }}/>
         </DetailStack.Navigator>

@@ -11,8 +11,8 @@
             "atRisk": false,
             "percentComplete": 38,
             "_id": "6117c0d27fe0d3fd8c7c62eb",
-            "name": "Brandon - Go On a Vacation",
-            "description": "We need a Family Vacation. A trip overseas would probably be best, that way, we can learn about other cultures and expand our horizons",
+            "name": "Our Family Should Make Memories",
+            "description": "We need a Family Vacation. A trip overseas would probably be best, that way, we can learn about other cultures and expand our horizons.",
             "objectiveStartDate": "2021-07-01T20:00:35.233Z",
             "objectiveEndDate": "2021-09-30T20:00:35.233Z",
             "id": "6117c0d27fe0d3fd8c7c62eb"
@@ -29,7 +29,7 @@
         "currentValue": 4000,
         "targetValue": 8000,
         "_id": "6117c0e97fe0d3fd8c7c62f5",
-        "name": "Save Enough Money to Go to Europe! 2",
+        "name": "Book an AirBNB in Three Cities - Each for 2 Nights",
         "description": "Save Enough Money for a Family Trip to a European Capital!",
         "objective": {
             "atRisk": false,
@@ -53,7 +53,7 @@
         "currentValue": 4000,
         "targetValue": 8000,
         "_id": "6117c0e97fe0d3fd8c7c62f5",
-        "name": "Run around the world three times to learn this stuff",
+        "name": "Book 6 Attractions to Visit",
         "description": "Run around the world like a mad man - at least three times to learn this stuff",
         "objective": {
             "atRisk": false,

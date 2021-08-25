@@ -15,6 +15,8 @@ import {
   } from '@expo-google-fonts/nunito';
 import { Feather, Foundation, MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { Searchbar } from 'react-native-paper';
+import colors from '../colors/lightMode'
+import { color } from 'react-native-reanimated';
 
 
 const objectivesView = ({ navigation }) => {
@@ -113,7 +115,7 @@ const objectivesView = ({ navigation }) => {
 
 
                             <View style={styles.nameAndEditRow}>
-                                    <Text style={styles.objectiveTitleText}>objective</Text>
+                                    <Text style={styles.objectiveTitleText}>objectives</Text>
 
                                     <TouchableOpacity 
                                         onPress={() => navigation.navigate('ObjectiveDetail', {
@@ -127,7 +129,7 @@ const objectivesView = ({ navigation }) => {
                                         })}
                                         style={styles.editButton}
                                         >
-                                        <Feather name="arrow-right" size={22} color="#6200ff" />
+                                        <Feather name="arrow-right" size={22} color={color.mediumPurple} />
                                     </TouchableOpacity>
                                 </View>
 
@@ -166,7 +168,7 @@ const objectivesView = ({ navigation }) => {
 
 
 
-                                {/* <View style={styles.objectiveDates}>
+                                <View style={styles.objectiveDates}>
                                     <View style={styles.dateStart}>
                                         <View style={styles.DateBoxText}>
                                             <Text style={styles.startEndLabels}>start</Text>
@@ -184,7 +186,7 @@ const objectivesView = ({ navigation }) => {
                                         
                                         <Text style={styles.dateText}>{item.objectiveEndDate.split('T')[0]}</Text>
                                     </View>
-                                </View> */}
+                                </View>
 
                                                   {/* Days Remaining */}
 
@@ -242,12 +244,13 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     },
     textStyles: {
-        marginVertical: 15
+        marginVertical: 10
     },
     keyResultCardTop2: {
         flex: 1,
-        backgroundColor: '#6200ff',
-        borderRadius: 10,
+        backgroundColor: colors.purpleObjectiveTile,
+        fontWeight: 'bold',
+        borderRadius: 5,
         shadowColor: "#000",
         marginTop: 20,
         marginBottom: 10,
@@ -291,17 +294,18 @@ const styles = StyleSheet.create({
         margin: 2,
         borderColor: '#F4F4ED',
         borderWidth: 2,
-        borderRadius: 10,
+        borderRadius: 5,
         marginVertical: 10,
         padding: 2,
-        shadowColor: "#8093F1",
+        shadowColor: "#000",
         shadowOffset: {
             width: 0,
-            height: 7,
+            height: 2,
         },
-        shadowOpacity: 0.41,
-        shadowRadius: 9.11,
-        elevation: 14,
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        
+        elevation: 5,
         },
     objectiveCardDetails: {
         margin: 2,
@@ -313,17 +317,18 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderColor: '#F4F4ED',
         borderWidth: 2,
-        borderRadius: 10,
+        borderRadius: 5,
         marginVertical: 10,
         padding: 2,
-        shadowColor: "#8093F1",
+        shadowColor: "#000",
         shadowOffset: {
             width: 0,
-            height: 7,
+            height: 2,
         },
-        shadowOpacity: 0.41,
-        shadowRadius: 9.11,
-        elevation: 14,
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        
+        elevation: 5,
     },
 
     objectiveCardDetails: {
@@ -341,14 +346,14 @@ const styles = StyleSheet.create({
     objTextDescription: {
         marginTop: 6,
         marginBottom: 10,
-        color: '#8093F1',
+        color: colors.grey,
         fontSize: 18,
         fontFamily: 'Nunito_300Light'
     },
     objectiveTitleText: {
         maxWidth: '85%',
         padding: 2,
-        color: '#6200ff',
+        color: colors.mediumPurple,
         fontSize: 20,
         fontFamily: 'Nunito_700Bold',
         borderLeftWidth: 2,
@@ -359,7 +364,7 @@ const styles = StyleSheet.create({
         marginLeft: 4,
         marginBottom: 18,
         paddingBottom: 3,
-        color: '#B0B0B0',
+        color: colors.grey,
         fontSize: 18,
         fontFamily: 'Nunito_300Light',
         borderLeftWidth: 3,
@@ -381,7 +386,7 @@ const styles = StyleSheet.create({
     startEndLabels: {
         alignItems: 'center',
         justifyContent: 'center',
-        color: 'white',
+        color: colors.darkPurple,
         fontSize: 18,
         fontFamily: 'Nunito_300Light'
     },
@@ -389,13 +394,13 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#8093F1',
+        backgroundColor: colors.lightGrey,
         padding: 4,
         margin: 4,
-        borderRadius: 6
+        borderRadius: 5
     },
     dateText: {
-        color: '#B388EB',
+        color: colors.darkPurple,
         padding: 2,
         marginBottom: 4,
         marginTop: 4
@@ -409,14 +414,14 @@ const styles = StyleSheet.create({
     percentCompleteText: {
         marginTop: 6,
         marginBottom: 6,
-        color: '#8093F1',
+        color: colors.darkBlue,
         fontSize: 18,
         fontFamily: 'Nunito_300Light'
     },
     percentCompleteTextP: {
         marginTop: 6,
         marginBottom: 6,
-        color: '#8093F1',
+        color: colors.darkPurple,
         fontSize: 16,
         fontFamily: 'Nunito_300Light'
     },
