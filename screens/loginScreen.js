@@ -14,17 +14,20 @@ import {
   KeyboardAvoidingView,
   SafeAreaView
 } from 'react-native';
+
 const STORAGE_KEY = '@save_token'
 
 
 const storeDataString = async (value) => {
   try {
     await AsyncStorage.setItem(STORAGE_KEY, value)
-    // alert('Data Saved!')
   } catch (error) {
     console.log(error)
   }
 }
+
+
+
 
 //* We need to call login + getCurrentUser
   
@@ -39,29 +42,9 @@ const storeDataString = async (value) => {
     const [ token, setToken ] = useState('')
     const passwordInputRef = createRef();
   
-    const handleSubmitPress = () => {
-        //* Lets handle missing info -
-  
-        setErrortext('');
-        if (!userEmail) {
-          alert('Please fill Email');
-          return;
-        }
-        if (!userPassword) {
-          alert('Please fill Password');
-          return;
-        }
-      
-        // //* If data, lets set loading to true - using the load component
-        // setLoading(true);
-      
-        //* data to send.... 
-        let dataToSend = {email: userEmail, password: userPassword};
-        console.log(dataToSend)
 
-
-        }
         const authPostRequest = async () => {
+          
           try {
             let response = await fetch('http://192.168.1.231:2002/api/v1/auth/login', {
               method: 'POST',
@@ -80,7 +63,7 @@ const storeDataString = async (value) => {
                 let responseData = await response.json();
                 let JWTtoken = JSON.stringify(responseData.token).slice(1, -1);
                 const savedToken = await storeDataString(JWTtoken)
-                alert(JWTtoken)
+                // alert(JWTtoken)
                 try {
                   let currentUserResponse = await fetch('http://192.168.1.231:2002/api/v1/auth/CurrentLoggedUser', {
                     method: 'GET',
@@ -90,12 +73,30 @@ const storeDataString = async (value) => {
                     }
                   })
                   let userData = await currentUserResponse.json();
-                  alert(JSON.stringify(userData.data, null, 2))
+                  // alert(JSON.stringify(userData.data, null, 2))
                   if (currentUserResponse.status === 200) {
 
-                    navigation.navigate('drawer', {userData: userData})
-                    console.log(navigation)
-                    navigate               
+                    navigation.navigate('drawer', {
+                      screen: 'Home',
+                      params: {
+                        screen: 'Objectives',
+                        params: {
+                          userData,
+                          JWTtoken
+                        },
+                      },
+                    });
+
+                    // navigation.navigate('drawer', {
+                    //     screen: 'Objectives',
+                    //     params: {
+                    //       userData,
+                    //       JWTtoken
+                    //     },
+                      
+                    // });
+
+                    // navigation.navigate('drawer', { data: {userData, JWTtoken }})           
                   }
                   
                 } catch (error) {

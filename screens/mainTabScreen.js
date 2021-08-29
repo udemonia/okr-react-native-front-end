@@ -21,6 +21,7 @@ const DashboardStack = createStackNavigator();
 const Tab = createMaterialBottomTabNavigator();
 
 const MainTabScreen = () => {
+
     return (
         <Tab.Navigator
           initialRouteName="Objectives"
@@ -82,7 +83,7 @@ export default MainTabScreen;
 
 
 
-const HomeStackScreen = ({ navigation }) => {
+const HomeStackScreen = ({ route, navigation }) => {
     return (
         <HomeStack.Navigator screenOptions={{
           headerStyle: {
@@ -93,7 +94,7 @@ const HomeStackScreen = ({ navigation }) => {
             fontWeight: 'bold'
           }
         }}>
-          <HomeStack.Screen name="Home" component={HomeScreen} options={{
+          <HomeStack.Screen name="Home" component={HomeScreen} initialParams={{ data: route.params }} options={{
             title: 'Objectives',
             headerLeft: () => (
               <Feather name="menu" style={{ paddingLeft: 18 }} size={30} color="white" onPress={ () => {

@@ -3,7 +3,6 @@ import { View, Text } from 'react-native'
 import { createStackNavigator } from '@react-navigation/stack'
 import SignUpScreen from './signUpScreen'
 import LoginScreen from './loginScreen'
-import DrawerEntryNav from './drawerNavigation'
 import ProfileScreen from './profileScreen'
 import EditProfileScreen from './editProfileScreen'
 

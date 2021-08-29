@@ -21,13 +21,29 @@ import { useNavigation } from '@react-navigation/native';
 import userProfileStack from './userProfileStack';
 import AuthStack from './authStack';
 import createObjectiveStack from './createObjectiveStack';
+import CreateObjective from './createObjective';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import axios from 'axios';
 
+const STORAGE_KEY = '@save_token'
+
+//! Remove the storage JWT on Logout
+const storeDataString = async (value) => {
+    try {
+      await AsyncStorage.setItem(STORAGE_KEY, value)
+      // alert('Data Saved!')
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
 export function DrawerContents(props, navigation) {
     return (
         <View style={{ flex: 1}}>
             <DrawerContentScrollView  { ...props }>
+
                 <View style={styles.drawerContent}>
+
                     <View style={styles.userInfoSection}>
                         <View style={ { flexDirection: 'column', marginTop: 20 } }>
                             <Avatar.Image 
@@ -39,15 +55,12 @@ export function DrawerContents(props, navigation) {
                                 <Caption style={styles.caption}>{userData[0].email}</Caption>
                             </View>
                         </View>
-                        
-
                     </View>
-
-                    </View>
+                </View>
 
                 {/* ---------------------- 👇 Drawer Links 👇  -------------------------- */}
 
-                <Drawer.Section style={styles.drawerSection}>
+                    <Drawer.Section style={styles.drawerSection}>
                           <DrawerItem 
                             icon={({color, size}) => (
                                 <MaterialCommunityIcons 
@@ -96,7 +109,7 @@ export function DrawerContents(props, navigation) {
                             label="dashboards"
                             onPress={() => {props.navigation.navigate('Dashboard')}}
                         />
-                        <DrawerItem 
+                        {/* <DrawerItem 
                             icon={({color, size}) => (
                                 <Feather 
                                 style={{color: '#55388C'}}
@@ -107,24 +120,28 @@ export function DrawerContents(props, navigation) {
                             )}
                             label="Add Objectives"
                             onPress={() => {props.navigation.navigate('CreateObjective')}}
-                        />
+                        /> */}
                     </Drawer.Section>
-                    
+
                      {/* ----------------------👆  Drawer Links 👆 -------------------------- */}
 
-
-                <Drawer.Section style={styles.bottomDrawerSection}>
+                 <Drawer.Section style={styles.bottomDrawerSection}>
                     <Drawer.Item 
                     icon={(color,size) => {
                         return <Ionicons name="ios-exit" size={24} color="#55388C" />
                     }}
                     label="Log Out ✌️"
                     color={'#6200ff'}
-                    onPress={() => {props.navigation.goBack()}} //todo ADD LOGOUT LOGIC!
+                    onPress={() => {
+                        storeDataString('')
+                        props.navigation.reset({
+                            index: 0,
+                            routes: [{name: 'Login'}],
+                        });
+                    }}
                     
                     />
-
-                </Drawer.Section>
+                    </Drawer.Section>
 
             </DrawerContentScrollView>
 
@@ -134,8 +151,7 @@ export function DrawerContents(props, navigation) {
 
 const styles = StyleSheet.create({
     drawerContent: {
-      flex: 1,
-      justifyContent: 'space-between'
+
     },
     userInfoSection: {
       paddingLeft: 20,
@@ -169,6 +185,7 @@ const styles = StyleSheet.create({
       marginTop: 15,
     },
     bottomDrawerSection: {
+        marginTop: 20,
         marginBottom: 15,
         borderTopColor: '#f4f4f4',
         borderTopWidth: 1

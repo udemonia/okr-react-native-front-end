@@ -10,6 +10,7 @@ import { Feather } from '@expo/vector-icons';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import DrawerEntryNav from './screens/drawerNavigation'
 import AuthStack from './screens/authStack'
+import { OKRsProvider } from './context/okrContext'
 
 
 const App = () => {
@@ -30,4 +31,8 @@ const styles = StyleSheet.create({
 });
 
 
-export default App;
+export default () => {
+  return <OKRsProvider>
+          <App />
+        </OKRsProvider>
+} 

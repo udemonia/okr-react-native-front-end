@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity, TextInput } from 'react-native'
 import data from '../_data/objectives.json'
 import AppLoading from 'expo-app-loading';
 // import { StatusBar } from 'expo-status-bar';
 import { ProgressBar, Colors } from 'react-native-paper'
 import dayjs from 'dayjs';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import FabButton from '../components/fabButtons';
 import {
     useFonts,
     Nunito_200ExtraLight,
@@ -17,15 +18,39 @@ import { Feather, Foundation, MaterialCommunityIcons } from '@expo/vector-icons'
 import { Searchbar } from 'react-native-paper';
 import colors from '../colors/lightMode'
 import { color } from 'react-native-reanimated';
+import OKRsContext from '../context/okrContext';
 
 
-const objectivesView = ({ navigation }) => {
+const objectivesView = ({ route, navigation }) => {
 
-    const keyResultData = data;
+    const OKRs = useContext(OKRsContext)
+
+    let JWTtoken = route.params.data.JWTtoken
+    // let userData = route.params.data.userData
+    // console.log('\nthis is the home screens')
+    // console.log(route.params.data.JWTtoken)
+    // console.log(route.params.data.userData)
+    const [ apiData, setApiData ] = useState([])
+
+    //* Get the access token 
+    //todo how can we pass this along - or use redux
+
     //* Data and Search Data -
     const [search, setSearch] = useState('');
-    const [filteredDataSource, setFilteredDataSource] = useState(data);
-    const [masterDataSource, setMasterDataSource] = useState(data);
+    const [filteredDataSource, setFilteredDataSource] = useState(OKRs);
+    const [masterDataSource, setMasterDataSource] = useState(OKRs);
+
+
+
+    //* Open/Closed/All FAB filter logic 
+    // const [ openClosedFilter, setOpenClosedFilter ] = useState('')
+
+    // const whatToShow = (masterDataSource) => {
+    //     if (openClosedFilter == '') {
+    //         return
+    //     }
+    //     return openClosedFilter === 'open' ? masterDataSource.marginTop((objective) => )
+    // }
 
     const searchFilterFunction = (text) => {
         if (text) {
@@ -115,7 +140,7 @@ const objectivesView = ({ navigation }) => {
 
 
                             <View style={styles.nameAndEditRow}>
-                                    <Text style={styles.objectiveTitleText}>objectives</Text>
+                                    <Text style={styles.objectiveTitleText}>objective</Text>
 
                                     <TouchableOpacity 
                                         onPress={() => navigation.navigate('ObjectiveDetail', {
@@ -226,6 +251,7 @@ const objectivesView = ({ navigation }) => {
                     )
                 }}
                 />
+                <FabButton data={masterDataSource}></FabButton>
             </View>
         )
     
@@ -244,7 +270,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white'
     },
     textStyles: {
-        marginVertical: 10
+        marginVertical: 5
     },
     keyResultCardTop2: {
         flex: 1,
@@ -297,15 +323,15 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginVertical: 10,
         padding: 2,
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
+        // shadowColor: "#000",
+        // shadowOffset: {
+        //     width: 0,
+        //     height: 2,
+        // },
+        // shadowOpacity: 0.25,
+        // shadowRadius: 3.84,
         
-        elevation: 5,
+        // elevation: 5,
         },
     objectiveCardDetails: {
         margin: 2,
@@ -320,15 +346,15 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginVertical: 10,
         padding: 2,
-        shadowColor: "#000",
-        shadowOffset: {
-            width: 0,
-            height: 2,
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
+        // shadowColor: "#000",
+        // shadowOffset: {
+        //     width: 0,
+        //     height: 2,
+        // },
+        // shadowOpacity: 0.25,
+        // shadowRadius: 3.84,
         
-        elevation: 5,
+        // elevation: 5,
     },
 
     objectiveCardDetails: {
@@ -354,7 +380,7 @@ const styles = StyleSheet.create({
         maxWidth: '85%',
         padding: 2,
         color: colors.mediumPurple,
-        fontSize: 20,
+        fontSize: 16,
         fontFamily: 'Nunito_700Bold',
         borderLeftWidth: 2,
         borderLeftColor: '#F4F4ED'

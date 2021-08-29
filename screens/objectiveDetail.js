@@ -82,7 +82,7 @@ const objectiveDetail = ({ route, navigation }) => {
       return <AppLoading />
   } else {
     return (
-      <ScrollView style={{ backgroundColor: 'white', flex: 1}}>
+      <ScrollView style={{ backgroundColor: 'white', flex: 1 }}>
 
         <View style={{justifyContent: 'space-between', flexDirection: 'column'}}>
 
@@ -301,6 +301,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   textStyles: {
+    paddingHorizontal: 8,
     marginVertical: 8
   },
 keyResultCardTop2: {
