@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, TextInput } from 'react-native'
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, TextInput, Button } from 'react-native'
 import data from '../_data/objectives.json'
 import AppLoading from 'expo-app-loading';
 // import { StatusBar } from 'expo-status-bar';
@@ -7,6 +7,7 @@ import { ProgressBar, Colors } from 'react-native-paper'
 import dayjs from 'dayjs';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import FabButton from '../components/fabButtons';
+
 import {
     useFonts,
     Nunito_200ExtraLight,
@@ -14,6 +15,7 @@ import {
     Nunito_400Regular,
     Nunito_700Bold
   } from '@expo-google-fonts/nunito';
+
 import { Feather, Foundation, MaterialCommunityIcons } from '@expo/vector-icons'; 
 import { Searchbar } from 'react-native-paper';
 import colors from '../colors/lightMode'
@@ -23,22 +25,34 @@ import OKRsContext from '../context/okrContext';
 
 const objectivesView = ({ route, navigation }) => {
 
-    const OKRs = useContext(OKRsContext)
+    const [ doSearch, setDoSearch ] = useState(false)
+    const { objectivesArray, addObjective } = useContext(OKRsContext)
+    const updateState = () => {
+        //* on update button we
+        //* call add objective callback
+        //* update our state hooks start anew
+
+        addObjective()
+        setMasterDataSource(objectivesArray)
+        setFilteredDataSource(objectivesArray)
+        searchFilterFunction('')
+    }
+    
+    // let OKRs = objectivesArray;
 
     let JWTtoken = route.params.data.JWTtoken
     // let userData = route.params.data.userData
     // console.log('\nthis is the home screens')
     // console.log(route.params.data.JWTtoken)
     // console.log(route.params.data.userData)
-    const [ apiData, setApiData ] = useState([])
 
     //* Get the access token 
     //todo how can we pass this along - or use redux
 
     //* Data and Search Data -
     const [search, setSearch] = useState('');
-    const [filteredDataSource, setFilteredDataSource] = useState(OKRs);
-    const [masterDataSource, setMasterDataSource] = useState(OKRs);
+    const [ filteredDataSource, setFilteredDataSource ] = useState(objectivesArray);
+    const [ masterDataSource, setMasterDataSource ] = useState(objectivesArray);
 
 
 
@@ -54,6 +68,7 @@ const objectivesView = ({ route, navigation }) => {
 
     const searchFilterFunction = (text) => {
         if (text) {
+        setDoSearch(true)
           const newData = masterDataSource.filter(function (item) {
             const itemData = item.name
               ? item.name.toUpperCase()
@@ -68,20 +83,12 @@ const objectivesView = ({ route, navigation }) => {
           setSearch(text);
         }
       };
-
-    const objectives = data;
-
     let [ fontsLoaded, err ] = useFonts({
         Nunito_300Light,
         Nunito_400Regular,
         Nunito_700Bold
     })
-
-
     let today = dayjs().format()
-
-
-
     function objectiveDays(day1, day2) {
         //* Found out how many days are between two dates
         let startTime = dayjs(day1)
@@ -117,19 +124,28 @@ const objectivesView = ({ route, navigation }) => {
                 <Searchbar
                     searchIcon={{ size: 24 }}
                     onChangeText={(text) => searchFilterFunction(text)}
-                    onClear={(text) => searchFilterFunction('')}
+                    onClear={ (text) => {
+                        setSearch(false)
+                        return searchFilterFunction('')}}
                     placeholder="Objective Title"
                     value={search}
                     >
                 </Searchbar>
+{/* TEST */}
+                <Button
+                title="Press Me"
+                onPress={updateState}
+                
+                />
 
+{/* TEST */}
                 </View>
 
                 <FlatList
                 keyExtractor={(item, index) => index.toString()}
                 navigation={navigation}
                 showsVerticalScrollIndicator={false}
-                data={filteredDataSource}
+                data={doSearch ? filteredDataSource : objectivesArray }
                 renderItem={({ item }) => {
                     return (
                         <View style={styles.textStyles}>

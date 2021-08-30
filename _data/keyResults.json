@@ -8,9 +8,13 @@
         "name": "Save $8,000 for Travel",
         "description": "Save Enough Money for a Family Trip to a European Capital!",
         "objective": {
+            "atRisk": false,
+            "percentComplete": 38,
             "_id": "6117c0d27fe0d3fd8c7c62eb",
-            "name": "We need a Family Vacation, Preferably somewhere in Europe.",
-            "description": "We need a Family Vacation:",
+            "name": "Family Vacation to Europe!",
+            "description": "We need a family vacation - the time off will do us well plus the kids can experience other cultures. The kids will form a more worldly view while we can recharge and connect/bond as a family",
+            "objectiveStartDate": "2021-07-01T13:14:12.264Z",
+            "objectiveEndDate": "2021-09-31T13:14:12.264Z",
             "id": "6117c0d27fe0d3fd8c7c62eb"
         },
         "user": "60e2f4d5a85e1c5ba5fc995e",
@@ -28,9 +32,13 @@
         "name": "Book 6 Attractions in Rome",
         "description": "We won't have enough time to do everything we want so we'll need to key in on what we ought to do",
         "objective": {
+            "atRisk": false,
+            "percentComplete": 38,
             "_id": "6117c0d27fe0d3fd8c7c62eb",
-            "name": "Brandon - Go On a Vacation",
-            "description": "We need a Family Vacation:",
+            "name": "Family Vacation to Europe!",
+            "description": "We need a family vacation - the time off will do us well plus the kids can experience other cultures. The kids will form a more worldly view while we can recharge and connect/bond as a family",
+            "objectiveStartDate": "2021-07-01T13:14:12.264Z",
+            "objectiveEndDate": "2021-09-31T13:14:12.264Z",
             "id": "6117c0d27fe0d3fd8c7c62eb"
         },
         "user": "60e2f4d5a85e1c5ba5fc995e",
