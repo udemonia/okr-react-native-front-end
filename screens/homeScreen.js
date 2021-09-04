@@ -25,34 +25,36 @@ import OKRsContext from '../context/okrContext';
 
 const objectivesView = ({ route, navigation }) => {
 
-    const [ doSearch, setDoSearch ] = useState(false)
-    const { objectivesArray, addObjective } = useContext(OKRsContext)
-    const updateState = () => {
-        //* on update button we
-        //* call add objective callback
-        //* update our state hooks start anew
-
-        addObjective()
-        setMasterDataSource(objectivesArray)
-        setFilteredDataSource(objectivesArray)
-        searchFilterFunction('')
-    }
-    
-    // let OKRs = objectivesArray;
-
     let JWTtoken = route.params.data.JWTtoken
-    // let userData = route.params.data.userData
-    // console.log('\nthis is the home screens')
-    // console.log(route.params.data.JWTtoken)
-    // console.log(route.params.data.userData)
 
+    const { objectivesArray, getObjectives } = useContext(OKRsContext)
+
+    // todo add search back and add filtering
+
+    useEffect(() => {
+        console.log('used Effect?')
+        getObjectives(JWTtoken)
+    }, [])
+
+    //* Data and Search Data -
+    // const [search, setSearch] = useState('');
+    // const [ filteredDataSource, setFilteredDataSource ] = useState(objectivesArray);
+    // const [ masterDataSource, setMasterDataSource ] = useState(objectivesArray);
+
+    // const [ doSearch, setDoSearch ] = useState(false)
+
+    // const updateState = () => {
+    //     //* on update button we
+    //     //* call add objective callback
+    //     //* update our state hooks start anew
+    //     setMasterDataSource(objectivesArray)
+    //     setFilteredDataSource(objectivesArray)
+    //     searchFilterFunction('')
+    // }
+    
     //* Get the access token 
     //todo how can we pass this along - or use redux
 
-    //* Data and Search Data -
-    const [search, setSearch] = useState('');
-    const [ filteredDataSource, setFilteredDataSource ] = useState(objectivesArray);
-    const [ masterDataSource, setMasterDataSource ] = useState(objectivesArray);
 
 
 
@@ -66,23 +68,24 @@ const objectivesView = ({ route, navigation }) => {
     //     return openClosedFilter === 'open' ? masterDataSource.marginTop((objective) => )
     // }
 
-    const searchFilterFunction = (text) => {
-        if (text) {
-        setDoSearch(true)
-          const newData = masterDataSource.filter(function (item) {
-            const itemData = item.name
-              ? item.name.toUpperCase()
-              : ''.toUpperCase();
-            const textData = text.toUpperCase();
-            return itemData.indexOf(textData) > -1;
-          });
-          setFilteredDataSource(newData);
-          setSearch(text);
-        } else {
-          setFilteredDataSource(masterDataSource);
-          setSearch(text);
-        }
-      };
+    // const searchFilterFunction = (text) => {
+    //     if (text) {
+    //     // setDoSearch(true)
+    //       const newData = masterDataSource.filter(function (item) {
+    //         const itemData = item.name
+    //           ? item.name.toUpperCase()
+    //           : ''.toUpperCase();
+    //         const textData = text.toUpperCase();
+    //         return itemData.indexOf(textData) > -1;
+    //       });
+    //       setFilteredDataSource(newData);
+    //       setSearch(text);
+    //     } else {
+    //       setFilteredDataSource(masterDataSource);
+    //       setSearch(text);
+    //     }
+    //   };
+
     let [ fontsLoaded, err ] = useFonts({
         Nunito_300Light,
         Nunito_400Regular,
@@ -111,8 +114,6 @@ const objectivesView = ({ route, navigation }) => {
     }
 
 
-
-
     if (!fontsLoaded) {
         return <AppLoading />
     } else {
@@ -121,7 +122,7 @@ const objectivesView = ({ route, navigation }) => {
 
                 <View style={styles.searchBarBox}>
 
-                <Searchbar
+                {/* <Searchbar
                     searchIcon={{ size: 24 }}
                     onChangeText={(text) => searchFilterFunction(text)}
                     onClear={ (text) => {
@@ -130,13 +131,9 @@ const objectivesView = ({ route, navigation }) => {
                     placeholder="Objective Title"
                     value={search}
                     >
-                </Searchbar>
+                </Searchbar> */}
 {/* TEST */}
-                <Button
-                title="Press Me"
-                onPress={updateState}
-                
-                />
+
 
 {/* TEST */}
                 </View>
@@ -145,7 +142,7 @@ const objectivesView = ({ route, navigation }) => {
                 keyExtractor={(item, index) => index.toString()}
                 navigation={navigation}
                 showsVerticalScrollIndicator={false}
-                data={doSearch ? filteredDataSource : objectivesArray }
+                data={objectivesArray}
                 renderItem={({ item }) => {
                     return (
                         <View style={styles.textStyles}>
@@ -215,7 +212,7 @@ const objectivesView = ({ route, navigation }) => {
                                             <Text style={styles.startEndLabels}>start</Text>
                                         </View>
 
-                                        <Text style={styles.dateText}>{item.objectiveStartDate.split('T')[0]}</Text>
+                                        <Text style={styles.dateText}>{dayjs(item.objectiveStartDate.split('T')[0]).format('MM/DD/YYYY')}</Text>
 
                                     </View>
 
@@ -225,7 +222,7 @@ const objectivesView = ({ route, navigation }) => {
                                             <Text style={styles.startEndLabels}>end</Text>
                                         </View>
                                         
-                                        <Text style={styles.dateText}>{item.objectiveEndDate.split('T')[0]}</Text>
+                                        <Text style={styles.dateText}>{dayjs(item.objectiveEndDate.split('T')[0]).format('MM/DD/YYYY')}</Text>
                                     </View>
                                 </View>
 
@@ -267,7 +264,7 @@ const objectivesView = ({ route, navigation }) => {
                     )
                 }}
                 />
-                <FabButton data={masterDataSource}></FabButton>
+                <FabButton data={objectivesArray}></FabButton>
             </View>
         )
     
@@ -339,6 +336,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginVertical: 10,
         padding: 2,
+
         // shadowColor: "#000",
         // shadowOffset: {
         //     width: 0,
