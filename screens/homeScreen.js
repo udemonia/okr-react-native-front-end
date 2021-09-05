@@ -1,12 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { View, Text, StyleSheet, FlatList, TouchableOpacity, TextInput, Button } from 'react-native'
-import data from '../_data/objectives.json'
+import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
+// import data from '../_data/objectives.json'
 import AppLoading from 'expo-app-loading';
-// import { StatusBar } from 'expo-status-bar';
 import { ProgressBar, Colors } from 'react-native-paper'
 import dayjs from 'dayjs';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import FabButton from '../components/fabButtons';
+// import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
 
 import {
     useFonts,
