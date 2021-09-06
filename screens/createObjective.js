@@ -127,12 +127,14 @@ const loginValidationSchema = yup.object().shape({
     .string()
     .required('Objective Name is Required'),
   description: yup
-  .string()
-  .required('Objective Description is Required')
-  // // startDate: yup.date()
-  // // .min(new Date('01-01-2020'))
-  // // .max(new Date())
-  // // .required(),
+    .string()
+    .required('Objective Description is Required'),
+  startDate: yup
+    .date()
+    .required('Start Date is Required'),
+  endDate: yup
+    .date()
+    .required('End Date is Required'),
 })
 
 const createObjective = () => {
@@ -141,7 +143,7 @@ const createObjective = () => {
   const [startDateVisible, setStartDateVisible ] = useState(false)
 
   return (
-    <View style={{flex: 1, alignContent: 'center', paddingHorizontal: 20, backgroundColor: 'white'}}>
+    <View style={{flex: 1, alignContent: 'center', paddingHorizontal: 40, backgroundColor: 'white'}}>
         <View style={styles.loginContainer}>
           <Formik
              validationSchema={loginValidationSchema}
@@ -207,7 +209,7 @@ const createObjective = () => {
                     onBlur={handleBlur('description')}
                     multiline={true}
                     value={values.description}
-                    secureTextEntry
+                    autoCapitalize='sentences'
                   />
 
                   {(errors.description && touched.description) &&
@@ -215,32 +217,57 @@ const createObjective = () => {
                   }
 
                 </View>
+                <View style={styles.dateBoxes}> 
+                  <View style={styles.formInputDates}>
+                    <TextInput
+                      name="startDate"
+                      label="Start Date"
+                      left={<TextInput.Icon name="calendar" color={colors.mediumPurple} forceTextInputFocus={true}/>}
+                      mode='flat'
+                      selectionColor={colors.mediumPurple}
+                      outlineColor={colors.darkPurple}
+                      //  outlineColor={!errors.description ? colors.darkPurple : 'red'}
+                      placeholder="mm-dd-yyyy"
+                      style={styles.textInput}
+                      onChangeText={handleChange('startDate')}
+                      onBlur={handleBlur('startDate')}
+                      value={values.startDate}
+                      onFocus={() => {
+                        setStartDateVisible(true)
+                        setStartDatePlaceHolder('MM-DD-YYYY')}}
+                      keyboardType='default'
+                    />
 
-                <View style={styles.formInput}>
+                      {(errors.startDate && touched.startDate) &&
+                        <Text style={styles.errorText}>{errors.startDate}</Text>
+                      }
 
-                 <TextInput
-                   name="startDate"
-                   label="Start Date"
-                   left={<TextInput.Icon name="calendar" color={colors.mediumPurple} forceTextInputFocus={true} size={30}/>}
-                   mode='flat'
-                   mask={dateMasking}
-                   selectionColor={colors.mediumPurple}
-                   outlineColor={!errors.description ? colors.darkPurple : 'red'}
-                   placeholder="mm-dd-yyyy"
-                   style={styles.textInput}
-                   onChangeText={handleChange('startDate')}
-                   onBlur={handleBlur('startDate')}
-                   value={values.startDate}
-                   onFocus={() => {
-                    setStartDateVisible(true)
-                    setStartDatePlaceHolder('MM-DD-YYYY')}}
-                   keyboardType='default'
-                 />
+                    </View>
 
-                  {(errors.startDate && touched.startDate) &&
-                    <Text style={styles.errorText}>{errors.startDate}</Text>
-                  }
+                <View style={styles.formInputDates}>
+                    <TextInput
+                      name="endDate"
+                      label="End Date"
+                      left={<TextInput.Icon name="calendar" color={colors.mediumPurple} forceTextInputFocus={true}/>}
+                      mode='flat'
+                      selectionColor={colors.mediumPurple}
+                      outlineColor={colors.darkPurple}
+                      // outlineColor={!errors.description ? colors.darkPurple : 'red'}
+                      placeholder="mm-dd-yyyy"
+                      style={styles.textInput}
+                      onChangeText={handleChange('endDate')}
+                      onBlur={handleBlur('endDate')}
+                      value={values.endDate}
+                      onFocus={() => {
+                      setStartDatePlaceHolder('MM-DD-YYYY')}}
+                      keyboardType='default'
+                    />
 
+                    {(errors.endDate && touched.endDate) &&
+                      <Text style={styles.errorText}>{errors.endDate}</Text>
+                    }
+
+                  </View>
                 </View>
 {/* 
                   <Text>{console.log(`Form is Valid: ${isValid}`)}</Text> */}
@@ -272,6 +299,16 @@ const styles = StyleSheet.create({
     fontSize: 10,
     paddingTop: 10,
     color: 'red'
+  },
+  dateBoxes: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'stretch'
+  },
+  formInputDates: {
+    flex: 1,
+    marginVertical: 5,
+
   },
 })
 
