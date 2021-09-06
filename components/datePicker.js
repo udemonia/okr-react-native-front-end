@@ -63,9 +63,8 @@ const ObjectiveDateSelector = (props) => {
             timeZoneOffsetInMinutes={0}
             value={date}
             mode={'date'}
-            display="default"
             textColor={colors.mediumPurple}
-            display={'default'}
+            display={'spinner'}
             // display={Platform.OS === 'ios' ? 'spinner' : 'default'}
             // is24Hour={true}
             onChange={onChange}

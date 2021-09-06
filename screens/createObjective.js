@@ -91,7 +91,7 @@
 
 
 // App.js
-import React from 'react'
+import React, { useState } from 'react'
 import {
   SafeAreaView,
   StyleSheet,
@@ -106,6 +106,7 @@ import { Formik } from 'formik'
 import * as yup from 'yup'
 import { Modal, Portal, Provider, Button, TextInput } from 'react-native-paper';
 import colors from '../colors/lightMode'
+import DatePicker from '../components/datePicker'
 
 
 const dateMasking = [
@@ -135,11 +136,13 @@ const loginValidationSchema = yup.object().shape({
 })
 
 const createObjective = () => {
+  const [ startDatePlaceHolder, setStartDatePlaceHolder ] = useState('Start Date')
+  const [objectiveNamePlaceholder, setObjectiveNamePlaceholder ] = useState('Objective Name')
+  const [startDateVisible, setStartDateVisible ] = useState(false)
 
   return (
     <View style={{flex: 1, alignContent: 'center', paddingHorizontal: 20, backgroundColor: 'white'}}>
         <View style={styles.loginContainer}>
-
           <Formik
              validationSchema={loginValidationSchema}
 
@@ -157,53 +160,69 @@ const createObjective = () => {
               isValid,
              }) => (
                <>
-                 <TextInput
-                   name="name"
-                   left={<TextInput.Icon name="check" color={colors.mediumPurple} forceTextInputFocus={true}/>}
-                   mode='outlined'
-                   selectionColor={colors.mediumPurple}
-                   outlineColor={!errors.name ? colors.darkPurple : 'red'}
-                   placeholder="objective name"
-                   style={styles.textInput}
-                   onChangeText={handleChange('name')}
-                   onBlur={handleBlur('name')}
-                   value={values.email}
-                   autoCapitalize='words'
-                  //  keyboardType="email-address"
-                 />
 
-                {(errors.name && touched.name) &&
-                  <Text style={styles.errorText}>{errors.name}</Text>
-                }
+                <View style={styles.formInput}>
+
+                  <TextInput
+                     name="name"
+                     label="Objective Name"
+                     left={<TextInput.Icon name="check" color={colors.mediumPurple} forceTextInputFocus={true} size={30}/>}
+                     mode='flat'
+                     selectionColor={colors.mediumPurple}
+                     outlineColor={colors.darkPurple}
+                    //  outlineColor={!errors.name ? colors.darkPurple : 'red'}
+                     placeholder={objectiveNamePlaceholder}
+                     style={styles.textInput}
+                     onChangeText={handleChange('name')}
+                     onBlur={handleBlur('name')}
+                     value={values.email}
+                     onFocus={() => {
+                      setObjectiveNamePlaceholder('')}}
+                     autoCapitalize='words'
+                    //  keyboardType="email-address"
+                   />
+
+                  {(errors.name && touched.name) &&
+                    <Text style={styles.errorText}>{errors.name}</Text>
+                  }
+                </View>
 
 
-                 {errors.email &&
-                   <Text style={{ fontSize: 10, color: 'red' }}>{errors.email}</Text>
-                 }
+                <View style={styles.formInput}>
 
-                 <TextInput
-                   name="description"
-                   left={<TextInput.Icon name="text" color={colors.mediumPurple} forceTextInputFocus={true}/>}
-                   mode='outlined'
-                   autoCapitalize='sentences'
-                   selectionColor={colors.mediumPurple}
-                   spellCheck={true}
-                   outlineColor={!errors.description ? colors.darkPurple : 'red'}
-                   placeholder="description"
-                   style={styles.textInput}
-                   onChangeText={handleChange('description')}
-                   onBlur={handleBlur('description')}
-                   multiline={true}
-                   value={values.description}
-                   secureTextEntry
-                 />
-                 {errors.description &&
-                   <Text style={{ fontSize: 10, color: 'red' }}>{errors.description}</Text>
-                 }
+                  <TextInput
+                    name="description"
+                    label="Description"
+                    left={<TextInput.Icon name="text" color={colors.mediumPurple} forceTextInputFocus={true} size={30}/>}
+                    mode='flat'
+                    autoCapitalize='sentences'
+                    selectionColor={colors.mediumPurple}
+                    outlineColor={colors.darkPurple}
+                    spellCheck={false}
+                    autoCorrect={false}
+                    // outlineColor={!errors.description ? colors.darkPurple : 'red'}
+                    placeholder={startDatePlaceHolder}
+                    style={styles.textInput}
+                    onChangeText={handleChange('description')}
+                    onBlur={handleBlur('description')}
+                    multiline={true}
+                    value={values.description}
+                    secureTextEntry
+                  />
+
+                  {(errors.description && touched.description) &&
+                    <Text style={styles.errorText}>{errors.description}</Text>
+                  }
+
+                </View>
+
+                <View style={styles.formInput}>
+
                  <TextInput
                    name="startDate"
-                   left={<TextInput.Icon name="calendar" color={colors.mediumPurple} forceTextInputFocus={true}/>}
-                   mode='outlined'
+                   label="Start Date"
+                   left={<TextInput.Icon name="calendar" color={colors.mediumPurple} forceTextInputFocus={true} size={30}/>}
+                   mode='flat'
                    mask={dateMasking}
                    selectionColor={colors.mediumPurple}
                    outlineColor={!errors.description ? colors.darkPurple : 'red'}
@@ -212,13 +231,19 @@ const createObjective = () => {
                    onChangeText={handleChange('startDate')}
                    onBlur={handleBlur('startDate')}
                    value={values.startDate}
-                   keyboardType='numeric'
+                   onFocus={() => {
+                    setStartDateVisible(true)
+                    setStartDatePlaceHolder('MM-DD-YYYY')}}
+                   keyboardType='default'
                  />
-                 {errors.startDate &&
-                   <Text style={{ fontSize: 10, color: 'red' }}>{errors.startDate}</Text>
-                 }
 
-                  <Text>{console.log(`Form is Valid: ${isValid}`)}</Text>
+                  {(errors.startDate && touched.startDate) &&
+                    <Text style={styles.errorText}>{errors.startDate}</Text>
+                  }
+
+                </View>
+{/* 
+                  <Text>{console.log(`Form is Valid: ${isValid}`)}</Text> */}
 
                  <Button
                    onPress={handleSubmit}
@@ -230,6 +255,7 @@ const createObjective = () => {
              )}
            </Formik>
         </View>
+        <DatePicker startDateVisible={true}></DatePicker>
     </View>
   )
 }
@@ -238,31 +264,14 @@ const styles = StyleSheet.create({
   textInput: {
     backgroundColor: 'white'
   },
-  // container: {
-  //   // flex: 1,
-  //   // justifyContent: 'center',
-  //   // alignItems: 'center',
-  // },
-  // loginContainer: {
-  //   width: '80%',
-  //   alignItems: 'center',
-  //   backgroundColor: 'white',
-  //   padding: 10,
-  //   elevation: 10,
-  //   backgroundColor: '#e6e6e6'
-  // },
-  // textInput: {
-  //   height: 40,
-  //   width: '100%',
-  //   margin: 10,
-  //   backgroundColor: 'white',
-  //   borderColor: 'gray',
-  //   borderWidth: StyleSheet.hairlineWidth,
-  //   borderRadius: 10,
-  // },
+  formInput: {
+    marginVertical: 5,
+
+  },
   errorText: {
     fontSize: 10,
-    color: 'red',
+    paddingTop: 10,
+    color: 'red'
   },
 })
 
