@@ -109,18 +109,10 @@ import colors from '../colors/lightMode'
 import DatePicker from '../components/datePicker'
 
 
-const dateMasking = [
-  /[0-1]/,
-  /[0-9]/,
-  "/",
-  /[0-3]/,
-  /[0-9]/,
-  "/",
-  /[1-2]/,
-  /[0-9]/,
-  /\d/,
-  /\d/
-];
+function validateDate(testdate) {
+  var date_regex = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/ ;
+  return date_regex.test(testdate);
+}
 
 const loginValidationSchema = yup.object().shape({
   name: yup
@@ -130,7 +122,7 @@ const loginValidationSchema = yup.object().shape({
     .string()
     .required('Objective Description is Required'),
   startDate: yup
-    .date()
+    .string().matches(/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/, 'Invalid date (dd/mm/yyyy)')
     .required('Start Date is Required'),
   endDate: yup
     .date()
@@ -227,14 +219,14 @@ const createObjective = () => {
                       selectionColor={colors.mediumPurple}
                       outlineColor={colors.darkPurple}
                       //  outlineColor={!errors.description ? colors.darkPurple : 'red'}
-                      placeholder="mm-dd-yyyy"
+                      placeholder="mm/dd/yyyy"
                       style={styles.textInput}
                       onChangeText={handleChange('startDate')}
                       onBlur={handleBlur('startDate')}
                       value={values.startDate}
                       onFocus={() => {
                         setStartDateVisible(true)
-                        setStartDatePlaceHolder('MM-DD-YYYY')}}
+                        setStartDatePlaceHolder('mm/dd/yyyy')}}
                       keyboardType='default'
                     />
 
@@ -253,13 +245,13 @@ const createObjective = () => {
                       selectionColor={colors.mediumPurple}
                       outlineColor={colors.darkPurple}
                       // outlineColor={!errors.description ? colors.darkPurple : 'red'}
-                      placeholder="mm-dd-yyyy"
+                      placeholder="mm/dd/yyyy"
                       style={styles.textInput}
                       onChangeText={handleChange('endDate')}
                       onBlur={handleBlur('endDate')}
                       value={values.endDate}
                       onFocus={() => {
-                      setStartDatePlaceHolder('MM-DD-YYYY')}}
+                      setStartDatePlaceHolder('mm/dd/yyyy')}}
                       keyboardType='default'
                     />
 
