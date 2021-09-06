@@ -47,8 +47,9 @@ const loginValidationSchema = yup.object().shape({
 const createObjective = () => {
 
   const [ startDatePlaceHolder, setStartDatePlaceHolder ] = useState('Start Date')
-  const [objectiveNamePlaceholder, setObjectiveNamePlaceholder ] = useState('Objective Name')
-  const [startDateVisible, setStartDateVisible ] = useState(false)
+  const [ objectiveNamePlaceholder, setObjectiveNamePlaceholder ] = useState('Objective Name')
+  const [ descriptionPlaceholder, setDescriptionPlaceholder ] = useState('Description')
+  const [ startDateVisible, setStartDateVisible ] = useState(false)
 
 
   const theme = {
@@ -91,7 +92,7 @@ const createObjective = () => {
                      name="name"
                      theme={theme}
                      label="Objective Name"
-                     left={<TextInput.Icon name="check" color={colors.mediumPurple} forceTextInputFocus={true} size={30}/>}
+                     left={<TextInput.Icon name="bullseye" color={colors.mediumPurple} forceTextInputFocus={true}/>}
                      mode='flat'
                      selectionColor={colors.mediumPurple}
                      outlineColor={colors.darkPurple}
@@ -118,21 +119,22 @@ const createObjective = () => {
                   <TextInput
                     name="description"
                     label="Description"
-                    left={<TextInput.Icon name="text" color={colors.mediumPurple} forceTextInputFocus={true} size={30}/>}
+                    left={<TextInput.Icon name="text" color={colors.mediumPurple} forceTextInputFocus={true}/>}
                     mode='flat'
                     autoCapitalize='sentences'
                     selectionColor={colors.mediumPurple}
                     outlineColor={colors.darkPurple}
-                    spellCheck={false}
-                    autoCorrect={false}
+                    spellCheck={true}
+                    autoCorrect={true}
                     // outlineColor={!errors.description ? colors.darkPurple : 'red'}
-                    placeholder={startDatePlaceHolder}
+                    placeholder={descriptionPlaceholder}
                     style={styles.textInput}
                     onChangeText={handleChange('description')}
                     onBlur={handleBlur('description')}
-                    multiline={true}
                     value={values.description}
                     autoCapitalize='sentences'
+                    onFocus={() => {
+                      setDescriptionPlaceholder('')}}
                   />
 
                   {(errors.description && touched.description) &&
@@ -212,9 +214,10 @@ const createObjective = () => {
                 </View>
                 {/*  <Text>{console.log(`Form is Valid: ${isValid}`)}</Text> */}
                 
-                <View>
+                <View style={{paddingVertical: 20}}>
                  <Button
                     style={styles.button}
+                    color={colors.mediumPurple}
                     onPress={handleSubmit}
                     onPress={handleSubmit}
                     title="Enter"
@@ -269,9 +272,6 @@ const styles = StyleSheet.create({
   formInputDates: {
     flex: 1,
     marginTop: 5,
-  },
-  button: {
-    backgroundColor: colors.pink
   }
 })
 
