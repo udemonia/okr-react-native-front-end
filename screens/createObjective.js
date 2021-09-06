@@ -4,13 +4,28 @@ import {
   StyleSheet,
   View,
   Text,
+  Dimensions,
+  Button
 } from 'react-native'
 import { Formik } from 'formik'
 import * as yup from 'yup'
-import { Modal, Portal, Provider, Button, TextInput } from 'react-native-paper';
+import { Modal, Portal, Provider,TextInput } from 'react-native-paper';
 import colors from '../colors/lightMode'
 import DatePicker from '../components/datePicker'
 import { TextInputMask } from 'react-native-masked-text'
+import AppLoading from 'expo-app-loading';
+import {
+  useFonts,
+  Nunito_200ExtraLight,
+  Nunito_300Light,
+  Nunito_400Regular,
+  Nunito_700Bold
+} from '@expo-google-fonts/nunito';
+
+
+
+
+const { height, width } = Dimensions.get('window')
 
 
 
@@ -30,19 +45,36 @@ const loginValidationSchema = yup.object().shape({
 })
 
 const createObjective = () => {
+
   const [ startDatePlaceHolder, setStartDatePlaceHolder ] = useState('Start Date')
   const [objectiveNamePlaceholder, setObjectiveNamePlaceholder ] = useState('Objective Name')
   const [startDateVisible, setStartDateVisible ] = useState(false)
 
+
+  const theme = {
+    fontFamily: 'Nunito_400Regular',
+  };
+
+  let [ fontsLoaded, err ] = useFonts({
+    Nunito_300Light,
+    Nunito_400Regular,
+    Nunito_700Bold
+  })
+
+  if (!fontsLoaded) {
+    return <AppLoading />
+  } 
   return (
-    <View style={{flex: 1, alignContent: 'center', paddingHorizontal: 40, backgroundColor: 'white'}}>
+
+    <View style={{flex: 1, alignContent: 'center', justifyContent: 'start', paddingHorizontal: 10, backgroundColor: colors.darkPurple}}>
+      <View>
+        <Text style={styles.header}>Plan an Objective</Text>
+      </View>
         <View style={styles.loginContainer}>
           <Formik
              validationSchema={loginValidationSchema}
-
              initialValues={{ name: '', description: '', startDate: '', endDate: '' }}
-
-             onSubmit={values => console.log(values)}
+             onSubmit={values => console.log(values)} //! POST Request to endpoint
            >
              {({
               handleChange,
@@ -54,11 +86,10 @@ const createObjective = () => {
               isValid,
              }) => (
                <>
-
                 <View style={styles.formInput}>
-
                   <TextInput
                      name="name"
+                     theme={theme}
                      label="Objective Name"
                      left={<TextInput.Icon name="check" color={colors.mediumPurple} forceTextInputFocus={true} size={30}/>}
                      mode='flat'
@@ -179,14 +210,17 @@ const createObjective = () => {
                   </View>
 
                 </View>
-{/* 
-                  <Text>{console.log(`Form is Valid: ${isValid}`)}</Text> */}
-
+                {/*  <Text>{console.log(`Form is Valid: ${isValid}`)}</Text> */}
+                
+                <View>
                  <Button
-                   onPress={handleSubmit}
-                   title="Submit"
-                   disabled={true}
+                    style={styles.button}
+                    onPress={handleSubmit}
+                    onPress={handleSubmit}
+                    title="Enter"
+                    disabled={ isValid ? false : true }
                  />
+                 </View>
 
                </>
              )}
@@ -198,17 +232,34 @@ const createObjective = () => {
 }
 
 const styles = StyleSheet.create({
+  header: {
+    marginTop: 30,
+    fontFamily: 'Nunito_300Light',
+    color: colors.lightGrey,
+    fontWeight: 'bold',
+    marginLeft: 20,
+    fontSize: 30,
+    position: 'absolute'
+  },
+  loginContainer: {
+    marginTop: height / 10,
+    marginHorizontal: 6,
+    padding: 10,
+    backgroundColor: 'white',
+    borderRadius: 10
+  },
   textInput: {
     backgroundColor: 'white'
   },
   formInput: {
-    marginVertical: 5,
+    marginTop: 10,
 
   },
   errorText: {
-    fontSize: 10,
+    paddingLeft: 10,
+    fontSize: 14,
     paddingTop: 10,
-    color: 'red'
+    color: colors.lightPurple
   },
   dateBoxes: {
     flexDirection: 'row',
@@ -217,9 +268,11 @@ const styles = StyleSheet.create({
   },
   formInputDates: {
     flex: 1,
-    marginVertical: 5,
-
+    marginTop: 5,
   },
+  button: {
+    backgroundColor: colors.pink
+  }
 })
 
 export default createObjective
