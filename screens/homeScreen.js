@@ -20,6 +20,17 @@ import { Searchbar } from 'react-native-paper';
 import colors from '../colors/lightMode'
 import { color } from 'react-native-reanimated';
 import OKRsContext from '../context/okrContext';
+import { PanGestureHandler, PanGestureHandlerGestureEvent } from 'react-native-gesture-handler';
+import Animated, {
+  useSharedValue,
+  withTiming,
+  useAnimatedStyle,
+  Easing,
+  withSpring,
+  withRepeat,
+  useAnimatedGestureHandler,
+  useAnimatedScrollHandler,
+} from 'react-native-reanimated';
 
 
 const objectivesView = ({ route, navigation }) => {

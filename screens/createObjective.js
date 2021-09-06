@@ -1,106 +1,9 @@
-// import React, {useState} from 'react';
-// import {StyleSheet, View, Text, Platform, TouchableHighlight, TouchableOpacity, Dimensions } from 'react-native';
-// import dayjs from 'dayjs';
-// import * as yup from 'yup'
-// import { Formik } from 'formik'
-
-// import utc from 'dayjs/plugin/utc'
-// import DateTimePicker from '@react-native-community/datetimepicker';
-// import colors from '../colors/lightMode'
-// import { Modal, Portal, Provider, Button, TextInput } from 'react-native-paper';
-// import ObjectiveDateSelector from '../components/datePicker'
-// import ThirdTryDatePicker from '../components/thirdTryDatePicker'
-
-// let schema = yup.object().shape({
-//   name: yup.string().required()
-// });
-
-// const createObjective = (props) => {
-//   let today = dayjs().format('YYYY-MM-DD')
-//   const [name, setName] = React.useState('');
-//   const [startDate, setStartDate] = React.useState(today);
-//   const [ startDateVisible, setStartDateVisible ] = useState(false)
-
-//   const togglePicker = () => {
-//     setStartDateVisible(true);
-//   }
-
-//   return (
-//       <View style={{ flex: 1,     backgroundColor: 'white'}}>
-//         <View style={{paddingVertical: 20, marginHorizontal: 10}}>
-//           <TextInput
-//             style={{backgroundColor: 'white'}}
-//             label="objective title"
-//             value={name}
-//             onChangeText={name => setName(name)}
-//           />
-//           <TouchableHighlight
-//             activeOpacity={.5}
-//             underlayColor={'white'}
-//           >
-//               <TextInput
-//                 style={{backgroundColor: 'white'}}
-//                 label="start date"
-//                 scrollEnabled={false}
-//                 placeholder="MM-DD-YYYY"
-//                 keyboardType = 'numeric'
-//                 selectTextOnFocus={false}
-//                 onFocus={togglePicker}
-//                 editable={true}
-//                 caretHidden={true}
-//                 // value={startDate}
-//                 onChangeText={startDate => setStartDate(startDate)}
-//               />
-//           </TouchableHighlight>
-//           <TextInput
-//             style={{backgroundColor: 'white'}}
-//             label="description"
-//             value={name}
-//             onChangeText={name => setName(name)}
-//           />
-// {/* 
-//           <View style={{margin: 20}}>
-//             <View>
-//               <ThirdTryDatePicker startDateVisible={startDateVisible}></ThirdTryDatePicker>
-//             </View>
-//             <View>
-//               <ThirdTryDatePicker startDateVisible={startDateVisible}></ThirdTryDatePicker>
-//             </View>
-//           </View> */}
-
-//         </View>
-//       </View>
-//   );
-// };
-
-// // just add some styles to make our app look more beautiful
-// // This is not the focus of this article
-// const styles = StyleSheet.create({
-//   container: {
-//     // display: 'flex',
-//     // flexDirection: 'column',
-//     // alignItems: 'center',
-//     // flex: 1,
-//     // justifyContent: 'center',
-//     // padding: 50,
-//   }
-// });
-
-// export default createObjective;
-
-
-
-// App.js
 import React, { useState } from 'react'
 import {
   SafeAreaView,
   StyleSheet,
-  ScrollView,
   View,
   Text,
-  StatusBar,
-  // TextInput,
-  // Button
 } from 'react-native'
 import { Formik } from 'formik'
 import * as yup from 'yup'
@@ -289,7 +192,7 @@ const createObjective = () => {
              )}
            </Formik>
         </View>
-        <DatePicker startDateVisible={true}></DatePicker>
+        {/* <DatePicker startDateVisible={true}></DatePicker> */}
     </View>
   )
 }
