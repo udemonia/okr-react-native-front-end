@@ -107,6 +107,8 @@ import * as yup from 'yup'
 import { Modal, Portal, Provider, Button, TextInput } from 'react-native-paper';
 import colors from '../colors/lightMode'
 import DatePicker from '../components/datePicker'
+import { TextInputMask } from 'react-native-masked-text'
+
 
 
 const loginValidationSchema = yup.object().shape({
@@ -223,6 +225,15 @@ const createObjective = () => {
                         setStartDateVisible(true)
                         setStartDatePlaceHolder('mm/dd/yyyy')}}
                       keyboardType='default'
+                      render={props =>
+                        <TextInputMask
+                          {...props}
+                          type={'datetime'}
+                          options={{
+                            format: 'MM/DD/YYYY'
+                          }}
+                        />
+                      }
                     />
 
                       {(errors.startDate && touched.startDate) &&
@@ -248,13 +259,22 @@ const createObjective = () => {
                       onFocus={() => {
                       setStartDatePlaceHolder('mm/dd/yyyy')}}
                       keyboardType='default'
+                      render={props =>
+                        <TextInputMask
+                          {...props}
+                          type={'datetime'}
+                          options={{
+                            format: 'MM/DD/YYYY'
+                          }}
+                        />
+                      }
                     />
 
                     {(errors.endDate && touched.endDate) &&
                       <Text style={styles.errorText}>{errors.endDate}</Text>
                     }
-
                   </View>
+
                 </View>
 {/* 
                   <Text>{console.log(`Form is Valid: ${isValid}`)}</Text> */}
