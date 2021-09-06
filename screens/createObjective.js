@@ -109,11 +109,6 @@ import colors from '../colors/lightMode'
 import DatePicker from '../components/datePicker'
 
 
-function validateDate(testdate) {
-  var date_regex = /^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/ ;
-  return date_regex.test(testdate);
-}
-
 const loginValidationSchema = yup.object().shape({
   name: yup
     .string()
@@ -125,7 +120,7 @@ const loginValidationSchema = yup.object().shape({
     .string().matches(/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/, 'Invalid date (dd/mm/yyyy)')
     .required('Start Date is Required'),
   endDate: yup
-    .date()
+    .string().matches(/^(0[1-9]|1[0-2])\/(0[1-9]|1\d|2\d|3[01])\/(19|20)\d{2}$/, 'Invalid date (dd/mm/yyyy)')
     .required('End Date is Required'),
 })
 
