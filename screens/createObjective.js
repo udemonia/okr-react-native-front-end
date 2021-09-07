@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, createRef, useEffect, useRef } from 'react'
 import {
   SafeAreaView,
   StyleSheet,
   View,
   Text,
   Dimensions,
-  Button
+  Button,
+  Keyboard
 } from 'react-native'
 import { Formik } from 'formik'
 import * as yup from 'yup'
@@ -21,13 +22,9 @@ import {
   Nunito_400Regular,
   Nunito_700Bold
 } from '@expo-google-fonts/nunito';
-
-
-
+import QuarterCards from '../components/quarterCards'
 
 const { height, width } = Dimensions.get('window')
-
-
 
 const loginValidationSchema = yup.object().shape({
   name: yup
@@ -45,11 +42,24 @@ const loginValidationSchema = yup.object().shape({
 })
 
 const createObjective = () => {
+  //? Create the NEXT input Refs
+  const objectiveNameRef = createRef();
+  const descriptionRef = createRef();
+  const startRef = createRef();
+  const endRef = createRef();
+
+
+  const [ quarterStartDate, setQuarterStartDate ] = useState('')    //? Pass to quarter promp
+  const [ quarterEndDate, setQuarterEndDate ] = useState('')        //? Pass to quarter promp
+
+  console.log(`The Start Date is: ${quarterStartDate}`)
+  console.log(`The End Date is: ${quarterEndDate}`)
 
   const [ startDatePlaceHolder, setStartDatePlaceHolder ] = useState('Start Date')
   const [ objectiveNamePlaceholder, setObjectiveNamePlaceholder ] = useState('Objective Name')
   const [ descriptionPlaceholder, setDescriptionPlaceholder ] = useState('Description')
   const [ startDateVisible, setStartDateVisible ] = useState(false)
+
 
 
   const theme = {
@@ -65,6 +75,7 @@ const createObjective = () => {
   if (!fontsLoaded) {
     return <AppLoading />
   } 
+
   return (
 
     <View style={{flex: 1, alignContent: 'center', justifyContent: 'start', paddingHorizontal: 10, backgroundColor: colors.darkPurple}}>
@@ -73,8 +84,9 @@ const createObjective = () => {
       </View>
         <View style={styles.loginContainer}>
           <Formik
+             enableReinitialize={true}
              validationSchema={loginValidationSchema}
-             initialValues={{ name: '', description: '', startDate: '', endDate: '' }}
+             initialValues={{ name: '', description: '', startDate: quarterStartDate, endDate: quarterEndDate }}
              onSubmit={values => console.log(values)} //! POST Request to endpoint
            >
              {({
@@ -90,12 +102,15 @@ const createObjective = () => {
                 <View style={styles.formInput}>
                   <TextInput
                      name="name"
+                     ref={objectiveNameRef}
                      theme={theme}
                      label="Objective Name"
                      left={<TextInput.Icon name="bullseye" color={colors.mediumPurple} forceTextInputFocus={true}/>}
                      mode='flat'
                      selectionColor={colors.mediumPurple}
                      outlineColor={colors.darkPurple}
+                     blurOnSubmit={false}
+                     returnKeyType='next'
                     //  outlineColor={!errors.name ? colors.darkPurple : 'red'}
                      placeholder={objectiveNamePlaceholder}
                      style={styles.textInput}
@@ -105,6 +120,11 @@ const createObjective = () => {
                      onFocus={() => {
                       setObjectiveNamePlaceholder('')}}
                      autoCapitalize='words'
+                     onSubmitEditing={() =>
+                      descriptionRef.current &&
+                      descriptionRef.current.focus()
+                    }
+
                     //  keyboardType="email-address"
                    />
 
@@ -115,9 +135,10 @@ const createObjective = () => {
 
 
                 <View style={styles.formInput}>
-
                   <TextInput
                     name="description"
+                    ref={descriptionRef}
+                    onSubmitEditing={Keyboard.dismiss}
                     label="Description"
                     left={<TextInput.Icon name="text" color={colors.mediumPurple} forceTextInputFocus={true}/>}
                     mode='flat'
@@ -126,31 +147,45 @@ const createObjective = () => {
                     outlineColor={colors.darkPurple}
                     spellCheck={true}
                     autoCorrect={true}
+                    multiline={true}
                     // outlineColor={!errors.description ? colors.darkPurple : 'red'}
                     placeholder={descriptionPlaceholder}
                     style={styles.textInput}
+                    blurOnSubmit={false}
                     onChangeText={handleChange('description')}
                     onBlur={handleBlur('description')}
+                    returnKeyType='done'
                     value={values.description}
                     autoCapitalize='sentences'
                     onFocus={() => {
                       setDescriptionPlaceholder('')}}
+
                   />
 
                   {(errors.description && touched.description) &&
                     <Text style={styles.errorText}>{errors.description}</Text>
                   }
+                  
+                <QuarterCards 
+                  addStartDate={(value) => setQuarterStartDate(value) }
+                  addEndDate={(value) => setQuarterEndDate(value) }
+                  startDate={quarterStartDate}
+                  endDate={quarterEndDate}
+                ></QuarterCards>
 
                 </View>
                 <View style={styles.dateBoxes}> 
                   <View style={styles.formInputDates}>
                     <TextInput
                       name="startDate"
+                      ref={startRef}
                       label="Start Date"
                       left={<TextInput.Icon name="calendar" color={colors.mediumPurple} forceTextInputFocus={true}/>}
                       mode='flat'
                       selectionColor={colors.mediumPurple}
+                      blurOnSubmit={false}
                       outlineColor={colors.darkPurple}
+                      returnKeyType='next'
                       //  outlineColor={!errors.description ? colors.darkPurple : 'red'}
                       placeholder="mm/dd/yyyy"
                       style={styles.textInput}
@@ -160,7 +195,8 @@ const createObjective = () => {
                       onFocus={() => {
                         setStartDateVisible(true)
                         setStartDatePlaceHolder('mm/dd/yyyy')}}
-                      keyboardType='default'
+                      returnKeyType='done'
+                      onSubmitEditing={Keyboard.dismiss}
                       render={props =>
                         <TextInputMask
                           {...props}
@@ -182,8 +218,10 @@ const createObjective = () => {
                     <TextInput
                       name="endDate"
                       label="End Date"
+                      ref={endRef}
                       left={<TextInput.Icon name="calendar" color={colors.mediumPurple} forceTextInputFocus={true}/>}
                       mode='flat'
+                      blurOnSubmit={false}
                       selectionColor={colors.mediumPurple}
                       outlineColor={colors.darkPurple}
                       // outlineColor={!errors.description ? colors.darkPurple : 'red'}
@@ -195,6 +233,8 @@ const createObjective = () => {
                       onFocus={() => {
                       setStartDatePlaceHolder('mm/dd/yyyy')}}
                       keyboardType='default'
+                      onSubmitEditing={Keyboard.dismiss}
+                      returnKeyType='done'
                       render={props =>
                         <TextInputMask
                           {...props}
@@ -213,8 +253,9 @@ const createObjective = () => {
 
                 </View>
                 {/*  <Text>{console.log(`Form is Valid: ${isValid}`)}</Text> */}
+
                 
-                <View style={{paddingVertical: 20}}>
+                <View style={{paddingTop: 20, paddingBottom: 4}}>
                  <Button
                     style={styles.button}
                     color={colors.mediumPurple}
@@ -246,10 +287,10 @@ const styles = StyleSheet.create({
   },
   loginContainer: {
     marginTop: height / 10,
-    marginHorizontal: 6,
+    marginHorizontal: 3,
     padding: 10,
     backgroundColor: 'white',
-    borderRadius: 10
+    borderRadius: 5
   },
   textInput: {
     backgroundColor: 'white'
