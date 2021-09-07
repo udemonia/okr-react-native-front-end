@@ -41,7 +41,7 @@ const loginValidationSchema = yup.object().shape({
     .required('End Date is Required'),
 })
 
-const createObjective = () => {
+const createObjective = ({ navigation }) => {
   //? Create the NEXT input Refs
   const objectiveNameRef = createRef();
   const descriptionRef = createRef();
@@ -51,9 +51,10 @@ const createObjective = () => {
 
   const [ quarterStartDate, setQuarterStartDate ] = useState('')    //? Pass to quarter promp
   const [ quarterEndDate, setQuarterEndDate ] = useState('')        //? Pass to quarter promp
+  const [ objectiveName, setObjectiveName ] = useState('')
+  const [ description, setDescription ] = useState('')
 
-  console.log(`The Start Date is: ${quarterStartDate}`)
-  console.log(`The End Date is: ${quarterEndDate}`)
+  console.log(`Objective Name: ${objectiveName}`)
 
   const [ startDatePlaceHolder, setStartDatePlaceHolder ] = useState('Start Date')
   const [ objectiveNamePlaceholder, setObjectiveNamePlaceholder ] = useState('Objective Name')
@@ -86,8 +87,8 @@ const createObjective = () => {
           <Formik
              enableReinitialize={true}
              validationSchema={loginValidationSchema}
-             initialValues={{ name: '', description: '', startDate: quarterStartDate, endDate: quarterEndDate }}
-             onSubmit={values => console.log(values)} //! POST Request to endpoint
+             initialValues={{ name: objectiveName, description: '', startDate: quarterStartDate, endDate: quarterEndDate }}
+             onSubmit={() => navigation.navigate('AddKeyResults')} //! POST Request to endpoint
            >
              {({
               handleChange,
@@ -100,6 +101,13 @@ const createObjective = () => {
              }) => (
                <>
                 <View style={styles.formInput}>
+
+                <QuarterCards 
+                  addStartDate={(value) => setQuarterStartDate(value) }
+                  addEndDate={(value) => setQuarterEndDate(value) }
+                  startDate={quarterStartDate}
+                  endDate={quarterEndDate}
+                ></QuarterCards>
                   <TextInput
                      name="name"
                      ref={objectiveNameRef}
@@ -115,8 +123,8 @@ const createObjective = () => {
                      placeholder={objectiveNamePlaceholder}
                      style={styles.textInput}
                      onChangeText={handleChange('name')}
-                     onBlur={handleBlur('name')}
-                     value={values.email}
+                    //  onBlur={handleBlur('name')}
+                     value={values.name}
                      onFocus={() => {
                       setObjectiveNamePlaceholder('')}}
                      autoCapitalize='words'
@@ -131,6 +139,7 @@ const createObjective = () => {
                   {(errors.name && touched.name) &&
                     <Text style={styles.errorText}>{errors.name}</Text>
                   }
+
                 </View>
 
 
@@ -165,13 +174,6 @@ const createObjective = () => {
                   {(errors.description && touched.description) &&
                     <Text style={styles.errorText}>{errors.description}</Text>
                   }
-                  
-                <QuarterCards 
-                  addStartDate={(value) => setQuarterStartDate(value) }
-                  addEndDate={(value) => setQuarterEndDate(value) }
-                  startDate={quarterStartDate}
-                  endDate={quarterEndDate}
-                ></QuarterCards>
 
                 </View>
                 <View style={styles.dateBoxes}> 
@@ -232,7 +234,7 @@ const createObjective = () => {
                       value={values.endDate}
                       onFocus={() => {
                       setStartDatePlaceHolder('mm/dd/yyyy')}}
-                      keyboardType='default'
+                      // keyboardType='default'
                       onSubmitEditing={Keyboard.dismiss}
                       returnKeyType='done'
                       render={props =>

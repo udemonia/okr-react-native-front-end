@@ -45,7 +45,7 @@ const QuarterCards = ({ addStartDate, addEndDate }) => {
         //   theme={{ colors: { primary: '#4169e1' } }}
           style={{ backgroundColor: 'white', marginBottom: 1 }}
           onPress={() => { LayoutAnimation.easeInEaseOut(); }}
-          title="Select by Quarter">
+          title="Plan by Quarter">
           <List.Item title={titleFirstNextQuarter} onPress={ () => {
               addStartDate(firstNextQuarter) 
               addEndDate(firstNextQuarterEnd)}}/>
