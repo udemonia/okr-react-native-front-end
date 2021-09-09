@@ -15,14 +15,8 @@ import colors from '../colors/lightMode'
 import DatePicker from '../components/datePicker'
 import { TextInputMask } from 'react-native-masked-text'
 import AppLoading from 'expo-app-loading';
-import {
-  useFonts,
-  Nunito_200ExtraLight,
-  Nunito_300Light,
-  Nunito_400Regular,
-  Nunito_700Bold
-} from '@expo-google-fonts/nunito';
 import QuarterCards from '../components/quarterCards'
+import dayjs from 'dayjs';
 
 const { height, width } = Dimensions.get('window')
 
@@ -54,32 +48,15 @@ const createObjective = ({ navigation }) => {
   const [ objectiveName, setObjectiveName ] = useState('')
   const [ description, setDescription ] = useState('')
 
-  console.log(`Objective Name: ${objectiveName}`)
 
   const [ startDatePlaceHolder, setStartDatePlaceHolder ] = useState('Start Date')
   const [ objectiveNamePlaceholder, setObjectiveNamePlaceholder ] = useState('Objective Name')
   const [ descriptionPlaceholder, setDescriptionPlaceholder ] = useState('Description')
   const [ startDateVisible, setStartDateVisible ] = useState(false)
 
-
-
-  const theme = {
-    fontFamily: 'Nunito_400Regular',
-  };
-
-  let [ fontsLoaded, err ] = useFonts({
-    Nunito_300Light,
-    Nunito_400Regular,
-    Nunito_700Bold
-  })
-
-  if (!fontsLoaded) {
-    return <AppLoading />
-  } 
-
   return (
 
-    <View style={{flex: 1, alignContent: 'center', justifyContent: 'start', paddingHorizontal: 10, backgroundColor: colors.darkPurple}}>
+    <View style={{flex: 1, alignContent: 'center', justifyContent: 'start', backgroundColor: colors.darkPurple}}>
       <View>
         <Text style={styles.header}>Plan an Objective</Text>
       </View>
@@ -88,7 +65,8 @@ const createObjective = ({ navigation }) => {
              enableReinitialize={true}
              validationSchema={loginValidationSchema}
              initialValues={{ name: objectiveName, description: '', startDate: quarterStartDate, endDate: quarterEndDate }}
-             onSubmit={() => navigation.navigate('AddKeyResults')} //! POST Request to endpoint
+             onSubmit={ (values) => alert(JSON.stringify(values, null, 2))} //! POST Request to endpoint
+            //  onSubmit={ () => navigation.navigate('AddKeyResults')} //! POST Request to endpoint
            >
              {({
               handleChange,
@@ -107,11 +85,12 @@ const createObjective = ({ navigation }) => {
                   addEndDate={(value) => setQuarterEndDate(value) }
                   startDate={quarterStartDate}
                   endDate={quarterEndDate}
+                  
                 ></QuarterCards>
+
                   <TextInput
                      name="name"
                      ref={objectiveNameRef}
-                     theme={theme}
                      label="Objective Name"
                      left={<TextInput.Icon name="bullseye" color={colors.mediumPurple} forceTextInputFocus={true}/>}
                      mode='flat'
@@ -289,17 +268,20 @@ const styles = StyleSheet.create({
   },
   loginContainer: {
     marginTop: height / 10,
-    marginHorizontal: 3,
+    // marginHorizontal: 3,
     padding: 10,
     backgroundColor: 'white',
-    borderRadius: 5
+    borderTopColor: colors.lightPurple,
+    borderTopWidth: 2,
+    borderBottomColor: colors.lightPurple,
+    borderBottomWidth: 2
+    // borderRadius: 5
   },
   textInput: {
     backgroundColor: 'white'
   },
   formInput: {
     marginTop: 10,
-
   },
   errorText: {
     paddingLeft: 10,

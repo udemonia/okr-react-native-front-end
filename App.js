@@ -11,14 +11,93 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import DrawerEntryNav from './screens/drawerNavigation'
 import AuthStack from './screens/authStack'
 import { OKRsProvider } from './context/okrContext'
+import { configureFonts, DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
+import colors from './colors/lightMode'
+
+
+// const fontConfig = {
+//   web: {
+//     regular: {
+//       fontFamily: 'sans-serif',
+//       fontWeight: 'normal',
+//     },
+//     medium: {
+//       fontFamily: 'sans-serif-medium',
+//       fontWeight: 'normal',
+//     },
+//     light: {
+//       fontFamily: 'sans-serif-light',
+//       fontWeight: 'normal',
+//     },
+//     thin: {
+//       fontFamily: 'sans-serif-thin',
+//       fontWeight: 'normal',
+//     },
+//   },
+//   ios: {
+//     regular: {
+//       fontFamily: 'sans-serif',
+//       fontWeight: 'normal',
+//     },
+//     medium: {
+//       fontFamily: 'sans-serif-medium',
+//       fontWeight: 'normal',
+//     },
+//     light: {
+//       fontFamily: 'sans-serif-light',
+//       fontWeight: 'normal',
+//     },
+//     thin: {
+//       fontFamily: 'sans-serif-thin',
+//       fontWeight: 'normal',
+//     },
+//   },
+//   android: {
+//     regular: {
+//       fontFamily: 'sans-serif',
+//       fontWeight: 'normal',
+//     },
+//     medium: {
+//       fontFamily: 'sans-serif-medium',
+//       fontWeight: 'normal',
+//     },
+//     light: {
+//       fontFamily: 'sans-serif-light',
+//       fontWeight: 'normal',
+//     },
+//     thin: {
+//       fontFamily: 'sans-serif-thin',
+//       fontWeight: 'normal',
+//     },
+//   }
+// };
+
+const theme = {
+  ...DefaultTheme,
+  // fonts: configureFonts(fontConfig),
+  roundness: 2,
+  colors: {
+    ...DefaultTheme.colors,
+    // primary: colors.mediumPurple,
+    // accent: colors.darkPurple,
+  }
+};
+
+
+
 
 
 const App = () => {
+
+
   return(
     <NavigationContainer >
-      <AuthStack></AuthStack>
+      <PaperProvider theme={theme}>
+        <AuthStack></AuthStack>
+      </PaperProvider>
     </NavigationContainer>
   )
+
 }
 
 const styles = StyleSheet.create({

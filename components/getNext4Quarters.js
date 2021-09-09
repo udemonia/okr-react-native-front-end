@@ -1,7 +1,6 @@
 // import dayjs from 'dayjs'
 const dayjs = require('dayjs');
 const quarterOfYear = require('dayjs/plugin/quarterOfYear');
-const { getConsoleOutput } = require('jest-util');
 dayjs.extend(quarterOfYear)
 
 

@@ -1,6 +1,5 @@
 
 import React, { useState } from 'react'
-import { View, Text, LayoutAnimation } from 'react-native'
 import { List } from 'react-native-paper'
 import dayjs from 'dayjs'
 import quarterOfYear from 'dayjs/plugin/quarterOfYear'
@@ -27,24 +26,16 @@ const titleFourthNextQuarter = `Q${dayjs(fourthNextQuarter).quarter()} - ${dayjs
 
 
 const QuarterCards = ({ addStartDate, addEndDate }) => {
-    console.log(addStartDate)
     const [ quarterSelected, setQuarterSelected ] = useState(null)
     const [ expanded, setExpanded ] = React.useState(true);
     const handlePress = () => setExpanded(!expanded);
-
-    const quarterSelectionHandler = (title) => {
-        setExpanded(!expanded)
-        console.log(expanded)
-        setQuarterSelected(title)
-        console.log(`Quarter Selected: ${quarterSelected}`)
-    }
   
     return (
       <List.Section>
         <List.Accordion
         //   theme={{ colors: { primary: '#4169e1' } }}
           style={{ backgroundColor: 'white', marginBottom: 1 }}
-          onPress={() => { LayoutAnimation.easeInEaseOut(); }}
+          onPress={() => {}}
           title="Plan by Quarter">
           <List.Item title={titleFirstNextQuarter} onPress={ () => {
               addStartDate(firstNextQuarter) 

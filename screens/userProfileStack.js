@@ -14,9 +14,12 @@ const userProfileStack = () => {
     return (
             <userProfileStackBuild.Navigator initialRouteName="Profile">
                 <userProfileStackBuild.Screen name="Profile" component={ProfileScreen} options={{
-                    headerShown: true,
+                    headerShown: false,
                     title: 'Profile',
-                    headerLeft: null
+                    headerLeft: null,
+                    headerStyle: {
+                        backgroundColor: 'transparent'
+                    }
                     
                 }} />
                 <userProfileStackBuild.Screen name="EditProfile" component={EditProfileScreen} options={{

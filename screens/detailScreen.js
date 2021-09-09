@@ -98,14 +98,14 @@ const keyResultsView = ({ navigation }) => {
                                         onPress={() => navigation.navigate('userDetails')}
                                         style={styles.editButton}
                                         >
-                                        <Feather name="edit-2" size={20} color="#6200ff" />
+                                        {/* <Feather name="edit-2" size={20} color="#6200ff" /> */}
                                     </TouchableOpacity>
                                 </View>
 
 
                                 <View style={styles.keyResultCardTop2}>
                                     <View style={styles.objectivenameRow}>
-                                            <Feather style={styles.objectiveIcon} name="check" size={38} color="white" />
+                                            <Feather style={styles.objectiveIcon} name="check" size={28} color="white" />
                                             <Text style={styles.objectivenameTextTop}>{`${item.name}`}</Text>
                                     </View>
                                 </View>
@@ -130,7 +130,7 @@ const keyResultsView = ({ navigation }) => {
 
                                 <View style={styles.keyResultCardTop}>
                                     <View style={styles.objectivenameRow}>
-                                        <Feather style={styles.objectiveIcon} name="target" size={38} color="white" />
+                                        <Feather style={styles.objectiveIcon} name="target" size={28} color="white" />
                                         <Text style={styles.objectivenameTextTop}>{`${item.objective.name}`}</Text>
                                     </View>
                                 </View>
@@ -277,10 +277,10 @@ const styles = StyleSheet.create({
         padding: 3
     },
     objectivenameRow: {
-      paddingTop: 10,
-      paddingBottom: 10,
+      paddingTop: 5,
+      paddingBottom: 5,
       marginTop: 5,
-      marginBottom: 10,
+      marginBottom: 5,
       flexDirection: 'row',
       alignItems: 'center'
     },
@@ -317,7 +317,7 @@ const styles = StyleSheet.create({
     },
     objTextDescription: {
         maxWidth: '90%',
-        marginTop: 18,
+        marginTop: 6,
         marginBottom: 10,
         color: '#8093F1',
         fontSize: 18,
@@ -327,7 +327,7 @@ const styles = StyleSheet.create({
         maxWidth: '87%',
         padding: 2,
         color: '#00008B',
-        fontSize: 20,
+        fontSize: 16,
         flex: 1,
         textAlignVertical: 'center',
         justifyContent: 'center',

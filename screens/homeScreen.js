@@ -160,8 +160,6 @@ const objectivesView = ({ route, navigation }) => {
 
                             <View style={!item.atRisk ? styles.objectiveCard : styles.atRiskObjectiveCard}>
                             <View style={styles.objectiveCardDetails}>
-
-
                             <View style={styles.nameAndEditRow}>
                                     <Text style={styles.objectiveTitleText}>objective</Text>
 
@@ -184,7 +182,7 @@ const objectivesView = ({ route, navigation }) => {
 
                                 <View style={styles.keyResultCardTop2}>
                                     <View style={styles.objectivenameRow}>
-                                            <Feather style={styles.objectiveIcon} name="target" size={38} color="white" />
+                                            <Feather style={styles.objectiveIcon} name="target" size={28} color="white" />
                                             <Text style={styles.objectivenameTextTop}>{`${item.name}`}</Text>
                                     </View>
                                 </View>
@@ -297,6 +295,7 @@ const styles = StyleSheet.create({
     },
     keyResultCardTop2: {
         flex: 1,
+        // backgroundColor: colors.mediumPurple,
         backgroundColor: colors.purpleObjectiveTile,
         fontWeight: 'bold',
         borderRadius: 5,
@@ -312,8 +311,8 @@ const styles = StyleSheet.create({
         elevation: 6,
         },
         objectivenameRow: {
-            paddingTop: 10,
-            paddingBottom: 10,
+            paddingTop: 5,
+            paddingBottom: 5,
             marginTop: 5,
             marginBottom: 10,
             flexDirection: 'row',
@@ -340,7 +339,7 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         marginRight: 10,
         backgroundColor: 'white',
-        margin: 2,
+        // margin: 2,
         borderColor: '#F4F4ED',
         borderWidth: 2,
         borderRadius: 5,
