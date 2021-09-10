@@ -5,6 +5,9 @@ import AppLoading from 'expo-app-loading';
 import { ProgressBar, Colors } from 'react-native-paper'
 import dayjs from 'dayjs';
 import FabButton from '../components/fabButtons';
+import { useFocusEffect } from '@react-navigation/native';
+
+
 // import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
 
 import {
@@ -41,10 +44,22 @@ const objectivesView = ({ route, navigation }) => {
 
     // todo add search back and add filtering
 
-    useEffect(() => {
-        console.log('used Effect?')
-        getObjectives(JWTtoken)
-    }, [])
+    useFocusEffect(
+        React.useCallback(() => {
+          const unsubscribe = getObjectives(JWTtoken)
+        }, [])
+      );
+    // useEffect(() => {
+    //     getObjectives(JWTtoken)
+
+    //     const listener = navigation.addListener('didFocus', () => {
+    //         getObjectives(JWTtoken)
+    //     })
+
+    //     return () => {}
+
+
+    // }, [])
 
     //* Data and Search Data -
     // const [search, setSearch] = useState('');

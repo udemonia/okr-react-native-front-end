@@ -59,7 +59,7 @@ const createObjective = ({ route, navigation }) => {
 
 
   const handlePostReqAndNavigation = async (values) => {
-    let JWTtoken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMjgxNmI0Y2RjY2UzMzJjZDE5NWZlOSIsImlhdCI6MTYzMTIyNzI0MSwiZXhwIjoxNjMzODE5MjQxfQ.X4BCJOZCDV-pnGUNkTwXyrwQAhf7Cm1w7LA1Rgf5PbA'
+    let JWTtoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZTJmNGQ1YTg1ZTFjNWJhNWZjOTk1ZSIsImlhdCI6MTYzMTIzMzgxMSwiZXhwIjoxNjMzODI1ODExfQ.XeUooqdeFJTlZyhqj579y4Mju522iKvWhURcqApKnvA"
   
     //* Pull out the DayJS date version of the U/I Submit
     const postStartDate = dayjs(values.startDate)
