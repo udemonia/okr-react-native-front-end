@@ -98,7 +98,7 @@ const keyResultsView = ({ navigation }) => {
                                         onPress={() => navigation.navigate('userDetails')}
                                         style={styles.editButton}
                                         >
-                                        {/* <Feather name="edit-2" size={20} color="#6200ff" /> */}
+                                        <Feather name="edit-2" size={20} color="#6200ff" />
                                     </TouchableOpacity>
                                 </View>
 

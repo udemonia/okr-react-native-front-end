@@ -16,8 +16,8 @@ const DrawerEntryNav = ({ route, navigation }) => {
   return(
       <Drawer.Navigator drawerContent={props => <DrawerContents {...props} />} initialRouteName="Home">
         <Drawer.Screen name="Home" component={MainTabScreen} initialParams={{ loginInfo: dataToPass }} />
-        <Drawer.Screen name="Profile" component={userProfileStack} />
-        <Drawer.Screen name="CreateObjective" component={userProfileStack} />
+        <Drawer.Screen name="Profile" component={userProfileStack} initialParams={{ loginInfo: dataToPass }}/>
+        <Drawer.Screen name="CreateObjective" component={userProfileStack} initialParams={{ loginInfo: dataToPass }} />
         {/* <Drawer.Screen name="Detail" component={DetailStackScreen} /> */}
       </Drawer.Navigator>
   )

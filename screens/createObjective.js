@@ -18,6 +18,7 @@ import AppLoading from 'expo-app-loading';
 import QuarterCards from '../components/quarterCards'
 import dayjs from 'dayjs';
 
+
 const { height, width } = Dimensions.get('window')
 
 const loginValidationSchema = yup.object().shape({
@@ -35,7 +36,9 @@ const loginValidationSchema = yup.object().shape({
     .required('End Date is Required'),
 })
 
-const createObjective = ({ navigation }) => {
+
+const createObjective = ({ route, navigation }) => {
+  console.log(route)
   //? Create the NEXT input Refs
   const objectiveNameRef = createRef();
   const descriptionRef = createRef();
@@ -54,19 +57,70 @@ const createObjective = ({ navigation }) => {
   const [ descriptionPlaceholder, setDescriptionPlaceholder ] = useState('Description')
   const [ startDateVisible, setStartDateVisible ] = useState(false)
 
+
+  const handlePostReqAndNavigation = async (values) => {
+    let JWTtoken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMjgxNmI0Y2RjY2UzMzJjZDE5NWZlOSIsImlhdCI6MTYzMTIyNzI0MSwiZXhwIjoxNjMzODE5MjQxfQ.X4BCJOZCDV-pnGUNkTwXyrwQAhf7Cm1w7LA1Rgf5PbA'
+  
+    //* Pull out the DayJS date version of the U/I Submit
+    const postStartDate = dayjs(values.startDate)
+    const postEndDate = dayjs(values.endDate)
+    const trimmedDescription = values.description.trim()
+    const trimmedName = values.name.trim()
+  
+    //* Read the Post Request
+    const payload = {
+      name: trimmedName,
+      description: trimmedDescription,
+      objectiveStartDate: postStartDate,
+      objectiveEndDate: postEndDate
+    }
+    //* Make an authorized POST request
+
+    console.log(payload)
+
+    
+    try {
+      let response = await fetch('http://192.168.1.231:2002/api/v1/objectives', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${JWTtoken}`
+          
+        },
+        body: JSON.stringify(payload)
+        })
+  
+        if (response.status === 201) {
+          let responseData = await response.json();
+          let newObjective = responseData.data.id
+          console.log('success ', responseData.data.id)
+
+          navigation.navigate('AddKeyResults', { JWTtoken, newObjective })
+          // const newObjectiveId = response.data
+        } else {
+          alert(`${response.status} - Error`)
+          console.log(response.status)
+        }
+
+    } catch (error) {
+      console.log(error)
+    }
+}
+
   return (
 
-    <View style={{flex: 1, alignContent: 'center', justifyContent: 'start', backgroundColor: colors.darkPurple}}>
+    <View style={{flex: 1, alignContent: 'center', justifyContent: 'start', backgroundColor: colors.darkPurple, paddingHorizontal: 10}}>
       <View>
         <Text style={styles.header}>Plan an Objective</Text>
       </View>
-        <View style={styles.loginContainer}>
+        <View style={styles.planAnObjectiveCard}>
           <Formik
              enableReinitialize={true}
              validationSchema={loginValidationSchema}
              initialValues={{ name: objectiveName, description: '', startDate: quarterStartDate, endDate: quarterEndDate }}
-             onSubmit={ (values) => alert(JSON.stringify(values, null, 2))} //! POST Request to endpoint
-            //  onSubmit={ () => navigation.navigate('AddKeyResults')} //! POST Request to endpoint
+            //  onSubmit={ (values) => navigation.navigate('AddKeyResults')} //! POST Request to endpoint
+             onSubmit={ (values) => handlePostReqAndNavigation(values)} //! POST Request to endpoint
            >
              {({
               handleChange,
@@ -266,7 +320,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     position: 'absolute'
   },
-  loginContainer: {
+  planAnObjectiveCard: {
     marginTop: height / 10,
     // marginHorizontal: 3,
     padding: 10,
@@ -274,8 +328,8 @@ const styles = StyleSheet.create({
     borderTopColor: colors.lightPurple,
     borderTopWidth: 2,
     borderBottomColor: colors.lightPurple,
-    borderBottomWidth: 2
-    // borderRadius: 5
+    borderBottomWidth: 2,
+    borderRadius: 5
   },
   textInput: {
     backgroundColor: 'white'

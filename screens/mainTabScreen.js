@@ -112,7 +112,7 @@ const HomeStackScreen = ({ route, navigation }) => {
     )
   }
 
-  const DetailStackScreen = ({ navigation }) => {
+  const DetailStackScreen = ({ route, navigation }) => {
     return (
         <DetailStack.Navigator screenOptions={{
           headerStyle: {
@@ -128,11 +128,7 @@ const HomeStackScreen = ({ route, navigation }) => {
             headerLeft: () => (
               <Feather name="menu" style={{ paddingLeft: 18 }} size={30} color="white" onPress={ () => {
                 navigation.openDrawer()}}></Feather>
-            ),
-            headerRight: () => (
-              <Ionicons name="filter-sharp" style={{ paddingRight: 18 }} size={28} color="white" onPress={ () => {
-                navigation.openDrawer()}}></Ionicons>
-            )  
+            )
           }}/>
         </DetailStack.Navigator>
     )

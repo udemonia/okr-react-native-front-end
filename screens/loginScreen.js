@@ -1,7 +1,5 @@
 import React, {useState, createRef} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
-
 import {
   StyleSheet,
   TextInput,
@@ -44,6 +42,9 @@ const storeDataString = async (value) => {
   
 
         const authPostRequest = async () => {
+
+          const devEmail = userEmail || '1@1.com'
+          const devUserPass = userPassword || '1234567'
           
           try {
             let response = await fetch('http://192.168.1.231:2002/api/v1/auth/login', {
@@ -53,8 +54,8 @@ const storeDataString = async (value) => {
                 'Content-Type': 'application/json'
               },
               body: JSON.stringify({
-                "email": "1@1.com",
-                "password": '1234567'
+                "email": devEmail,
+                "password": devUserPass
                 // "email": userEmail,
                 // "password": userPassword
               })
@@ -85,18 +86,7 @@ const storeDataString = async (value) => {
                           JWTtoken
                         },
                       },
-                    });
-
-                    // navigation.navigate('drawer', {
-                    //     screen: 'Objectives',
-                    //     params: {
-                    //       userData,
-                    //       JWTtoken
-                    //     },
-                      
-                    // });
-
-                    // navigation.navigate('drawer', { data: {userData, JWTtoken }})           
+                    });        
                   }
                   
                 } catch (error) {
