@@ -58,7 +58,7 @@ const createObjective = ({ route, navigation }) => {
   const [ startDateVisible, setStartDateVisible ] = useState(false)
 
 
-  const handlePostReqAndNavigation = async (values) => {
+  const handlePostReqAndNavigation = async (values, resetForm ) => {
     let JWTtoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZTJmNGQ1YTg1ZTFjNWJhNWZjOTk1ZSIsImlhdCI6MTYzMTIzMzgxMSwiZXhwIjoxNjMzODI1ODExfQ.XeUooqdeFJTlZyhqj579y4Mju522iKvWhURcqApKnvA"
   
     //* Pull out the DayJS date version of the U/I Submit
@@ -92,10 +92,10 @@ const createObjective = ({ route, navigation }) => {
         })
   
         if (response.status === 201) {
+          resetForm(values = '')
           let responseData = await response.json();
           let newObjective = responseData.data.id
           console.log('success ', responseData.data.id)
-
           navigation.navigate('AddKeyResults', { JWTtoken, newObjective })
           // const newObjectiveId = response.data
         } else {
@@ -120,7 +120,7 @@ const createObjective = ({ route, navigation }) => {
              validationSchema={loginValidationSchema}
              initialValues={{ name: objectiveName, description: '', startDate: quarterStartDate, endDate: quarterEndDate }}
             //  onSubmit={ (values) => navigation.navigate('AddKeyResults')} //! POST Request to endpoint
-             onSubmit={ (values) => handlePostReqAndNavigation(values)} //! POST Request to endpoint
+             onSubmit={ (values, {resetForm}) => handlePostReqAndNavigation(values, resetForm )} //! POST Request to endpoint
            >
              {({
               handleChange,

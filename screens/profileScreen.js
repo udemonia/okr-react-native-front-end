@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, Button, Dimensions, SafeAreaView } from 'react-n
 import { Avatar } from 'react-native-paper'
 import colors from '../colors/lightMode'
 import { LinearGradient } from 'expo-linear-gradient';
+import SwipeLeftDelete from '../components/swipeLeftToDelete';
 
 
 const { height, width } = Dimensions.get('window')
@@ -11,11 +12,13 @@ const ProfileScreen = ({ navigation }) => {
     return (
 
       <View style={styles.container}>
-      <LinearGradient
+
+
+      {/* <LinearGradient
         // Background Linear Gradient
         colors={[colors.mediumPurple, colors.darkPurple]}
         style={styles.background}
-        />
+        /> */}
 
           
         <View style={styles.contentContainer}>
@@ -37,8 +40,9 @@ const ProfileScreen = ({ navigation }) => {
             source={require('../assets/avatar-person.jpeg')}
             size={200}
           />
-          </View>
 
+          </View>
+          <SwipeLeftDelete></SwipeLeftDelete>
         </View>
       </View>
   // </LinearGradient>

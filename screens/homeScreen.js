@@ -49,17 +49,6 @@ const objectivesView = ({ route, navigation }) => {
           const unsubscribe = getObjectives(JWTtoken)
         }, [])
       );
-    // useEffect(() => {
-    //     getObjectives(JWTtoken)
-
-    //     const listener = navigation.addListener('didFocus', () => {
-    //         getObjectives(JWTtoken)
-    //     })
-
-    //     return () => {}
-
-
-    // }, [])
 
     //* Data and Search Data -
     // const [search, setSearch] = useState('');
@@ -181,6 +170,7 @@ const objectivesView = ({ route, navigation }) => {
                                     <TouchableOpacity 
                                         onPress={() => navigation.navigate('ObjectiveDetail', {
                                             _id: item._id,
+                                            JWTtoken: JWTtoken,
                                             name: item.name,
                                             atRisk: item.atRisk,
                                             description: item.description,

@@ -1,4 +1,3 @@
-
 //* For this screen,
 //* We will take the ID, passed from the objectives screen
 //* And call out to /api/v1/objectives/id/keyresults
@@ -9,11 +8,11 @@ import { View, Text, StyleSheet, FlatList, TouchableOpacity, TextInput, Dimensio
 import data from '../_data/ObjectiveKeyResults.json' // soon to be Axios
 import AppLoading from 'expo-app-loading';
 import { ProgressBar, Colors } from 'react-native-paper'
+import { SwipeListView } from 'react-native-swipe-list-view';
 import dayjs from 'dayjs';
 
 import {
     useFonts,
-    Nunito_200ExtraLight,
     Nunito_300Light,
     Nunito_400Regular,
     Nunito_700Bold
@@ -21,19 +20,21 @@ import {
 import { Feather, Foundation } from '@expo/vector-icons'; 
 import { Searchbar } from 'react-native-paper';
 const { height, width } =Dimensions.get('window')
-console.disableYellowBox = true
 import colors from '../colors/lightMode'
-import symbolicateStackTrace from 'react-native/Libraries/Core/Devtools/symbolicateStackTrace';
+
+
+
 const objectiveDetail = ({ route, navigation }) => {
 
-  console.log(width, height)
+  const objectiveID = route.params._id
+  const JWTtoken = route.params.JWTtoken
+
 
   //* Grab the ID from the router to use with Axios
   //* `/api/v1/objectives/${searchObjectiveId}/keyresults`
   const passedData = route.params
   const searchObjectId = passedData._id
 
-  console.log('try   4')
 
 
   let objectiveFilter = []
@@ -105,10 +106,6 @@ const objectiveDetail = ({ route, navigation }) => {
                           </View>
                         </View>
 
-                  
-
-                          {/* Flex Row for grey bar plus description */}
-
                         <View style={styles.textDescriptionRow}>
                           <TextInput 
                             style={styles.objectiveDescriptionText}
@@ -133,7 +130,7 @@ const objectiveDetail = ({ route, navigation }) => {
                                 <Text style={styles.dateText}>{item.objectiveEndDate.split('T')[0]}</Text>
                               </View>
                           </View>
-                                            {/* Days Remaining */}
+                  
                           <View style={styles.percentRowBox}>
                               <View style={styles.percentRowBoxUnits}>
                                   <Text style={styles.percentCompleteText}>{ daysLeft(today, item.objectiveEndDate) > 0 ? 'days remaining' :'completed ✓' }</Text>
@@ -144,7 +141,6 @@ const objectiveDetail = ({ route, navigation }) => {
                               </View>
                             </View>
 
-                                    {/* Percent Complete Progress bar */}
 
                             <View style={styles.percentRowBox}>
                               <View style={styles.percentRowBoxUnits}>
@@ -162,7 +158,7 @@ const objectiveDetail = ({ route, navigation }) => {
               )
           }}
           />
-          {/* key Results  */}
+
         <View> 
         <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
           <Text style={styles.percentCompleteTextHorizontal}>{`${data.length} key results`}</Text>
@@ -186,20 +182,17 @@ const objectiveDetail = ({ route, navigation }) => {
             navigation={navigation}
             showsVerticalScrollIndicator={false}
             data={data}
-            // onScroll={Animated.event(
-            //   [{ nativeEvent: { contentOffset: { x: this.scrollX } } }]
-            // )} 
             renderItem={({ item }) => {
               return (
                 <View style={styles.horizontalScrollingCard}>
 
                       <View style={styles.nameAndEditRow}>
-                            {/* <TouchableOpacity 
+                            <TouchableOpacity 
                                         onPress={() => navigation.navigate('ObjectiveDetail')}
                                         style={styles.editButton}
                                         >
                                         <Feather name="check" size={22} color="#00008B" />
-                                    </TouchableOpacity> */}
+                                    </TouchableOpacity>
                             <Text style={styles.objectiveTitleText}>{item.name}</Text>
 
 
@@ -213,7 +206,7 @@ const objectiveDetail = ({ route, navigation }) => {
                               multiline={true}
                               value={item.description}
                               />
-                                  {/* <View style={styles.objectiveDates}>
+                                  <View style={styles.objectiveDates}>
                                     <View style={styles.dateStart}>
                                         <View style={styles.DateBoxText}>
                                             <Text style={styles.startEndLabels}>current</Text>
@@ -232,7 +225,7 @@ const objectiveDetail = ({ route, navigation }) => {
                                         <Text style={styles.dateText}>{item.targetValue}</Text>
                                     </View>
                     
-                                  </View> */}
+                                  </View>
 
                                 <View style={{ flex: 1, justifyContent: 'space-between', flexDirection: 1}}>
                                   <View style={styles.percentRowBox}>
