@@ -46,11 +46,8 @@ const ListItem = ({
 
 
     onActive: ( event, context ) => {
-        // translateX.value = event.translationX;
-
         translateX.value = event.translationX + context.translateX
         console.log('moving Value', translateX.value)
-
     },
     // onActive: (event, context) => {
     //   translateX.value = event.translationX + context.translateX
@@ -59,12 +56,11 @@ const ListItem = ({
       const shouldBeDismissed = translateX.value < translate_delete_threshold;
       const shouldGoToSnapPoint = translateX.value < snapToDeleteButton && translateX.value < snapToDeleteButton
 
-      if (startValue.value > translateX.value) {
+      if (startValue.value < translateX.value) {
         console.log('Greater than!')
         translateX.value = withTiming(0);
-      }
-
-      if (shouldBeDismissed) {
+        return
+      } else if (shouldBeDismissed) {
         translateX.value = withTiming(-SCREEN_WIDTH);
         itemHeight.value = withTiming(0);
         marginVertical.value = withTiming(0);
