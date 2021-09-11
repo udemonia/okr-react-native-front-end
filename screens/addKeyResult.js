@@ -48,7 +48,7 @@ const AddKeyResult = ({ route, navigation }) => {
       const trimmedDescription = values.description.trim()
 
       try {
-        let response = await fetch(`http://192.168.1.231:2002/api/v1/objectives/${newObjective}/keyresults`, {
+        let response = await fetch(`http://161.35.237.86:2002/api/v1/objectives/${newObjective}/keyresults`, {
           method: 'POST',
           headers: {
             Accept: 'application/json',

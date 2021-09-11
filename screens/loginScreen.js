@@ -47,7 +47,7 @@ const storeDataString = async (value) => {
           const devUserPass = userPassword || '1234567'
           
           try {
-            let response = await fetch('http://192.168.1.231:2002/api/v1/auth/login', {
+            let response = await fetch('http://161.35.237.86:2002/api/v1/auth/login', {
               method: 'POST',
               headers: {
                 Accept: 'application/json',
@@ -66,7 +66,7 @@ const storeDataString = async (value) => {
                 const savedToken = await storeDataString(JWTtoken)
                 // alert(JWTtoken)
                 try {
-                  let currentUserResponse = await fetch('http://192.168.1.231:2002/api/v1/auth/CurrentLoggedUser', {
+                  let currentUserResponse = await fetch('http://161.35.237.86:2002/api/v1/auth/CurrentLoggedUser', {
                     method: 'GET',
                     headers: {
                       "Accept": 'application/json',
@@ -129,6 +129,8 @@ const storeDataString = async (value) => {
                       onChangeText={(UserEmail) =>
                         setUserEmail(UserEmail)
                       }
+                      autoCorrect={false}
+                      spellCheck={false}
                       placeholder="email address"
                       placeholderTextColor="#8b9cb5"
                       autoCapitalize="none"
@@ -145,6 +147,8 @@ const storeDataString = async (value) => {
                   <View style={styles.SectionStyle}>
                     <TextInput
                       style={styles.inputStyle}
+                      autoCorrect={false}
+                      spellCheck={false}
                       onChangeText={(UserPassword) =>
                         setUserPassword(UserPassword)
                       }

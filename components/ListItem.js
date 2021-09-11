@@ -7,12 +7,12 @@ import {
 } from 'react-native-gesture-handler';
 import Animated, {
   runOnJS,
+  withSpring,
   useAnimatedGestureHandler,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-import { TaskInterface } from '../App';
 import { FontAwesome5, Ionicons } from '@expo/vector-icons';
 import colors from '../colors/lightMode'
 
@@ -21,7 +21,9 @@ const HEIGHT_OF_LIST_ITEM = 70;
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
-const translate_threshold_ofX = -SCREEN_WIDTH * 0.25;
+const translate_threshold_ofX = -SCREEN_WIDTH * 0.10;
+const translate_delete_threshold = -SCREEN_WIDTH * 0.5;
+const snapToDeleteButton = -SCREEN_WIDTH * 0.30;
 
 const ListItem = ({
   task,
@@ -40,21 +42,24 @@ const ListItem = ({
 
   const panGesture = useAnimatedGestureHandler({
       
-    onActive: (event) => {
-
-      if (translateX.value <= 0.1) {
+    onActive: ( event, context ) => {
         translateX.value = event.translationX;
-      }
+        // context.translateX = translateX.value
+      
     },
+    // onActive: (event, context) => {
+    //   translateX.value = event.translationX + context.translateX
+    // },
     onEnd: () => {
-      const shouldBeDismissed = translateX.value < translate_threshold_ofX;
+      const shouldBeDismissed = translateX.value < translate_delete_threshold;
+      const shouldGoToSnapPoint = translateX.value < snapToDeleteButton;
+
+      console.log(shouldGoToSnapPoint)
+
       if (shouldBeDismissed) {
         translateX.value = withTiming(-SCREEN_WIDTH);
-
         itemHeight.value = withTiming(0);
-
         marginVertical.value = withTiming(0);
-
         opacity.value = withTiming(0, undefined, (isFinished) => {
           if (isFinished && onDismiss) {
             runOnJS(onDismiss)(task);

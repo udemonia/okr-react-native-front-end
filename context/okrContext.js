@@ -13,7 +13,7 @@ export const OKRsProvider = ({ children }) => {
     const getObjectives = async (JWTtoken) => {
                 let auth = JWTtoken
                 console.log(`Auth: ${auth}`)
-                const response = await fetch('http://192.168.1.231:2002/api/v1/objectives', {
+                const response = await fetch('http://161.35.237.86:2002/api/v1/objectives', {
                     method: 'GET',
                     headers: {
                         "Authorization": `Bearer ${auth}`
@@ -30,7 +30,7 @@ export const OKRsProvider = ({ children }) => {
     
             const auth = JWTtoken
             console.log('\nTESTING\n')
-            const response = await fetch(`http://192.168.1.231:2002/api/v1/objectives/${objectiveId}/keyresults`, {
+            const response = await fetch(`http://161.35.237.86:2002/api/v1/objectives/${objectiveId}/keyresults`, {
                 method: 'GET',
                 headers: {
                     "Authorization": `Bearer ${auth}`

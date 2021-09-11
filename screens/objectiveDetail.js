@@ -378,34 +378,37 @@ objectiveDescriptionText: {
 },
 objectiveDates: {
   flexDirection: 'row',
-  justifyContent: 'space-between'
+  justifyContent: 'space-between',
+  textAlign: 'center',
+
 },
 dateStart: {
+  textAlign: 'center',
   alignItems: 'stretch',
-  justifyContent: 'center'
 
 },
 dateEnd: {
   alignItems: 'stretch',
-  justifyContent: 'center'
+  justifyContent: 'center',
 },
 startEndLabels: {
-  alignItems: 'center',
+  alignItems: 'stretch',
   justifyContent: 'center',
   color: colors.darkPurple,
   fontSize: 18,
-  fontFamily: 'Nunito_300Light'
+  fontFamily: 'Nunito_300Light',
+
 },
 DateBoxText: {
   flex: 1,
   alignItems: 'center',
-  justifyContent: 'center',
   backgroundColor: colors.lightGrey,
   padding: 4,
   margin: 4,
   borderRadius: 6
 },
 dateText: {
+  textAlign: 'center',
   color: colors.darkPurple,
   padding: 2,
   marginBottom: 2,
@@ -416,7 +419,7 @@ percentRowBoxUnits: {
   flexDirection: 'row',
   justifyContent: 'space-between',
   paddingRight: 10,
-  marginTop: 15
+  marginTop: 5
 },
 percentCompleteText: {
   marginTop: 6,
