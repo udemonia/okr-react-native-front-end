@@ -1,5 +1,5 @@
-import React from 'react';
-import { Dimensions, StyleSheet, Text, View } from 'react-native';
+import React, { useState, Context } from 'react';
+import { Dimensions, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import {
   PanGestureHandler,
   PanGestureHandlerGestureEvent,
@@ -22,8 +22,8 @@ const HEIGHT_OF_LIST_ITEM = 70;
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 
 const translate_threshold_ofX = -SCREEN_WIDTH * 0.10;
-const translate_delete_threshold = -SCREEN_WIDTH * 0.5;
-const snapToDeleteButton = -SCREEN_WIDTH * 0.30;
+const translate_delete_threshold = -SCREEN_WIDTH * 0.4;
+const snapToDeleteButton = -SCREEN_WIDTH * 0.25;
 
 const ListItem = ({
   task,
@@ -31,30 +31,38 @@ const ListItem = ({
   simultaneousHandlers,
 }) => {
 
-    console.log('Here is your task,', task)
-
   const translateX = useSharedValue(0);
   const itemHeight = useSharedValue(HEIGHT_OF_LIST_ITEM);
   const marginVertical = useSharedValue(10);
   const opacity = useSharedValue(1);
-
-  const snapPoints = [-SCREEN_WIDTH, -100, 0]
-
+  const startValue = useSharedValue(0)
   const panGesture = useAnimatedGestureHandler({
-      
+
+    onStart: ( event, context ) => {
+      startValue.value = translateX.value
+      console.log(`Starting Value`,startValue.value)
+      context.translateX = translateX.value
+    },
+
+
     onActive: ( event, context ) => {
-        translateX.value = event.translationX;
-        // context.translateX = translateX.value
-      
+        // translateX.value = event.translationX;
+
+        translateX.value = event.translationX + context.translateX
+        console.log('moving Value', translateX.value)
+
     },
     // onActive: (event, context) => {
     //   translateX.value = event.translationX + context.translateX
     // },
-    onEnd: () => {
+    onEnd: (start) => {
       const shouldBeDismissed = translateX.value < translate_delete_threshold;
-      const shouldGoToSnapPoint = translateX.value < snapToDeleteButton;
+      const shouldGoToSnapPoint = translateX.value < snapToDeleteButton && translateX.value < snapToDeleteButton
 
-      console.log(shouldGoToSnapPoint)
+      if (startValue.value > translateX.value) {
+        console.log('Greater than!')
+        translateX.value = withTiming(0);
+      }
 
       if (shouldBeDismissed) {
         translateX.value = withTiming(-SCREEN_WIDTH);
@@ -66,7 +74,7 @@ const ListItem = ({
           }
         });
       } else {
-        translateX.value = withTiming(0);
+        translateX.value = withTiming(-SCREEN_WIDTH * 0.15);
       }
     },
   });
@@ -82,7 +90,7 @@ const ListItem = ({
   const rIconContainerStyle = useAnimatedStyle(() => {
 
     const opacity = withTiming(
-      translateX.value < translate_threshold_ofX ? 1 : 0
+      translateX.value < translate_threshold_ofX - 20 ? 1 : 0
     );
     return { opacity };
 
@@ -99,12 +107,16 @@ const ListItem = ({
   return (
     <Animated.View style={[styles.objectiveContainer, rObjectiveContainerStyle]}>
       <Animated.View style={[styles.iconContainer, rIconContainerStyle]}>
-        <Ionicons
-        //   style={{backgroundColor: 'red'}}
-          name={'trash'}
-          size={HEIGHT_OF_LIST_ITEM * 0.4}
-          color={'red'}
-        />
+        <TouchableHighlight
+          onPress={() => runOnJS(onDismiss)(task)}
+        >
+          <Ionicons
+          //   style={{backgroundColor: 'red'}}
+            name={'trash'}
+            size={HEIGHT_OF_LIST_ITEM * 0.4}
+            color={'red'}
+          />
+        </TouchableHighlight>
       </Animated.View>
       <PanGestureHandler
         simultaneousHandlers={simultaneousHandlers}
@@ -160,7 +172,7 @@ const styles = StyleSheet.create({
     height: HEIGHT_OF_LIST_ITEM,
     width: HEIGHT_OF_LIST_ITEM,
     position: 'absolute',
-    right: '10%',
+    right: '3%',
     justifyContent: 'center',
     alignItems: 'center',
   },
