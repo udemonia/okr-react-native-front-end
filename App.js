@@ -82,14 +82,7 @@ const theme = {
     // accent: colors.darkPurple,
   }
 };
-
-
-
-
-
 const App = () => {
-
-
   return(
     <NavigationContainer >
       <PaperProvider theme={theme}>
@@ -97,7 +90,6 @@ const App = () => {
       </PaperProvider>
     </NavigationContainer>
   )
-
 }
 
 const styles = StyleSheet.create({

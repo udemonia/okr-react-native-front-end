@@ -26,6 +26,8 @@ const snapToDeleteButton = -SCREEN_WIDTH * 0.25;
 
 const ListItem = ({
   objectiveInfo,
+  deleteItem,
+  JWTtoken,
   onDismiss,
   simultaneousHandlers,
 }) => {
@@ -39,7 +41,6 @@ const ListItem = ({
 
     onStart: ( event, context ) => {
       startValue.value = translateX.value
-      console.log(`Starting Value`,startValue.value)
       context.translateX = translateX.value
     },
 
@@ -53,7 +54,6 @@ const ListItem = ({
       const shouldGoToSnapPoint = translateX.value < snapToDeleteButton && translateX.value < snapToDeleteButton
 
       if (startValue.value < translateX.value) {
-        console.log('Greater than!')
         translateX.value = withTiming(0);
         return
 
@@ -63,7 +63,7 @@ const ListItem = ({
         marginVertical.value = withTiming(0);
         opacity.value = withTiming(0, undefined, (isFinished) => {
           if (isFinished && onDismiss) {
-            runOnJS(onDismiss)(objectiveInfo);
+            runOnJS(onDismiss);
           }
         });
       } else {
@@ -102,13 +102,13 @@ const ListItem = ({
       <Animated.View style={[styles.objectiveContainer, rObjectiveContainerStyle]}>
         <Animated.View style={[styles.iconContainer, rIconContainerStyle]}>
           <TouchableHighlight
-            onPress={() => runOnJS(onDismiss)(objectiveInfo)}
+            activeOpacity={0.6}
+            underlayColor="#DDDDDD"
+            onPress={() => onDismiss(JWTtoken, objectiveInfo._id )}
           >
             <Feather
-            //   style={{backgroundColor: 'red'}}
               name={'x-circle'}
-              // size={HEIGHT_OF_LIST_ITEM * 0.4}
-              size={26}
+              size={36}
               color={'red'}
             />
           </TouchableHighlight>
@@ -123,14 +123,9 @@ const ListItem = ({
                   <Feather style={styles.objectiveIcon} name="target" size={28} color="white" />
                   <Text style={styles.taskTitle}>{objectiveInfo.name}</Text>
               </View>  
-
-
           </Animated.View>
         </PanGestureHandler>
       </Animated.View>
-
-      {/* OKR Body */}
-
     </View>
   );
 };
@@ -171,9 +166,19 @@ const styles = StyleSheet.create({
     height: HEIGHT_OF_LIST_ITEM,
     width: HEIGHT_OF_LIST_ITEM,
     position: 'absolute',
-    right: '1%',
+    right: '.1%',
     justifyContent: 'center',
     alignItems: 'center',
+    shadowOffset: {
+      width: 0,
+      height: 0,
+    },
+    shadowOpacity: 0,
+    shadowRadius: 0,
+    elevation: 0,
+
+
+
   },
 });
 

@@ -12,44 +12,46 @@ export const OKRsProvider = ({ children }) => {
 
     const getObjectives = async (JWTtoken) => {
                 let auth = JWTtoken
-                console.log(`Auth: ${auth}`)
                 const response = await fetch('http://161.35.237.86:2002/api/v1/objectives', {
                     method: 'GET',
                     headers: {
                         "Authorization": `Bearer ${auth}`
                     }
                 })
-                console.log('getRequest')
                 const results = await response.json()
                 setObjectivesArray(results.data)
-                console.log(results.data.length)
+                console.log('GET REQUEST')
         
     }
 
     const getSingleObjectiveAndKeyResult = async (JWTtoken, objectiveId) => {
     
             const auth = JWTtoken
-            console.log('\nTESTING\n')
             const response = await fetch(`http://161.35.237.86:2002/api/v1/objectives/${objectiveId}/keyresults`, {
                 method: 'GET',
                 headers: {
                     "Authorization": `Bearer ${auth}`
                 }
             })
-            console.log('getRequest')
             const results = await response.json()
             setObjectivesArray(results.data)
-            console.log(results.data.length)
-
-
     }
 
     const updateObjective = () => {
         
     }
 
-    const deleteObjective = () => {
-
+    const deleteObjective = async(JWTtoken, objectiveId) => {
+        let auth = JWTtoken
+        console.log(`Auth: ${auth}`)
+        const response = await fetch(`http://161.35.237.86:2002/api/v1/objectives/${objectiveId}`, {
+            method: 'DELETE',
+            headers: {
+                "Authorization": `Bearer ${auth}`
+            }
+        })
+        console.log(`deleting ${objectiveId}`)
+        console.log(response.status)
     }
 
     const addObjective = () => {
@@ -71,7 +73,7 @@ export const OKRsProvider = ({ children }) => {
         ])
     }
 
-    return <OKRsContext.Provider value={{ objectivesArray, addObjective, getObjectives }}>
+    return <OKRsContext.Provider value={{ objectivesArray, addObjective, getObjectives, deleteObjective }}>
         {children}
     </OKRsContext.Provider>
 }

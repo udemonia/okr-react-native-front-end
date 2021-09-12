@@ -1,16 +1,11 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
-// import data from '../_data/objectives.json'
 import AppLoading from 'expo-app-loading';
 import { ProgressBar, Colors } from 'react-native-paper'
 import dayjs from 'dayjs';
 import FabButton from '../components/fabButtons';
 import { useFocusEffect } from '@react-navigation/native';
 import SwipeObjectiveTitle from '../components/swipeToDelete/ObjectiveTitleSwipeToDelete'
-
-
-// import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
-
 import {
     useFonts,
     Nunito_200ExtraLight,
@@ -18,8 +13,7 @@ import {
     Nunito_400Regular,
     Nunito_700Bold
   } from '@expo-google-fonts/nunito';
-
-import { Feather, Foundation, MaterialCommunityIcons } from '@expo/vector-icons'; 
+import { Feather } from '@expo/vector-icons'; 
 import { Searchbar } from 'react-native-paper';
 import colors from '../colors/lightMode'
 import { color } from 'react-native-reanimated';
@@ -41,7 +35,12 @@ const objectivesView = ({ route, navigation }) => {
 
     let JWTtoken = route.params.data.JWTtoken
 
-    const { objectivesArray, getObjectives } = useContext(OKRsContext)
+    const { objectivesArray, getObjectives, deleteObjective } = useContext(OKRsContext)
+    
+
+    const deleteItem = (JWTtoken, ObjectiveId) => {
+        deleteObjective(JWTtoken, ObjectiveId)
+    }
 
     // todo add search back and add filtering
 
@@ -133,6 +132,8 @@ const objectivesView = ({ route, navigation }) => {
                                 </View>
 
                                 <SwipeObjectiveTitle
+                                    JWTtoken={JWTtoken}
+                                    deleteItem={deleteItem}
                                     style={styles.keyResultCardTop2}
                                     objectiveInfo={item}></SwipeObjectiveTitle>
 
