@@ -15,7 +15,6 @@ import {
 
 const STORAGE_KEY = '@save_token'
 
-
 const storeDataString = async (value) => {
   try {
     await AsyncStorage.setItem(STORAGE_KEY, value)
@@ -43,7 +42,7 @@ const storeDataString = async (value) => {
 
         const authPostRequest = async () => {
 
-          const devEmail = userEmail || '1@1.com'
+          const devEmail = userEmail || 'brandon.l.lambert@icloud.com'
           const devUserPass = userPassword || '1234567'
           
           try {

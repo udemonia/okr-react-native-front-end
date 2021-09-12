@@ -16,9 +16,6 @@ const BACKGROUND_COLOR = 'white'
 const editProfile = (props) => {
     const { objectiveInfo, JWTtoken, deleteItem } = props
 
-    console.log('Objective Info')
-    console.log(objectiveInfo)
-
   const onDismiss = useCallback((task) => {
     deleteItem(JWTtoken, objectiveInfo._id)
     // setListObjective((listObjective) => listObjective.filter((item) => item.objectiveIndex !== task.objectiveIndex));
@@ -49,13 +46,13 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     marginTop: 20,
     marginBottom: 10,
-    shadowOffset: {
-      width: 0,
-      height: 3,
-    },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
-    elevation: 6,
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 3,
+    // },
+    // shadowOpacity: 0.27,
+    // shadowRadius: 4.65,
+    // elevation: 6,
   },
   title: {
     fontSize: 40,

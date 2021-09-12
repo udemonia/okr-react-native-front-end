@@ -38,7 +38,6 @@ const loginValidationSchema = yup.object().shape({
 
 
 const createObjective = ({ route, navigation }) => {
-  console.log(route)
   //? Create the NEXT input Refs
   const objectiveNameRef = createRef();
   const descriptionRef = createRef();
@@ -76,7 +75,6 @@ const createObjective = ({ route, navigation }) => {
     }
     //* Make an authorized POST request
 
-    console.log(payload)
 
     
     try {
@@ -95,12 +93,11 @@ const createObjective = ({ route, navigation }) => {
           resetForm(values = '')
           let responseData = await response.json();
           let newObjective = responseData.data.id
-          console.log('success ', responseData.data.id)
+          console.log('success ')
           navigation.navigate('AddKeyResults', { JWTtoken, newObjective })
           // const newObjectiveId = response.data
         } else {
           alert(`${response.status} - Error`)
-          console.log(response.status)
         }
 
     } catch (error) {

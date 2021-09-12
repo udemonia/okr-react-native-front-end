@@ -66,13 +66,10 @@ const AddKeyResult = ({ route, navigation }) => {
     
           if (response.status === 201) {
             let responseData = await response.json();
-            console.log(response.status === 201)
-            console.log(responseData)
             resetForm(values = '')
 
           } else {
             alert(`${response.status} - Error`)
-            console.log(response.status)
           }
   
       } catch (error) {

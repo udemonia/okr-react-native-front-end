@@ -29,25 +29,27 @@ import Animated, {
   useAnimatedGestureHandler,
   useAnimatedScrollHandler,
 } from 'react-native-reanimated';
+import  chalk  from 'chalk'
 
 
 const objectivesView = ({ route, navigation }) => {
 
     let JWTtoken = route.params.data.JWTtoken
 
-    const { objectivesArray, getObjectives, deleteObjective } = useContext(OKRsContext)
-    
+    const { objectivesArray, getObjectives, deleteObjective, setObjectivesArray } = useContext(OKRsContext)
 
-    const deleteItem = (JWTtoken, ObjectiveId) => {
+
+    const deleteItem = ( JWTtoken, ObjectiveId ) => {
         deleteObjective(JWTtoken, ObjectiveId)
     }
+
 
     // todo add search back and add filtering
 
     useFocusEffect(
         React.useCallback(() => {
           const unsubscribe = getObjectives(JWTtoken)
-        }, [])
+        }, [deleteItem])
       );
 
     let [ fontsLoaded, err ] = useFonts({

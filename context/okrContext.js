@@ -7,9 +7,7 @@ const OKRsContext = React.createContext();
 
 
 export const OKRsProvider = ({ children }) => {
-
     const [ objectivesArray, setObjectivesArray ] = useState()
-
     const getObjectives = async (JWTtoken) => {
                 let auth = JWTtoken
                 const response = await fetch('http://161.35.237.86:2002/api/v1/objectives', {
@@ -21,7 +19,6 @@ export const OKRsProvider = ({ children }) => {
                 const results = await response.json()
                 setObjectivesArray(results.data)
                 console.log('GET REQUEST')
-        
     }
 
     const getSingleObjectiveAndKeyResult = async (JWTtoken, objectiveId) => {
@@ -51,7 +48,6 @@ export const OKRsProvider = ({ children }) => {
             }
         })
         console.log(`deleting ${objectiveId}`)
-        console.log(response.status)
     }
 
     const addObjective = () => {

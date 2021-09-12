@@ -57,15 +57,15 @@ const ListItem = ({
         translateX.value = withTiming(0);
         return
 
-      } else if (shouldBeDismissed) {
-        translateX.value = withTiming(-SCREEN_WIDTH);
-        itemHeight.value = withTiming(0);
-        marginVertical.value = withTiming(0);
-        opacity.value = withTiming(0, undefined, (isFinished) => {
-          if (isFinished && onDismiss) {
-            runOnJS(onDismiss);
-          }
-        });
+      // } else if (shouldBeDismissed) {
+      //   translateX.value = withTiming(-SCREEN_WIDTH);
+      //   itemHeight.value = withTiming(0);
+      //   marginVertical.value = withTiming(0);
+      //   opacity.value = withTiming(0, undefined, (isFinished) => {
+      //     if (isFinished && onDismiss) {
+      //       runOnJS(onDismiss);
+      //     }
+      //   });
       } else {
         translateX.value = withTiming(-SCREEN_WIDTH * 0.15);
       }
