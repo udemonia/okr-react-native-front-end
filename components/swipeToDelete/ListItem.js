@@ -13,8 +13,7 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-import { FontAwesome5, Ionicons } from '@expo/vector-icons';
-import colors from '../colors/lightMode'
+import { Feather, FontAwesome5, Ionicons } from '@expo/vector-icons';
 
 
 const HEIGHT_OF_LIST_ITEM = 70;
@@ -26,7 +25,7 @@ const translate_delete_threshold = -SCREEN_WIDTH * 0.4;
 const snapToDeleteButton = -SCREEN_WIDTH * 0.25;
 
 const ListItem = ({
-  task,
+  objectiveInfo,
   onDismiss,
   simultaneousHandlers,
 }) => {
@@ -47,11 +46,8 @@ const ListItem = ({
 
     onActive: ( event, context ) => {
         translateX.value = event.translationX + context.translateX
-        console.log('moving Value', translateX.value)
     },
-    // onActive: (event, context) => {
-    //   translateX.value = event.translationX + context.translateX
-    // },
+
     onEnd: (start) => {
       const shouldBeDismissed = translateX.value < translate_delete_threshold;
       const shouldGoToSnapPoint = translateX.value < snapToDeleteButton && translateX.value < snapToDeleteButton
@@ -60,13 +56,14 @@ const ListItem = ({
         console.log('Greater than!')
         translateX.value = withTiming(0);
         return
+
       } else if (shouldBeDismissed) {
         translateX.value = withTiming(-SCREEN_WIDTH);
         itemHeight.value = withTiming(0);
         marginVertical.value = withTiming(0);
         opacity.value = withTiming(0, undefined, (isFinished) => {
           if (isFinished && onDismiss) {
-            runOnJS(onDismiss)(task);
+            runOnJS(onDismiss)(objectiveInfo);
           }
         });
       } else {
@@ -101,39 +98,40 @@ const ListItem = ({
   });
 
   return (
-    <Animated.View style={[styles.objectiveContainer, rObjectiveContainerStyle]}>
-      <Animated.View style={[styles.iconContainer, rIconContainerStyle]}>
-        <TouchableHighlight
-          onPress={() => runOnJS(onDismiss)(task)}
-        >
-          <Ionicons
-          //   style={{backgroundColor: 'red'}}
-            name={'trash'}
-            size={HEIGHT_OF_LIST_ITEM * 0.4}
-            color={'red'}
-          />
-        </TouchableHighlight>
-      </Animated.View>
-      <PanGestureHandler
-        simultaneousHandlers={simultaneousHandlers}
-        onGestureEvent={panGesture}
-      >
-        <Animated.View style={[styles.objectiveBox, rStyle]}>
-            <View>
-
-                <Text style={styles.taskTitle}>{task.name}</Text>
-
-
-                <Text style={styles.taskTitle}>{task.description}</Text>
-
-
-                <Text></Text>
-
-            </View>    
-
+    <View>
+      <Animated.View style={[styles.objectiveContainer, rObjectiveContainerStyle]}>
+        <Animated.View style={[styles.iconContainer, rIconContainerStyle]}>
+          <TouchableHighlight
+            onPress={() => runOnJS(onDismiss)(objectiveInfo)}
+          >
+            <Feather
+            //   style={{backgroundColor: 'red'}}
+              name={'x-circle'}
+              // size={HEIGHT_OF_LIST_ITEM * 0.4}
+              size={26}
+              color={'red'}
+            />
+          </TouchableHighlight>
         </Animated.View>
-      </PanGestureHandler>
-    </Animated.View>
+        <PanGestureHandler
+          simultaneousHandlers={simultaneousHandlers}
+          onGestureEvent={panGesture}
+        >
+          <Animated.View style={[styles.objectiveBox, rStyle]}>
+
+              <View style={styles.objectivenameRow}>
+                  <Feather style={styles.objectiveIcon} name="target" size={28} color="white" />
+                  <Text style={styles.taskTitle}>{objectiveInfo.name}</Text>
+              </View>  
+
+
+          </Animated.View>
+        </PanGestureHandler>
+      </Animated.View>
+
+      {/* OKR Body */}
+
+    </View>
   );
 };
 
@@ -143,32 +141,37 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   objectiveBox: {
-    width: '90%',
+    width: '100%',
     height: HEIGHT_OF_LIST_ITEM,
     justifyContent: 'center',
     paddingLeft: 20,
-    backgroundColor: colors.mediumPurple,
-    borderRadius: 4,
-
-    // ios
-    shadowOpacity: 0.08,
-    shadowOffset: {
-      width: 0,
-      height: 20,
-    },
-    shadowRadius: 10,
-    // Android
-    elevation: 5,
+    backgroundColor: '#B388EB',
+    borderRadius: 5
   },
   taskTitle: {
+    paddingLeft: 3,
     fontSize: 16,
-    color: 'white'
+    color: 'white',
+    maxWidth: '70%',
+    textAlignVertical: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    color: 'white',
+    marginLeft: 4,
+    fontSize: 18,
+    fontFamily: 'Nunito_400Regular'
+  },
+  objectivenameRow: {
+    paddingHorizontal: 5,
+    paddingHorizontal: 5,
+    flexDirection: 'row',
+    alignItems: 'center'
   },
   iconContainer: {
     height: HEIGHT_OF_LIST_ITEM,
     width: HEIGHT_OF_LIST_ITEM,
     position: 'absolute',
-    right: '3%',
+    right: '1%',
     justifyContent: 'center',
     alignItems: 'center',
   },

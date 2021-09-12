@@ -6,6 +6,7 @@ import { ProgressBar, Colors } from 'react-native-paper'
 import dayjs from 'dayjs';
 import FabButton from '../components/fabButtons';
 import { useFocusEffect } from '@react-navigation/native';
+import SwipeObjectiveTitle from '../components/swipeToDelete/ObjectiveTitleSwipeToDelete'
 
 
 // import { createSharedElementStackNavigator } from 'react-navigation-shared-element';
@@ -184,40 +185,17 @@ const objectivesView = ({ route, navigation }) => {
                                     </TouchableOpacity>
                                 </View>
 
+                                <SwipeObjectiveTitle
+                                    style={styles.keyResultCardTop2}
+                                    objectiveInfo={item}></SwipeObjectiveTitle>
 
-                                <View style={styles.keyResultCardTop2}>
+
+                                {/* <View style={styles.keyResultCardTop2}>
                                     <View style={styles.objectivenameRow}>
                                             <Feather style={styles.objectiveIcon} name="target" size={28} color="white" />
                                             <Text style={styles.objectivenameTextTop}>{`${item.name}`}</Text>
                                     </View>
-                                </View>
-
-
-                                {/* flex Row for title + edit */}
-                                {/* <View>
-                                    <Text style={styles.objTextDescription}></Text>
                                 </View> */}
-
-
-
-                                {/* <Text style={styles.objTextDescription} >description</Text> */}
-
-                                {/* Flex Row for grey bar plus description */}
-
-                                {/* <View style={styles.textDescriptionRow}>
-
-                                    <TextInput 
-                                        style={styles.objectiveDescriptionText}
-                                        scrollEnabled={false}
-                                        selectTextOnFocus={false}
-                                        editable={false}
-                                        multiline={true}
-                                        value={item.description}
-                                        />
-
-                                </View> */}
-
-
 
                                 <View style={styles.objectiveDates}>
                                     <View style={styles.dateStart}>
