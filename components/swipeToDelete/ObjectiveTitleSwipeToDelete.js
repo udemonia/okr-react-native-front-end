@@ -88,9 +88,18 @@ const editProfile = (props) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: 'transparent',
+    shadowColor: "#000",
+    marginTop: 20,
+    marginBottom: 10,
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+    elevation: 6,
   },
-  
   title: {
     fontSize: 40,
     color: 'white',

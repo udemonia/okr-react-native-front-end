@@ -51,56 +51,6 @@ const objectivesView = ({ route, navigation }) => {
         }, [])
       );
 
-    //* Data and Search Data -
-    // const [search, setSearch] = useState('');
-    // const [ filteredDataSource, setFilteredDataSource ] = useState(objectivesArray);
-    // const [ masterDataSource, setMasterDataSource ] = useState(objectivesArray);
-
-    // const [ doSearch, setDoSearch ] = useState(false)
-
-    // const updateState = () => {
-    //     //* on update button we
-    //     //* call add objective callback
-    //     //* update our state hooks start anew
-    //     setMasterDataSource(objectivesArray)
-    //     setFilteredDataSource(objectivesArray)
-    //     searchFilterFunction('')
-    // }
-    
-    //* Get the access token 
-    //todo how can we pass this along - or use redux
-
-
-
-
-    //* Open/Closed/All FAB filter logic 
-    // const [ openClosedFilter, setOpenClosedFilter ] = useState('')
-
-    // const whatToShow = (masterDataSource) => {
-    //     if (openClosedFilter == '') {
-    //         return
-    //     }
-    //     return openClosedFilter === 'open' ? masterDataSource.marginTop((objective) => )
-    // }
-
-    // const searchFilterFunction = (text) => {
-    //     if (text) {
-    //     // setDoSearch(true)
-    //       const newData = masterDataSource.filter(function (item) {
-    //         const itemData = item.name
-    //           ? item.name.toUpperCase()
-    //           : ''.toUpperCase();
-    //         const textData = text.toUpperCase();
-    //         return itemData.indexOf(textData) > -1;
-    //       });
-    //       setFilteredDataSource(newData);
-    //       setSearch(text);
-    //     } else {
-    //       setFilteredDataSource(masterDataSource);
-    //       setSearch(text);
-    //     }
-    //   };
-
     let [ fontsLoaded, err ] = useFonts({
         Nunito_300Light,
         Nunito_400Regular,
@@ -147,10 +97,7 @@ const objectivesView = ({ route, navigation }) => {
                     value={search}
                     >
                 </Searchbar> */}
-{/* TEST */}
 
-
-{/* TEST */}
                 </View>
 
                 <FlatList
@@ -188,14 +135,6 @@ const objectivesView = ({ route, navigation }) => {
                                 <SwipeObjectiveTitle
                                     style={styles.keyResultCardTop2}
                                     objectiveInfo={item}></SwipeObjectiveTitle>
-
-
-                                {/* <View style={styles.keyResultCardTop2}>
-                                    <View style={styles.objectivenameRow}>
-                                            <Feather style={styles.objectiveIcon} name="target" size={28} color="white" />
-                                            <Text style={styles.objectivenameTextTop}>{`${item.name}`}</Text>
-                                    </View>
-                                </View> */}
 
                                 <View style={styles.objectiveDates}>
                                     <View style={styles.dateStart}>
@@ -278,10 +217,6 @@ const styles = StyleSheet.create({
     },
     keyResultCardTop2: {
         flex: 1,
-        // backgroundColor: colors.mediumPurple,
-        backgroundColor: colors.purpleObjectiveTile,
-        fontWeight: 'bold',
-        borderRadius: 5,
         shadowColor: "#000",
         marginTop: 20,
         marginBottom: 10,
