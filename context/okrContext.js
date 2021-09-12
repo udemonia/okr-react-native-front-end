@@ -47,7 +47,9 @@ export const OKRsProvider = ({ children }) => {
                 "Authorization": `Bearer ${auth}`
             }
         })
-        console.log(`deleting ${objectiveId}`)
+        if (response.status === 200){
+            getObjectives(JWTtoken)
+        }
     }
 
     const addObjective = () => {

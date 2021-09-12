@@ -13,7 +13,7 @@ import {
     Nunito_400Regular,
     Nunito_700Bold
   } from '@expo-google-fonts/nunito';
-import { Feather } from '@expo/vector-icons'; 
+import { createIconSetFromFontello, Feather } from '@expo/vector-icons'; 
 import { Searchbar } from 'react-native-paper';
 import colors from '../colors/lightMode'
 import { color } from 'react-native-reanimated';
@@ -37,19 +37,21 @@ const objectivesView = ({ route, navigation }) => {
     let JWTtoken = route.params.data.JWTtoken
 
     const { objectivesArray, getObjectives, deleteObjective, setObjectivesArray } = useContext(OKRsContext)
+    const [ ObjectiveId, setObjectiveId ] = useState(null)
 
 
     const deleteItem = ( JWTtoken, ObjectiveId ) => {
+        setObjectiveId(ObjectiveId)
         deleteObjective(JWTtoken, ObjectiveId)
     }
-
 
     // todo add search back and add filtering
 
     useFocusEffect(
         React.useCallback(() => {
           const unsubscribe = getObjectives(JWTtoken)
-        }, [deleteItem])
+
+        }, [])
       );
 
     let [ fontsLoaded, err ] = useFonts({
