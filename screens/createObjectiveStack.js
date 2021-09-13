@@ -85,14 +85,11 @@ const createObjectiveStack = ({ route, navigation }) => {
                 }} />
                 <createObjectiveStackBuild.Screen name="AddKeyResults" component={AddKeyResult} options={{
                     headerShown: true,
+                    title: 'Pull Me Down',
                     headerBackTitleStyle: {
                       color: 'white',
                     },
-                    headerBackButton: {
-                      style: {
-                        color: 'white'
-                      }
-                    },
+                    headerLeft: null,
                     // headerLeft: () => (
                     //   <Feather name="arrow-down" style={{ paddingLeft: 18 }} size={30} color="white" onPress={ () => {
                     //     navigation.replace('CreateObjective')}}></Feather>

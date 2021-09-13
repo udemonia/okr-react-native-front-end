@@ -8,7 +8,7 @@ import * as yup from 'yup'
 import { TextInputMask } from 'react-native-masked-text'
 import AppLoading from 'expo-app-loading';
 
-const { height, width }= Dimensions.get('window')
+const { screenHeight, screenWidth }= Dimensions.get('window')
 
 const loginValidationSchema = yup.object().shape({
   keyResultName: yup
@@ -25,6 +25,8 @@ const loginValidationSchema = yup.object().shape({
     .required('Target Value is Required'),
 })
 
+
+const { height, width } = Dimensions.get('window')
 
 const AddKeyResult = ({ route, navigation }) => {
 
@@ -80,10 +82,20 @@ const AddKeyResult = ({ route, navigation }) => {
 
     return (
       <View style={styles.krContainer}>
-
       <View style={styles.whiteBoxAroundForm}>
 
       <View>
+        <View style={{
+            flex: 1,
+            marginTop: 8,
+            width: screenWidth,
+            marginHorizontal: '40%',
+            height: 8,
+            maxWidth: '20%',
+            borderWidth: 4,
+            borderRadius: 8,
+            borderColor: colors.mediumPurple, 
+          }}></View>
           <Text style={styles.header}>Add Key Results</Text>
         </View>
 
