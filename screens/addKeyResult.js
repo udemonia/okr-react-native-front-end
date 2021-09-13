@@ -1,6 +1,6 @@
 import React, { useState, createRef } from 'react';
-import {View, Text, StyleSheet, Button, Dimensions, Keyboard } from 'react-native';
-import { TextInput } from 'react-native-paper';
+import {View, Text, StyleSheet, Dimensions, Keyboard } from 'react-native';
+import { TextInput, Button } from 'react-native-paper';
 import colors from '../colors/lightMode'
 import LinearGradient from 'expo-linear-gradient'
 import { Formik } from 'formik'
@@ -267,18 +267,16 @@ const AddKeyResult = ({ route, navigation }) => {
 
                 </View>
                 
-                <View style={{paddingTop: 20, paddingBottom: 4}}>
-
-                  
-
+                <View style={{paddingTop: 20, paddingBottom: 4, justifyContent: 'center', alignItems: 'center'}}>
                  <Button
+                    mode="contained"
                     style={styles.button}
-                    color={colors.pink}
+                    color={colors.mediumPurple}
                     onPress={handleSubmit}
-                    onPress={handleSubmit}
+                    // onPress={handleSubmit}
                     title="Enter"
                     disabled={ isValid ? false : true }
-                 />
+                 >Submit</Button>
                  </View>
 
                </>
@@ -304,7 +302,6 @@ const AddKeyResult = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   krContainer: {
     flex: 1,
-    // backgroundColor: 'transparent',
     backgroundColor: colors.mediumPurple,
     backgroundColor: 'rgba(0,0,0,0.2)',
     // paddingTop: '5%',
@@ -366,7 +363,7 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   button: {
-    color: colors.pink
+    width: '50%'
   }
 
 })

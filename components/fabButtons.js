@@ -13,7 +13,6 @@ const today = dayjs().format()
 const fabButtons = (props) => {
 
   const { data } = props
-
   const whatToShow = (openClosedFilter) => {
     if (openClosedFilter === '') {
         return data
@@ -28,7 +27,7 @@ const fabButtons = (props) => {
 
   const [state, setState] = React.useState({ open: false });
   const onStateChange = ({ open }) => setState({ open });
-  const [ fabOpacity, setFabOpacity ] = React.useState(0.9)
+  const [ fabOpacity, setFabOpacity ] = React.useState(.8)
   const { open } = state;
 
 
@@ -39,7 +38,7 @@ const fabButtons = (props) => {
           open={open}
         //   style={{colors: colors.mediumPurple }}
           icon={open ? 'close' : 'filter-variant-plus'}
-          fabStyle={{ backgroundColor: colors.lightGrey, opacity: fabOpacity}}
+          fabStyle={{ backgroundColor: colors.mediumPurple, color: 'white', opacity: fabOpacity}}
           actions={[
             {
               icon: 'filter-variant-remove',
@@ -78,7 +77,7 @@ const styles = StyleSheet.create({
       position: 'absolute',
       margin: 16,
       right: 0,
-      bottom: 0,
+      bottom: -10,
     },
 })
 

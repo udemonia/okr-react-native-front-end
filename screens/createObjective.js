@@ -5,12 +5,11 @@ import {
   View,
   Text,
   Dimensions,
-  Button,
   Keyboard
 } from 'react-native'
 import { Formik } from 'formik'
 import * as yup from 'yup'
-import { Modal, Portal, Provider,TextInput } from 'react-native-paper';
+import { Modal, Portal, Provider,TextInput, Button } from 'react-native-paper';
 import colors from '../colors/lightMode'
 import DatePicker from '../components/datePicker'
 import { TextInputMask } from 'react-native-masked-text'
@@ -287,15 +286,16 @@ const createObjective = ({ route, navigation }) => {
                 {/*  <Text>{console.log(`Form is Valid: ${isValid}`)}</Text> */}
 
                 
-                <View style={{paddingTop: 20, paddingBottom: 4}}>
+                <View style={{paddingTop: 20, paddingBottom: 4, justifyContent: 'center', alignItems: 'center'}}>
                  <Button
+                    mode="contained"
                     style={styles.button}
                     color={colors.mediumPurple}
                     onPress={handleSubmit}
-                    onPress={handleSubmit}
+                    // onPress={handleSubmit}
                     title="Enter"
                     disabled={ isValid ? false : true }
-                 />
+                 >Submit</Button>
                  </View>
 
                </>
@@ -348,6 +348,9 @@ const styles = StyleSheet.create({
   formInputDates: {
     flex: 1,
     marginTop: 5,
+  },
+  button: {
+    width: '50%'
   }
 })
 

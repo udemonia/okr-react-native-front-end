@@ -30,6 +30,7 @@ import Animated, {
   useAnimatedScrollHandler,
 } from 'react-native-reanimated';
 import  chalk  from 'chalk'
+import Spinner from 'react-native-loading-spinner-overlay';
 
 
 const objectivesView = ({ route, navigation }) => {
@@ -38,11 +39,14 @@ const objectivesView = ({ route, navigation }) => {
 
     const { objectivesArray, getObjectives, deleteObjective, setObjectivesArray } = useContext(OKRsContext)
     const [ ObjectiveId, setObjectiveId ] = useState(null)
+    const [ showSpinner, setShowSpinner ] = useState(true)
 
 
     const deleteItem = ( JWTtoken, ObjectiveId ) => {
+        setShowSpinner(true)
         setObjectiveId(ObjectiveId)
         deleteObjective(JWTtoken, ObjectiveId)
+        setShowSpinner(false)
     }
 
     // todo add search back and add filtering
@@ -50,6 +54,7 @@ const objectivesView = ({ route, navigation }) => {
     useFocusEffect(
         React.useCallback(() => {
           const unsubscribe = getObjectives(JWTtoken)
+          setShowSpinner(false)
 
         }, [])
       );
@@ -87,6 +92,14 @@ const objectivesView = ({ route, navigation }) => {
     } else {
         return (
             <View style={styles.text}>
+                <Spinner
+                    size="small"
+                    animation='slide'
+                    visible={showSpinner}
+                    color={colors.mediumPurple}
+                    textContent={'Loading...'}
+                    textStyle={styles.spinnerTextStyle}
+                />
 
                 <View style={styles.searchBarBox}>
 
@@ -217,9 +230,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: 'white'
     },
-    textStyles: {
-        marginVertical: 5
-    },
+    spinnerTextStyle: {
+        color: colors.mediumPurple
+      },
     keyResultCardTop2: {
         flex: 1,
         shadowColor: "#000",
@@ -268,16 +281,6 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginVertical: 10,
         padding: 2,
-
-        // shadowColor: "#000",
-        // shadowOffset: {
-        //     width: 0,
-        //     height: 2,
-        // },
-        // shadowOpacity: 0.25,
-        // shadowRadius: 3.84,
-        
-        // elevation: 5,
         },
     objectiveCardDetails: {
         margin: 2,
@@ -411,7 +414,7 @@ const styles = StyleSheet.create({
         marginBottom: 2,
         paddingBottom: 2,
         marginTop: 2,
-        marginTop: 20
+        // marginTop: 20
     },
     searchBar: {
         maxHeight: 40,
@@ -420,18 +423,5 @@ const styles = StyleSheet.create({
     }
 
 });
-
-
-const colorPallette = {
-    hotpink: '#ff375a',
-    pink: '#f7aef8',
-    lightPurple: '#B388EB',
-    darkPurple: '#8093F1',
-    brightPurple: '#8E24AA',
-    lightBlue: '#72DDF7',
-    grey: '#F4F4ED',
-    ashGrey: 	'#B2BEB5',
-    blueGrey: '#7393B3'
-  }
 
 export default objectivesView;

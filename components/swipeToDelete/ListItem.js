@@ -37,6 +37,7 @@ const ListItem = ({
   const marginVertical = useSharedValue(10);
   const opacity = useSharedValue(1);
   const startValue = useSharedValue(0)
+  const scale = useSharedValue(36)
   const panGesture = useAnimatedGestureHandler({
 
     onStart: ( event, context ) => {
