@@ -16,7 +16,7 @@ const loginValidationSchema = yup.object().shape({
     .required('Name is Required'),
   description: yup
     .string()
-    .required('Objective Description is Required'),
+    .required('Description is Required'),
   currentValue: yup
     .string()
     .required('Current Value is Required'),
@@ -315,7 +315,7 @@ const styles = StyleSheet.create({
   krContainer: {
     flex: 1,
     backgroundColor: colors.mediumPurple,
-    backgroundColor: 'rgba(0,0,0,0.2)',
+    backgroundColor: 'rgba(0,0,0,0.6)',
     // paddingTop: '5%',
     // marginHorizontal: 20,
     borderRadius: 5
@@ -369,7 +369,7 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     fontSize: 14,
     paddingVertical: 10,
-    color: colors.pink
+    color: colors.purpleObjectiveTile
   },
   backButton: {
     color: 'white'

@@ -322,11 +322,18 @@ const styles = StyleSheet.create({
     // marginHorizontal: 3,
     padding: 10,
     backgroundColor: 'white',
-    borderTopColor: colors.lightPurple,
     borderTopWidth: 2,
-    borderBottomColor: colors.lightPurple,
     borderBottomWidth: 2,
-    borderRadius: 5
+    borderRadius: 5,
+    shadowColor: "#000",
+shadowOffset: {
+	width: 0,
+	height: 6,
+},
+shadowOpacity: 0.39,
+shadowRadius: 8.30,
+
+elevation: 13,
   },
   textInput: {
     backgroundColor: 'white'

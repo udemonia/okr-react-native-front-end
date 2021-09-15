@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext, useRef } from 'react';
 import { View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
 import AppLoading from 'expo-app-loading';
-import { ProgressBar, Colors } from 'react-native-paper'
+import { ProgressBar, Colors, SearchBar } from 'react-native-paper'
 import dayjs from 'dayjs';
 import FabButton from '../components/fabButtons';
 import { useFocusEffect } from '@react-navigation/native';
@@ -31,6 +31,9 @@ import Animated, {
 } from 'react-native-reanimated';
 import  chalk  from 'chalk'
 import Spinner from 'react-native-loading-spinner-overlay';
+
+
+// todo - add pull down to search https://www.youtube.com/watch?v=VZ73JdhjFC8 or should we pull down to refresh? 
 
 
 const objectivesView = ({ route, navigation }) => {

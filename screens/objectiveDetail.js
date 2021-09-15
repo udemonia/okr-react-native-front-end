@@ -29,23 +29,18 @@ const objectiveDetail = ({ route, navigation }) => {
   const objectiveID = route.params._id
   const JWTtoken = route.params.JWTtoken
 
-
   //* Grab the ID from the router to use with Axios
   //* `/api/v1/objectives/${searchObjectiveId}/keyresults`
   const passedData = route.params
   const searchObjectId = passedData._id
 
-
-
   let objectiveFilter = []
   objectiveFilter.push(data[0].objective)
-
 
   //* Data and Search Data 
   const objectives = data.objective
 
-  // console.log(data)
-
+  
   let [ fontsLoaded, err ] = useFonts({
       Nunito_300Light,
       Nunito_400Regular,
@@ -116,20 +111,22 @@ const objectiveDetail = ({ route, navigation }) => {
                             value={item.description}
                             />
                         </View>
-                        <View style={styles.objectiveDates}>
-                          <View style={styles.dateStart}>
-                            <View style={styles.DateBoxText}>
-                              <Text style={styles.startEndLabels}>start</Text>
-                            </View>
-                            <Text style={styles.dateText}>{item.objectiveStartDate.split('T')[0]}</Text>
-                          </View>
-                            <View style={styles.dateEnd}>
+  
+                          <View style={styles.objectiveDates}>
+                            <View style={styles.dateStart}>
                               <View style={styles.DateBoxText}>
-                                <Text style={styles.startEndLabels}>end</Text>
+                                <Text style={styles.startEndLabels}>start</Text>
                               </View>
-                                <Text style={styles.dateText}>{item.objectiveEndDate.split('T')[0]}</Text>
-                              </View>
-                          </View>
+                              <Text style={styles.dateText}>{item.objectiveStartDate.split('T')[0]}</Text>
+                            </View>
+                              <View style={styles.dateEnd}>
+                                <View style={styles.DateBoxText}>
+                                  <Text style={styles.startEndLabels}>end</Text>
+                                </View>
+                                  <Text style={styles.dateText}>{item.objectiveEndDate.split('T')[0]}</Text>
+                                </View>
+                            </View>
+
                   
                           <View style={styles.percentRowBox}>
                               <View style={styles.percentRowBoxUnits}>
@@ -164,21 +161,22 @@ const objectiveDetail = ({ route, navigation }) => {
           <Text style={styles.percentCompleteTextHorizontal}>{`${data.length} key results`}</Text>
         </View>
 
-      <View style={styles.swipeCard}>
+      <View>
 
           <FlatList
             keyExtractor={( item, index ) => index.toString()}
             decelerationRate={0}
             horizontal
+            // contentContainerStyle={{ width: `${100 * i}%` }}
             scrollEventThrottle={16}
             decelerationRate='fast'
             pagingEnabled={true}
-            snapToAlignment="center"
+            // snapToAlignment="end"
             onScroll={Animated.event(
               [{ nativeEvent: { contentOffset: { x: scrollX } } }]
             )} 
             showsHorizontalScrollIndicator={false}
-            legacyImplementation={true}
+            legacyImplementation={false}
             navigation={navigation}
             showsVerticalScrollIndicator={false}
             data={data}
@@ -187,12 +185,12 @@ const objectiveDetail = ({ route, navigation }) => {
                 <View style={styles.horizontalScrollingCard}>
 
                       <View style={styles.nameAndEditRow}>
-                            <TouchableOpacity 
+                            {/* <TouchableOpacity 
                                         onPress={() => navigation.navigate('ObjectiveDetail')}
                                         style={styles.editButton}
                                         >
-                                        <Feather name="check" size={22} color="#00008B" />
-                                    </TouchableOpacity>
+                                        <Feather name="check" size={0} color="#00008B" />
+                                    </TouchableOpacity> */}
                             <Text style={styles.objectiveTitleText}>{item.name}</Text>
 
 
@@ -259,7 +257,7 @@ const objectiveDetail = ({ route, navigation }) => {
               return (
                  <Animated.View
                   key={i}
-                  style={{opacity: opacity, height: 8, width: 8, backgroundColor: '#55388C', borderRadius: 4, marginTopHorizontal: 3}}
+                  style={{opacity: opacity, height: 8, width: 8, backgroundColor: colors.darkPurple, borderRadius: 4, marginTopHorizontal: 3}}
                   />
                 )
                })}
@@ -453,7 +451,7 @@ horizontalScrollingCard:{
     textAlign: 'center',
     marginBottom: 5,
     marginTop: 3,
-    paddingTop: 3,
+    // paddingTop: 3,
     color: colors.grey,
     fontSize: 18,
     fontFamily: 'Nunito_400Regular',
