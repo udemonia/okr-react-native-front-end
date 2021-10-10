@@ -29,7 +29,6 @@ import Animated, {
   useAnimatedGestureHandler,
   useAnimatedScrollHandler,
 } from 'react-native-reanimated';
-import  chalk  from 'chalk'
 import Spinner from 'react-native-loading-spinner-overlay';
 
 
@@ -37,13 +36,10 @@ import Spinner from 'react-native-loading-spinner-overlay';
 
 
 const objectivesView = ({ route, navigation }) => {
-
     let JWTtoken = route.params.data.JWTtoken
-
     const { objectivesArray, getObjectives, deleteObjective, setObjectivesArray } = useContext(OKRsContext)
     const [ ObjectiveId, setObjectiveId ] = useState(null)
     const [ showSpinner, setShowSpinner ] = useState(true)
-
 
     const deleteItem = ( JWTtoken, ObjectiveId ) => {
         setShowSpinner(true)
@@ -52,12 +48,15 @@ const objectivesView = ({ route, navigation }) => {
         setShowSpinner(false)
     }
 
-    // todo add search back and add filtering
+    // TODO add search back and add filtering
+
+
 
     useFocusEffect(
         React.useCallback(() => {
-          const unsubscribe = getObjectives(JWTtoken)
-          setShowSpinner(false)
+            setShowSpinner(true)
+            const unsubscribe = getObjectives(JWTtoken)
+            setShowSpinner(false)
 
         }, [])
       );
@@ -67,18 +66,25 @@ const objectivesView = ({ route, navigation }) => {
         Nunito_400Regular,
         Nunito_700Bold
     })
+
+    //? --------------------------------------------------------- 
+    //?                   DAYJS CALCULATIONS
+    //? --------------------------------------------------------- 
+
     let today = dayjs().format()
+
     function objectiveDays(day1, day2) {
         //* Found out how many days are between two dates
+        //* Used to display days remaining
         let startTime = dayjs(day1)
         let endTime = dayjs(day2)
         let hours = endTime.diff(startTime, 'hours');
         const days = Math.floor(hours / 24);
         return days
-
     }
 
     function daysLeft(todaysDate, objectiveEndDate) {
+        //* Find out how many days are left in the objective period
         let startTime = dayjs(todaysDate)
         let endTime = dayjs(objectiveEndDate)
         let hours = endTime.diff(startTime, 'hours');

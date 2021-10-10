@@ -1,11 +1,19 @@
 import React from 'react';
-import {View, Text, StyleSheet, Button } from 'react-native';
+import {View, Text, StyleSheet, Button, ScrollView } from 'react-native';
+import { Card } from 'react-native-paper';
 
-const dashboard = ({ navigation }) => {
+import GettingStartedExample from '../components/charts/gettingStarted';
+import GettingStartedPie from '../components/charts/gettingStartedPie';
+import BarChartExample from '../components/charts/gettingStartedBar'
+import CountOfStatus from '../components/charts/totalCountByStatus';
+
+const dashboard = ({ route, navigation }) => {
+  console.log('This is the Dashboard Route: ', route)
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Dashboards Coming Soon</Text>
-        {/* <Button title="Home" onPress={()=> navigation.navigate('Home')} /> */}
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', paddingHorizontal: 20}}>
+          
+            <GettingStartedExample></GettingStartedExample>
+            <CountOfStatus></CountOfStatus>
       </View>
     )
   }

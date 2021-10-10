@@ -57,7 +57,10 @@ const createObjective = ({ route, navigation }) => {
 
 
   const handlePostReqAndNavigation = async (values, resetForm ) => {
-    let JWTtoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZTJmNGQ1YTg1ZTFjNWJhNWZjOTk1ZSIsImlhdCI6MTYzMTIzMzgxMSwiZXhwIjoxNjMzODI1ODExfQ.XeUooqdeFJTlZyhqj579y4Mju522iKvWhURcqApKnvA"
+
+    //todo This ought to be handled via a context on login - or passed to this screen via the React Native Navigation Route object (mildly hard to pull off but possible)
+
+    let JWTtoken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZTJmNGQ1YTg1ZTFjNWJhNWZjOTk1ZSIsImlhdCI6MTYzMzg4NjU2NSwiZXhwIjoxNjM2NDc4NTY1fQ.wBUzBk_4Xpr_Aw2ScTYuXPFnzEnjJJpZkNBdq_mvw7U"
   
     //* Pull out the DayJS date version of the U/I Submit
     const postStartDate = dayjs(values.startDate)
@@ -75,6 +78,7 @@ const createObjective = ({ route, navigation }) => {
     //* Make an authorized POST request
 
 
+    //todo we need to update this to call a context
     
     try {
       let response = await fetch('http://161.35.237.86:2002/api/v1/objectives', {

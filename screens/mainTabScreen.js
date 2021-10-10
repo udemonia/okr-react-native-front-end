@@ -81,21 +81,19 @@ const MainTabScreen = () => {
 export default MainTabScreen;
 
 
-
-
 const HomeStackScreen = ({ route, navigation }) => {
     return (
         <HomeStack.Navigator screenOptions={{
           headerStyle: {
             backgroundColor: colors.mediumPurple,
             shadowColor: "#000",
-shadowOffset:{
-width: 0,
-height: 3,
-},
-shadowOpacity: 0.29,
-shadowRadius: 4.65,
-elevation: 7,
+            shadowOffset:{
+            width: 0,
+            height: 3,
+            },
+            shadowOpacity: 0.29,
+            shadowRadius: 4.65,
+            elevation: 7,
           },
           headerTintColor: 'white',
           headerTitleStyle: {
@@ -131,7 +129,7 @@ elevation: 7,
             fontWeight: 'bold'
           }
         }}>
-          <DetailStack.Screen name="keyResults" component={DetailScreen} options={{
+          <DetailStack.Screen name="keyResults" component={DetailScreen} params={route} options={{
             title: 'key results',
             headerLeft: () => (
               <Feather name="menu" style={{ paddingLeft: 18 }} size={30} color="white" onPress={ () => {

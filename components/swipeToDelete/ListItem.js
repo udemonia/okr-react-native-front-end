@@ -1,4 +1,4 @@
-import React, { useState, Context } from 'react';
+import React, { useState, Context, useEffect} from 'react';
 import { Dimensions, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import {
   PanGestureHandler,
@@ -12,6 +12,7 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withTiming,
+  withRepeat,
 } from 'react-native-reanimated';
 import { Feather, FontAwesome5, Ionicons } from '@expo/vector-icons';
 
@@ -38,6 +39,7 @@ const ListItem = ({
   const opacity = useSharedValue(1);
   const startValue = useSharedValue(0)
   const scale = useSharedValue(36)
+
   const panGesture = useAnimatedGestureHandler({
 
     onStart: ( event, context ) => {
@@ -77,12 +79,13 @@ const ListItem = ({
     transform: [
       {
         translateX: translateX.value,
-      },
+      }
     ],
   }));
 
-  const rIconContainerStyle = useAnimatedStyle(() => {
+    
 
+  const rIconContainerStyle = useAnimatedStyle(() => {
     const opacity = withTiming(
       translateX.value < translate_threshold_ofX - 20 ? 1 : 0
     );
