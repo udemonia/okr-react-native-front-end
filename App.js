@@ -13,7 +13,7 @@ import AuthStack from './screens/authStack'
 import { OKRsProvider } from './context/okrContext'
 import { configureFonts, DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import colors from './colors/lightMode'
-
+console.disableYellowBox = true;
 
 // const fontConfig = {
 //   web: {
@@ -106,4 +106,4 @@ export default () => {
   return <OKRsProvider>
           <App />
         </OKRsProvider>
-} 
+}
