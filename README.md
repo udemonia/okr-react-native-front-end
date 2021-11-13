@@ -23,7 +23,7 @@ I'm using
 > get the animations off of the JavaScript thread, ensuring a smooth, 60fps experience.
 
 - JWT
-  
+
 > Here, I'm getting the JWT the server is responding with and using if for subsequent calls - On log out, I'm removing the screen stack and dropping folks at the login screen again
 
 - React Native Context
@@ -36,12 +36,12 @@ Implemented with Reanimated2 - From the list view, swipe an OKR title left and s
 
 Currently, we're interpolating the opacity of the x symbol with the x axis - snapping when we've reached a critical threshold.
 
--[alt text](imagesForReadme/planAnObjective.jpg)
+![image info](./imagesForReadme/planAnObjective.jpg)
 
--[alt text](imagesForReadme/addKeyResult.jpg)
+![alt text](./imagesForReadme/addKeyResult.jpg)
 
--[alt text](imagesForReadme/swipteToDelete.jpg)
+![alt text](./imagesForReadme/swipteToDelete.jpg)
 
--[alt text](imagesForReadme/filterResults.jpg)
+![alt text](./imagesForReadme/filterResults.jpg)
 
--[alt text](imagesForReadme/sideViewProfile.jpg)
+![alt text](./imagesForReadme/sideViewProfile.jpg)
